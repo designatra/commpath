@@ -1,0 +1,61 @@
+<style rel="stylesheet/less" type="text/less">
+	item[type=inspector] {
+		height:auto;
+		padding:5px 0px;
+		> wrapper {
+			icon {
+
+			}
+
+			> wrapper {
+				label {
+					.font(raleway);
+					font-size:12px;
+
+					&:nth-child {
+						&(0) {
+
+						}
+						&(1) {
+							
+						}
+						&(2) {
+							
+						}
+					}
+
+					b {
+						font-weight: 600;
+						text-transform: uppercase;
+						margin-right:2px;
+					}
+				}
+			}
+		}
+
+		+ items category+items>item {
+			background-color: white;
+		}
+	}
+</style>
+
+<item type="inspector" attr="id:id">
+	<wrapper>
+		<icon>
+			<div svg="class:icon"></div>
+			<label content="abbreviation"></label>
+		</icon>
+		<wrapper>
+			<label content="title"></label>
+			<label content="summary"></label>
+			<label content="description"></label>
+		</wrapper>
+		<aux class="hide">
+			<label content="description_ehh"></label>
+			<icon>
+				<svg class="arrow oneui-core-arrow-down"><use xlink:href="#oneui-core-arrow-down"></use></svg>
+				<svg class="eye oneui-preview-1"><use xlink:href="#oneui-preview-1"></use></svg>
+			</icon>
+		</aux>
+	</wrapper>
+</item>

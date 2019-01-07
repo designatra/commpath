@@ -1,0 +1,484 @@
+<style rel="stylesheet/less" type="text/less">
+	action[type=block] {
+		border-bottom:1px solid;
+		height:fit-content;
+		.flex(center-y);
+		flex-direction:column;
+		position: relative;
+
+		&:last-child {
+			margin-bottom:0px;
+		}
+		> wrapper {
+			padding:24px 48px;
+			display:flex;
+
+			> wrapper {
+				display:flex;
+				flex-direction:column;
+				justify-content: center;
+				z-index:1;
+
+				&:nth-child {
+					&(3) {
+						svg {
+							.dims(16px);
+							margin-left:-8px;
+						}
+					}
+				}
+			}
+
+			&:first-child {
+				.span(x);
+
+				> wrapper {
+					display:flex;
+					flex-direction:column;
+
+					&:nth-child {
+						// Column 1
+						&(1) {
+							.flex(top);
+							justify-content: center;
+							color: @grey-3;
+
+							.col_spacing(1_allSizes);				
+							.empty();
+
+							> svg {
+								.empty();
+							}
+
+							pill {		
+								margin-top: 16px;
+							}
+						}
+						// Column 2
+						&(2) {
+							flex:1;
+
+							> thing {
+								margin-top:8px;
+								&:nth-child {
+									// Line 1 (policy number)
+									&(1) {
+										margin-top:0px;
+										font-size:16px;
+										font-weight: bold;
+										// color:@saber;
+
+										text-transform: uppercase;
+
+										&[currency=true] {
+											font-size:24px;
+											font-weight: normal;
+											> b {
+												font-weight: normal;
+												font-size: 14px;
+												display: block;
+												float: left;
+												margin-top: 2px;
+												width: 10px;
+											}
+										}
+										&[uppercase=false] {
+											text-transform:initial;
+											font-weight:normal;
+										}
+									}
+									// Line 2 (premium amount due)
+									&(2) {
+										~ thing:nth-child(4) {
+											margin-top:22px;
+										}
+										&:empty {
+											~ thing:nth-child(4) {
+												margin-top:8px;
+											}
+										}
+									}
+									// Line 3 (due date)
+									&(3) {
+										display:flex;
+									}
+									// Line 4 (comment)
+									&(4) {
+										line-height: 16px;
+										display:flex;
+									}					
+								}
+								.empty();
+							}
+
+							&[current_setting] {
+								&:after {
+									content: attr(current_setting);
+									.pos(right);
+									.span(y);
+									.flex(center-y);
+									justify-content: flex-start;
+									text-transform: capitalize;
+									text-transform: initial;
+
+									color: @grey-2;
+								}
+							}
+						}
+						// Column 3
+						&(3) {
+							.hide();
+							margin-left:8px;
+							min-width: 40px;
+							justify-content: center; // reversed flex direction
+							align-items: flex-end;
+							margin-right:48px
+
+							> * {
+								.hide();
+								justify-content: flex-end;
+							}
+						}
+					}
+					.empty();
+				}
+			}
+		}
+
+		&[arrow=true], &[action_label], &[switch] {
+			> wrapper {
+				&:first-child {
+					> wrapper {
+						&:nth-child {
+							&(2) {
+								thing:first-child {
+									// color:@grey-1;
+								}
+							}
+							&(3) {
+								.show(flex);
+							}
+						}
+					}
+				}
+			}
+		}
+		&[action_label] {
+			> wrapper {
+				&:first-child {
+					> wrapper {
+						&:nth-child {
+							&(3) {
+								action {
+									.show(flex);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&[arrow=true] {
+			> wrapper {
+				&:first-child {
+					> wrapper {
+						&:nth-child {
+							&(3) {
+								svg {
+									.show(flex);
+									.rotate(270deg);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&[switch=true] {
+			> wrapper {
+				&:first-child {
+					> wrapper {
+						&:nth-child {
+							&(3) {
+								> svg {
+									.hide();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+
+
+		&[action=false] {
+			cursor:no-drop;
+			//cursor: url(/core/media/icons/filled/telephone.svg), auto;
+			* {
+				cursor:no-drop;
+			}
+		}
+
+		&[action=drop_down] {
+			flex-direction: column;
+		 	overflow:hidden;
+			perspective:500px;
+
+			> wrapper {
+				&:nth-child{
+					&(1) {
+						/*background:white;*/
+						z-index:10;
+					}
+					&(2) {
+						z-index:1;
+						margin-top:0px;
+					}
+				}
+
+
+				> wrapper {
+					&:nth-child {
+						// Column 1
+						&(1) {
+
+						}
+						// Column 2
+						&(2) {
+							.flex(center-x);
+							> thing {
+								&:nth-child {
+									&(1) {
+										font-size:16px;
+										font-weight:bold;
+										text-transform:uppercase;
+
+										~ thing {
+											text-transform: initial;
+										}
+									}								
+								}
+								
+								.empty();
+							}
+						}
+						// Column 3 ( expand/collapse arrow)
+						&(3) {
+							.show(flex);
+
+							> svg {
+								.rotate(0deg);
+							}
+						}
+					}
+				}
+
+				// Drop down wrapper
+				+ wrapper {
+					padding:0;
+
+					> wrapper {
+						padding: 24px 48px;
+						background:@grey-5;
+					}
+					// TODO: Consolidate items and drop down wrapper
+					&#items {
+						padding:24px 24px 24px 24px;
+						width:100%;
+
+						> item {
+							background: fade(white, 10);
+							padding:24px;
+							display:flex;
+							.span(x);
+							margin-bottom:8px;
+
+							&:last-child {
+								margin-bottom:0px;
+							}
+
+							> wrapper {
+								flex:1;
+								> thing {
+									.element(block);
+									&:nth-child {
+										&(1) {
+
+										}
+										&(2) {
+											margin-top:8px;
+										}
+									}
+								}
+
+								+ icon {
+									width:24px;
+								}
+							}
+						}
+					}
+				}
+			}
+
+			&[arrow=true] {
+				> wrapper {
+					&:first-child {
+						> wrapper {
+							&:nth-child {
+								&(3) {
+									svg {
+										//.show(flex);
+										.rotate(0deg);
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			&[dropdown_state=expanded] {
+				> wrapper:first-child {
+					.box-shadow(0px 3px 3px -2px rgba(0,0,0,.26));
+					z-index:2;
+
+					> wrapper:last-child {
+						> svg {
+							.rotate(180deg);
+						}
+					}
+				}
+
+				&[action_label] {
+					> wrapper {
+						> wrapper {
+							&:nth-child {
+								// Column 3 ( expand/collapse arrow)
+								&(3) {
+									> svg {
+										.show();
+
+										+ action {
+											.hide();
+										} 
+									}
+								}
+							}
+						}
+					}
+
+					&[arrow=false] {
+						> wrapper {
+							> wrapper {
+								&:nth-child {
+									// Column 3 ( expand/collapse arrow)
+									&(3) {
+										> svg {
+											.hide();
+
+											+ action {
+												.show();
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+
+			&[action_label] {
+				> wrapper {
+					> wrapper {
+						&:nth-child {
+							// Column 3 ( expand/collapse arrow)
+							&(3) {
+								> svg {
+									.hide();
+
+									+ action {
+										> label {
+											text-transform: uppercase;
+										}
+									} 
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/*
+		NEXT > Build the animation using event registration or something more timeline oriented
+			   Should be able to reverse
+
+		NOTE: Card needs css > perspective: 130;
+
+		// Action
+		$action.velocity(
+			{
+				rotateX:1,
+				translateZ: 5,
+				boxShadow: "0 3px 3px -2px rgba(0,0,0,0.26)"
+			},
+			{
+				duration:200,
+				begin:function(els) {
+					$j(els).next("wrapper").velocity(
+						{
+							marginTop:0
+						},
+						{
+							delay:50
+						}
+					)
+				}
+			}
+		);
+
+		// Wrapper > is the adjacent sibling to the action block
+		 $sliding_panel.velocity(
+			{
+				marginTop:-190
+			},
+			{
+				duration:400,
+				begin: function(els) {
+					$j(els).prev().velocity(
+						{
+							rotateX:0,
+							translateZ: 0,
+							boxShadow: "0 1px 6px -2px rgba(0,0,0,0.16)"
+
+						},
+						{
+							duration:200,
+							delay:300
+						}
+					)
+				}
+			}
+		)
+
+	*/
+
+</style>
+<action type="block" attr="id:id,class:class,action:action,for:for,flow:flow,layout:layout.id,icon:layout.columns.1.icon,arrow:layout.columns.3.arrow,action_label:layout.columns.3.action,switch:layout.columns.3.switch" theme="all" action="details">
+	<wrapper>
+		<wrapper attr="size:layout.columns.1.size" size="m">
+			<icon svg="class:layout.columns.1.icon||icon.class||icon" attr="type:icon_type"></icon>
+		</wrapper>
+		<wrapper theme="all" attr="current_setting:setting">
+			<thing content="line1||policy.id||line1.content||title" attr="focus:line1.focus,currency:layout.columns.2.line1.currency,uppercase:layout.columns.2.line1.uppercase"></thing>
+			<thing content="line2||policy.premium"></thing>
+			<thing content="line3||policy.date_due"></thing>
+			<thing content="line4.label||line4||comment.label||comment||description" attr="action:line4.action"></thing>
+		</wrapper>
+		<wrapper>
+			<svg class="oneui-core-arrow-down"><use xlink:href="#oneui-core-arrow-down"></use></svg>
+		</wrapper>
+	</wrapper>
+</action>

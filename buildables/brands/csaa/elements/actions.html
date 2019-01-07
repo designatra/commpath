@@ -1,0 +1,34 @@
+<style rel="stylesheet/less" type="text/less">
+	actions {
+		.element(block);
+
+		&[type=blocks] {
+
+		}
+
+		// TODO: Duplicate styling used in action block for when an action block is follwed by an icon%label
+		+ action {
+			&[type="icon&label"] {
+				margin-left:20px;
+				margin-top:20px;
+
+				> label {
+					text-transform: initial;
+				}
+			}
+		}
+
+		//NOTE: Not sure where to put these styles (maybe they are fine here)
+		&[primary_state=empty], &[primary_state=invalid], &[secondary_state=invalid] {
+			+ action {
+				&[type="icon&label"] {
+					.hide();
+				}
+			}
+		}
+		// &[primary_state=invalid], &[secondary_state=invalid] {
+
+		// }
+	}
+</style>
+<actions attr="id:id,type:type"></actions>

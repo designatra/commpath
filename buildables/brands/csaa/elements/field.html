@@ -1,0 +1,737 @@
+<style rel="stylesheet/less" type="text/less">
+	field{
+		position: relative;
+		z-index: 1;
+		min-width: @field-width-min;
+		margin: @seperation-field 0 0 0;
+		cursor:text;
+		color: @brand-grey-1;
+
+		&:last-child {
+			margin-bottom:0px;
+		}
+
+		// TODO: This should be variablized
+		icon {
+			height: 24px;
+			width: 24px;
+		}
+		wrapper#input {
+			display: flex;
+			align-items: center;
+			.field-padding(); //padding: 0 @field-padding;
+			height:48px;
+			.field-outline();
+			//background: rgba(255,255,255,1);
+			.field-input-background();
+
+			.transition(.1s linear);
+
+			&, & > * {
+				.transition(.1s linear);
+				outline:none;
+			}
+
+			&:before {
+				//content: "";
+				//position: absolute;
+				//z-index: -1;
+				//background:rgba(255,255,255,0);
+				//.transition(.3s ease);
+				//.field-feedback-outline();
+				.field-status-layer();
+			}
+			&:after {
+				content: attr(mask);
+				font-size: 14px;
+				position: absolute;
+				.field-label-mask-position;
+				color:#B1B1B1;
+				opacity:0;
+				.transition(.1s ease);
+			}
+
+			> label {
+				position: absolute;
+				text-transform: capitalize;
+				.field-input-font();
+				//color: @brand-grey-3;
+				//.field-label-position(active;);
+				//font-size: 11px;
+				//font-weight: 600;
+				.field-label(active;);
+
+				&:extend(.noSelect);
+
+				&+input {
+					border:0px none;
+					background: rgba(255,255,255,0);
+					width:100%;
+					//font-size:14px;
+					//color:@brand-grey-1;
+					.field-input-font();
+					.field-input-padding();
+					.field-input-position();
+					margin-top: 0;
+					z-index: 10;
+					font-family: Helvetica, Arial, sans-serif;
+				}
+			}
+
+			> button.ui-datepicker-trigger {
+				display:none;
+			}
+			> icon {
+				color:@brand-grey-3;
+				
+				svg {
+
+				}
+			}
+
+			+ message{ 
+				&[type=help] {
+					display:none;
+					&:empty {
+						// TODO: improve how styles are setup for field so important isn't necessary
+						display:none !important;
+					}
+
+					z-index:-2;
+					padding: 10px 20px 0px 20px;
+					max-height: 50px;
+				}
+			}
+		}
+
+		// TODO: does not belong here
+		wrapper#message {
+			display: flex;
+			align-items: center;
+			margin-left: -2px;
+			width: ~"calc(100% + 4px)";
+			font-size: 14px;
+			color: rgba(255,255,255,1);
+			
+			height: 0;
+			opacity:0;
+			z-index:-2;
+			transform: translateY(-4px);
+			overflow: hidden;
+			// transition: .2s all linear;
+		}
+
+		&[contextual-help] {
+			icon[action=contextual-help] {
+
+			}
+			message[for=contextual-help] {
+				position: absolute;
+				bottom: 3px;
+				background: white;
+				border-radius: 4px 0 4px 4px;
+				right: 4px;
+				padding: 10px 52px 10px 26px;
+				border: 1px solid lightgrey;
+				.hide();
+			}
+		}
+		&[contextual-help=on] {
+			icon[action=contextual-help] {
+				color: @brand-grey-1;
+			}
+			message[for=contextual-help] {
+				
+			}
+		}
+		&[contextual-help=off] {
+			icon[action=contextual-help] {
+				color: @brand-grey-4;
+			}
+			message[for=contextual-help] {
+
+			}
+		}
+
+		b#symbol {
+			color: black;
+			position: absolute;
+			font-weight: normal;
+			.field-label-symbol(visible;);
+
+			&+ label+input {
+				margin-left:9px;
+			}
+		}
+
+		&[state=empty] {
+			wrapper#input {
+				&:after {
+					.opacity(0);
+				}
+
+				label {
+					.field-label(idle;);
+				}
+			}
+		}
+
+		&[state=focused] {
+			wrapper#input {
+				&:before {
+					.animation(field-focus, @duration: 2s, @ease: linear);
+				}
+				&:after {
+					.opacity(1);
+				}
+				> label {
+					.field-label(active;);
+
+					& + input {
+						.field-input-position(active;);
+					}
+				}
+
+				+ message{ 
+					&[type=help] {
+						display:flex;
+					}
+				}
+			}
+
+			&[char-count] {
+				wrapper#input {
+					&:after {
+						.opacity(0);
+					}
+					+ message{ 
+						&[type=help] {
+							display:flex;
+						}
+					}
+				}
+			}
+			&[char-count="0"] {
+				wrapper#input {
+					&:after {
+						.opacity(1);
+					}
+					+ message{ 
+						&[type=help] {
+							display:flex;
+						}
+					}
+				}
+			}
+
+			&[valid=false] { 
+				wrapper#input {
+					.border-radiuses(@field-radius; @field-radius; 0; 0;);
+
+					&:before {
+						.animation(field-focus-invalid, @duration: 2s, @ease: linear);
+					}
+					+ message{ 
+						&[type=help] {
+							display:none;
+						}
+					}
+				}
+				
+				wrapper#message {
+					.field-message(invalid;);
+				}
+			}
+		}
+
+		&[state=typing] {
+			wrapper#input {
+				&:before {
+					.animation(field-typing, @duration: 1s, @ease: linear);
+					animation-iteration-count: infinite;
+					background:@saber-h;
+				}
+				> label {
+					.field-label(active;);
+
+					& + input {
+						.field-input-position(active;);
+					}
+				}
+
+				+ message{ 
+					&[type=help] {
+						display:flex;
+					}
+				}
+			}
+
+			&[valid=false] {
+				wrapper#input {
+
+					+ message{ 
+						&[type=help] {
+							display:none;
+						}
+					}
+				}
+				
+				wrapper#message {
+					.field-message(invalid;);
+
+					message[for=field]:before {
+						background: @brand-grey-3;
+					}
+				}
+			}
+
+			&[char-count="0"] {
+				wrapper#input {
+					&:after {
+						.opacity(1);
+					}
+				}
+			}
+		}
+
+		&[state=idle] {
+			wrapper#input {
+				&:before {
+					background:rgba(23,120, 211,0);
+				}
+				> label {
+					& + input {
+						.field-input-position(active;);
+					}
+				}
+			}
+
+			&[char-count="0"] {
+				b#symbol {
+					.field-label-symbol(hidden;);
+				}
+
+				wrapper#input {
+					> label {
+						.field-label(idle;);
+
+						& + input {
+							.field-input-position(idle;);
+						}
+					}
+					> input + icon[action=remove] {
+						display:none;
+					}
+
+					+ message{ 
+						&[type=help] {
+							display:flex;
+						}
+					}
+				}
+			}
+
+			&[valid=true] {
+				wrapper#input {
+					border-color:@yoda;/*rgba(0,132,77,1)*/;
+
+					&:before {
+						background:@yoda;/*rgba(0,132,77,1);*/
+					}
+
+					+ message{ 
+						&[type=help] {
+							display:flex;
+						}
+					}
+				}
+			}
+			&[valid=false] {
+				wrapper#input {
+					.border-radiuses(@field-radius;@field-radius; 0; 0;);
+				}
+				+ message{ 
+					&[type=help] {
+						display:none;
+					}
+				}
+				wrapper#message {
+					.field-message(invalid;);
+				}
+			}
+		}
+
+		&[valid=true] {
+			wrapper#input {
+				&:after {
+					.opacity(0);
+				}
+			}
+		}
+
+		&[valid=false] {
+			&[state=idle]{ 
+				wrapper#input {
+					border-color:@red-leader;
+					&:before {
+						background:@red-leader; 
+					}
+				}
+			}
+
+			&[state=focused]{
+				wrapper#input {
+					&:extend(field[valid=false][state=idle] wrapper#input); 
+					&:before {
+						&:extend(field[valid=false][state=idle] wrapper#input:before);
+					}
+				}
+			}
+		}
+
+		&[char-count] {
+			wrapper#input {
+				.field-state-color(touched)
+			}
+		}
+
+		&[char-count="0"] {
+			wrapper#input {
+				> input + icon[action=remove] {
+					display:none;
+				}
+			}			
+		}
+	}
+
+	@keyframes field-focus {
+		0% {
+			background:rgba(255,255,255,1);
+		}
+		30% {
+			background:rgba(204,204,204,1);
+		}
+		100%{
+			background:rgba(255,255,255,1);
+		}
+	}
+
+	@keyframes field-focus-invalid {
+		0% {
+			background:@red-leader;
+		}
+		30% {
+			background:@red-leader-h;
+		}
+		100%{
+			background:@red-leader;
+		}
+	}
+
+	@keyframes field-typing {
+		0% {
+			background:rgba(191,221,248,1);
+		}
+		30% {
+			background:rgba(244,249,254,1);
+		}
+		100%{
+			background:rgba(191,221,248,1);
+		}
+	}
+
+	/*
+		FIELD SPECIFIC STYLES
+		--------------------------------------------------------------------------------------------
+		
+		todo > Migrate into seperate style sheets?
+	*/
+
+	/*
+		Field: Credit Card
+	*/
+	field[type=cc-number][state=focused] > wrapper#input > label + input, field[state=typing] > wrapper#input > label + input, field[state=idle] > wrapper#input > label + input {
+		-webkit-text-security: none;
+	}
+	field[type=cc-number][state=idle][valid=true] > wrapper#input > label + input {
+		-webkit-text-security: square;
+	}
+
+	/*
+		Field: Date
+	*/
+	field[type=date]{
+		wrapper#input {
+			> icon[action=datepicker] {
+				> svg {
+					height:26px;
+					width:26px;
+				}
+			}
+		}
+	}
+
+	// Should be preceded by field (but isn't because it builds outside of field)
+	.ui-datepicker {
+		padding: 0 27px 24px 27px;
+		display: none;
+		background:white;
+		border:1px solid @brand-grey-5;
+
+		.ui-datepicker-title {
+			.noSelect();
+		}
+		@triangle-position:19px;
+		&:before {
+			top: -15px;
+			z-index: 1;
+			right: @triangle-position;
+			.triangle(top, 30px, 15px, @brand-grey-5);
+		}
+		&:after {
+			top: -14px;
+			z-index: 1;
+			right: @triangle-position;
+			.triangle(top, 30px, 15px, white);
+		}
+
+		.ui-state-disabled {
+			.ui-icon {
+				display:none;
+			}
+		}
+
+		.ui-datepicker-header {
+			position: relative;
+			margin: 22px 0 17px 0;
+
+			> .ui-state-disabled {
+				display:none;
+			}
+			> a {
+				position: absolute;
+				top: 50%;
+				margin-top: -10px;
+				cursor:pointer;
+
+				&.ui-datepicker-prev { 
+					left:0;
+				}
+				&.ui-datepicker-next {
+					right:0;
+				}
+
+				span {
+					display:none;
+				}
+			}
+
+			.ui-datepicker-title {
+				text-align: center;
+				font-weight: bold;
+			}
+		}
+
+		table.ui-datepicker-calendar {
+			border: 1px solid @brand-grey-4;
+			padding: 20px 31px;
+			font-size:12px;
+			border-spacing: inherit;
+			color:@brand-grey-1;
+			.span(x);
+
+			thead tr {
+				background:@brand-grey-6;
+
+				 th {
+					text-align: center;
+					font-weight: bold;
+					border: 0;
+					height: 22px;
+					line-height: 22px;
+					width: 37px;
+					text-transform: uppercase;
+					font-weight: normal;
+					border-bottom: 16px solid white;
+				}
+			}
+
+			tbody tr {
+				 td {
+					border: 0;
+					height: 34px;
+					line-height: 34px;
+					text-align: center;
+
+					span {
+						display: block;
+						text-align: center;
+						text-decoration: none;
+						color:inherit;
+					}
+					a {
+						&:extend(.ui-datepicker table.ui-datepicker-calendar tbody tr td span);
+					}
+					&:hover {
+						background:@brand-grey-4;
+						.border-radius(3px);
+					}
+					&.ui-datepicker-unselectable {
+						color:@brand-grey-4;
+
+						&:hover {
+							background: white;
+							.border-radius(0px);
+						}
+					}
+					&.ui-datepicker-today {
+						font-weight:bold;
+					}
+					&.ui-datepicker-current-day {
+						background:@brand-blue-2;
+						color:white;
+						font-weight: bold;
+						.border-radius(3px);
+					}
+				}
+			}
+		}
+	}
+
+	/*
+		Jquery Selectmenu
+	*/
+	field[type=select] {
+		z-index:auto;
+
+		.ui-selectmenu{
+			&-menu {
+				padding: 0;
+				margin: 0;
+				.pos(top-left);
+				.hide();
+
+				max-height: 292px;
+				width: 100%;
+				border:1px solid @brand-grey-4;
+				border-top-width: 3px;
+				background:white;	
+				z-index:2;
+				overflow-y: auto;
+				.box-shadow(1px 3px 8px -1px rgba(0,0,0,.15));
+
+				ul.ui-menu {
+					overflow: auto;
+					overflow-x: hidden;
+					width: 100% !important; // NO idea why jquery is applying an inlilne width
+					.box-shadow(1px 3px 12px 0px rgba(0,0,0,0.25));
+
+					li.ui-menu-item {
+						height: 48px;
+						display: flex;
+						align-items: center;
+						border-bottom: 1px solid @brand-grey-4;
+						padding: 0 @field-padding;
+						cursor:pointer;
+						color:@saber;
+						> div {
+							text-transform: capitalize;
+						}
+
+						&.ui-state-disabled {
+
+						}
+						&:hover {
+							background:@brand-grey-6;
+
+							&:first-child {
+								&:after {
+									.triangle(top, 20px, 10px, @brand-grey-6);
+								}
+							}
+						}
+
+						&:first-child {
+
+							&:before {
+								top: -11px;
+								z-index: 1;
+								right: @field-padding + 1;
+								.triangle(top, 20px, 10px, @brand-grey-4);
+								border-left-color: transparent;
+								border-right-color: transparent;
+							}
+							&:after {
+								top: -9px;
+								z-index: 1;
+								right: @field-padding + 1;
+								.triangle(top, 20px, 10px, white);
+								border-left-color: transparent;
+								border-right-color: transparent;
+							}
+						}
+
+						&:last-child {
+							border-bottom:0px none;
+						}
+
+						&.ui-state-disabled {
+							> div {
+								opacity: .35;
+								color: @brand-grey-1;
+								text-transform: capitalize;
+							}
+
+						}
+					}
+				}
+			}
+			&-open {
+				display: block;
+			}
+			&-text {
+				display: block;
+				margin-right: 20px;
+				text-overflow: ellipsis;
+				cursor:pointer;
+				color:@brand-grey-3;
+				.field-input-position(active);
+				text-transform:capitalize;
+			}
+			&-button.ui-button {
+				text-align: left;
+				white-space: nowrap;
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				z-index:1;
+				cursor: pointer;
+			}
+
+			&-icon.ui-icon {
+				float: right;
+				margin-top: 0;
+			}
+		}
+
+		&[state=empty] {
+			.ui-button {
+				opacity:0;
+			}
+		}
+		&[state=selection] {
+			wrapper#input{
+				&:extend(field[char-count] wrapper#input);
+			}
+		}
+	}
+</style>
+<field attr="state:state,type:type,id:id" state="empty">
+	<wrapper id="input" attr="mask:mask">
+		<label content="label"></label>
+		<input />
+	</wrapper>
+	<message type="help" content="help.message"></message>
+	<wrapper id="message"></wrapper>
+</field>

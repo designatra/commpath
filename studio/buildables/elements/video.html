@@ -1,0 +1,23 @@
+<style rel="stylesheet/less" type="text/less">
+	wrapper[type=video] {
+		margin-top:16px;
+		&:first-of-type {
+			margin-top:0px;
+		}
+		> iframe {
+			+ label {
+				font-size: 16px;
+				.capitalize();
+				margin-top: -10px;
+				height: 32px;
+				display: flex;
+				align-items: center;
+				.empty();
+			}
+		}
+	}
+</style>
+<wrapper attr="id:id,class:class" type="video">
+	<iframe attr="width:width,height:height,id:iframe.id,class:iframe.class,src:src||url" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen=""></iframe>
+	<label content="label"></label>
+</wrapper>

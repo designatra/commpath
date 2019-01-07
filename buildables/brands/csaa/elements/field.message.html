@@ -1,0 +1,27 @@
+<style rel="stylesheet/less" type="text/less">
+	message[for=field] {
+		display:flex;
+		margin-left:@field-padding;
+	}
+	message[for=field]:before {
+		content: "";
+		background: @red-2;
+		position: absolute;
+		left: -2px;
+		top: 0;
+		width: ~"calc(100% + 6px);";
+		height: 100%;
+		z-index: -1;
+
+		.transition(.3s ease);
+	}
+	message[for=field]:after {
+		content:"";
+	}
+	message[for=field] > label{
+
+	}
+</style>
+<message for="field" attr="type:type">
+	<label content="error.message"></label>
+</message>

@@ -1,0 +1,75 @@
+<style rel="stylesheet/less" type="text/less">
+	page {
+		position:relative;
+		display:flex;
+		padding: 0 56px 0px 56px;
+		background:white;
+		
+		> wrapper {
+			flex:1;
+
+			> wrapper {
+
+				&#header {
+					.empty();
+
+					block {
+						> wrapper {
+							padding: 40px 0 40px 0px;
+
+							> wrapper:nth-child {
+								// Block > Columns
+								&(2) {
+									> thing:nth-child {
+										// Block > Col2 > Lines
+										&(1) {
+											font-size:24px;
+											// color: @blue-4;
+											.uppercase();
+											font-weight:500;
+										}
+									}
+								}
+							}
+						}
+
+						&:after {
+							content:"";
+							.pos(bottom-left);
+							left:-56px;
+							border-bottom:1px solid @grey-5;
+							width: ~"calc(100% + 56px + 56px)";
+						}
+					}
+				}
+
+				&#body {
+					margin-top:24px;
+					.empty();
+				}
+
+				&#footer {
+					min-height:56px;
+				}
+			}
+
+			> wrapper#body {
+
+				> * {
+
+				}
+			}
+		}
+
+		&[active=false] {
+			.hide();
+		}
+	}
+</style>
+<page attr="type:type,name:name||id" attr="active:active">
+	<wrapper>
+		<wrapper id="header"></wrapper>
+		<wrapper id="body"></wrapper>
+		<wrapper id="footer"></wrapper>
+	</wrapper>
+</page>

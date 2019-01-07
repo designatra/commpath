@@ -1,0 +1,33 @@
+<style rel="stylesheet/less" type="text/less">
+	porthole {
+		.span(all);
+		position:absolute;
+		.hide();
+		max-height:~"calc(100vh);";
+		max-width:~"calc(100vw - 280px);";
+
+		&[visible=true] {
+			.show();
+		}
+		&[status=rendering] {
+			
+		}
+		&[status=rendered] {
+
+			&[visible=true] {
+
+			}
+		}
+
+		> div {
+			// TODO: This is horrible but xcomponent changed how they handle height width and it's messing things up
+			height:100% !important;
+			width:100% !important;
+		}
+		> iframe {
+			background-color: transparent;
+			.span(all);
+		}
+	}
+</style>
+<porthole attr="id:id,type:type"></porthole>

@@ -1,0 +1,43 @@
+<style rel="stylesheet/less" type="text/less">
+	control[type="radio-options"] {
+		> wrapper {
+			&[type=title] {
+				margin-top:0px;
+
+				title {
+
+				}
+
+				+ wrapper#buttons {
+					> action[type=buttons] {
+						margin-top:0px;
+					}
+				}
+			}
+			&#buttons {
+				> action {
+					margin-right:0px;
+
+					&:first-child {
+						.border-radiuses(@field-radius, 0, 0, @field-radius);
+						border-right:0px none;
+					}
+					&:nth-child(n+2) {
+						.border-radius(0);
+					}
+					&:last-child {
+						.border-radiuses(0, @field-radius, @field-radius, 0);
+						border-left:0px none;
+					}
+				}
+			}
+		}
+	}
+</style>
+<control type="radio-options" attr="id:id">
+	<wrapper type="title">
+		<title attr="id:id,class:class" content="title||label"></title>
+	</wrapper>
+	<wrapper id="buttons" attr="layout:layout"></wrapper>
+	<thing id="description" content="description"></thing>
+</control>

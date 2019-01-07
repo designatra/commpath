@@ -1,0 +1,51 @@
+<style rel="stylesheet/less" type="text/less">
+	control[type="toggle"] {
+		> wrapper {
+			height:32px;
+			width:60px;
+			.flex(center-y);
+			background:@saber;
+			border: 1px solid @saber;
+			.border-radius(20px);
+			padding: 0px 1px;
+			.cursor(pointer);
+
+			> thing#indicator {
+				display:block;
+				width:28px;
+				height: 28px;
+				.border-radius(20px);
+				border: 1px solid @grey-4;
+				background:white;
+				
+				position:absolute;
+				
+				.transition (.2s ease);
+			}
+		}
+
+		&[indicator=on] {
+			> wrapper {
+				> thing#indicator {
+					left:29px
+				}
+			}
+		}
+
+		&[indicator=off] {
+			> wrapper {
+				background:white;
+				border-color: @grey-4;
+
+				> thing#indicator {
+					left:1px;
+				}
+			}
+		}
+	}
+</style>
+<control type="toggle" attr="id:id,action:action" indicator="on">
+	<wrapper>
+		<thing id="indicator"></thing>
+	</wrapper>
+</control>

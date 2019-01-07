@@ -1,0 +1,22 @@
+<style rel="stylesheet/less" type="text/less">
+	fields {
+		position:relative;
+		display: flex;
+		flex-flow: row wrap;
+        padding: 24px 48px 4px 48px;
+
+		> field, > control {
+			&:nth-of-type(1) {
+				margin-top: 0px;
+			}
+		}
+
+		> wrapper:first-child {
+			> action {
+				margin-top: 0px;
+			}
+
+		}
+	}
+</style>
+<fields attr="id:id,type:type,layout:layout"></fields>

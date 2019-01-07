@@ -1,0 +1,29 @@
+<style rel="stylesheet/less" type="text/less">
+	thing {
+		&[type=status] {
+			text-transform: capitalize;
+			font-weight:bold;
+			&[status=open] {
+				color:@yoda;
+			}
+			> b {
+				color:@grey-3;
+				&:nth-child {
+					&(1) {
+						font-weight:normal;
+						text-transform: uppercase;
+						padding-right:1px;
+					}
+					&(2) {
+						text-transform:capitalize;
+						color:inherit;
+					}
+				}
+			}
+		}
+	}
+</style>
+<thing type="status" attr="id:id,class:class">
+	<b>status</b>
+	<b content="status"></b>
+</thing>

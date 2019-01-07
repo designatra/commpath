@@ -1,0 +1,95 @@
+<style rel="stylesheet/less" type="text/less">
+	wrapper#card_selector[type=carousel] {
+		margin-top:40px;
+		> wrapper {
+			> wrapper#items {
+				display:flex;
+
+				> item {
+					text-transform:uppercase;
+					font-size:12px;
+					.flex(center);
+					text-align: center;
+					color: @grey-3;
+					background: @grey-5;
+					padding:13px 10px;
+					flex:1;
+					cursor:pointer;
+					margin-right:1px;
+
+					&:last-child {
+						margin-right:0px;
+					}
+
+					&.active {
+						color:@grey-1;
+
+						&:after {
+							.triangle(top, 25px, 10px, @grey-5);
+							z-index: 1;
+							position: absolute;
+							top: -10px;
+							margin-left:~"calc(-25px / 2);";
+							left:50%;
+						}
+					}
+				}
+			}
+
+			@carousel-action-width: 28px;
+			> action {
+				.center(y, 50px);
+				width:@carousel-action-width;
+				.flex(center-y);
+				color:@grey-4;
+
+				> svg {
+					height: 28px;
+					width: 28px;
+				}
+				&:first-child {
+					left:-@carousel-action-width;
+					justify-content: flex-start;
+					> svg {
+						margin-left:-8px;
+					}
+				}
+				&:last-child {
+					right:-@carousel-action-width;
+					justify-content: flex-end;
+					> svg {
+						margin-right:-8px;
+					}
+				}
+				&:hover {
+					color:@grey-2;
+				}
+			}
+		}
+	}
+
+</style>
+<wrapper id="card_selector" type="carousel">
+	<wrapper>
+		<action>
+			<svg class="oneui-core-arrow-left"><use xlink:href="#oneui-core-arrow-left"></use></svg>
+		</action>
+		<wrapper id="items">
+			<item class="active">
+				auto<br>
+				policy
+			</item>
+			<item>
+				property<br>
+				policy
+			</item>
+			<item>
+				umbrella<br>
+				policy
+			</item>
+		</wrapper>
+		<action>
+			<svg class="oneui-core-arrow-right"><use xlink:href="#oneui-core-arrow-right"></use></svg>
+		</action>
+	</wrapper>
+</wrapper>

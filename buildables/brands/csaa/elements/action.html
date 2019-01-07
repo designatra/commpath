@@ -1,0 +1,51 @@
+<style rel="stylesheet/less" type="text/less">
+	action {
+		/*display:flex;*/
+		.action(link);
+		cursor:pointer;
+
+		& * {
+			cursor:pointer;
+		}
+
+		label {
+			text-transform: capitalize;
+			.empty();
+		}
+		svg {
+			.empty();
+		}
+
+		@action-height:24px;
+		&[type="icon&label"] {
+			.flex(center-y);
+			height: @action-height;
+
+			> svg {
+				+ label {
+					margin-left:10px;
+				}
+				&:empty {
+					+ label {
+						margin-left:0px;
+					}
+				}
+			}
+		}
+
+		&[icon="outlined"] {
+			> svg {
+				.dims(equal, @action-height);
+				padding: 3px;
+				.border-radius(100%);
+				border:2px solid;
+
+			}
+		}
+	}
+</style>
+<action attr="id:id,disabled:disabled,action:action,type:type,icon:icon.style">
+	<icon svg="class:icon.left"></icon>
+	<label content="label"></label>
+	<icon svg="class:icon||icon.right"></icon>
+</action>

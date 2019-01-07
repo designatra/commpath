@@ -1,0 +1,143 @@
+<style rel="stylesheet/less" type="text/less">
+	control[type=tools] {
+		.element(flex);
+		//.pos(bottom);
+		height:48px;
+		//background:@brand-grey-5;
+		//border:1px solid @brand-grey-4;
+		//border-bottom:0px none;
+		//.border-radius(5px 5px 0px 0px);
+		//.opacity(.8);
+
+		// left: ~"calc(@{controls_leftside-width} + 8px);";
+		//max-width: ~"calc(100vw - @{controls_leftside-width} - 66px - 8px - 8px);";
+		//left: ~"calc(@{controls_leftside-width} + 41px);";
+		//max-width: ~"calc(100vw - 280px - 30px - 8px - 8px);";
+		//left: ~"calc(280px + 22px);";
+		//.span(x);
+		//.elevation(3);
+		//z-index:10;
+
+		> wrapper {
+			.span(x);
+			.flex(center-y);
+
+			> tabs {
+				.span(y);
+				display:flex;
+				> * {
+
+				}
+				> tab {
+					border:1px solid transparent;
+					border-right:1px solid @brand-grey-4;
+					position:relative;
+					height:47px;
+					top:0;
+					padding:0 10px 0 10px;
+					.transition(.3s ease);
+
+					&.active {
+						height: 51px;
+						top: -4px;
+						padding-top: 4px;
+						// TODO: was thinking color comes from the product
+						background: @brand-yellow-1;
+						border: 1px solid @brand-yellow-2;
+						.elevation(2);
+				
+						.border-radius(5px 5px 0px 0px);
+					}
+					> wrapper {
+						padding-left:10px;
+						> icon {
+							&:first-child {
+								width:24px;
+
+								+ label {
+									margin-left:10px;
+								}
+							}
+							&:last-child {
+								display:none;
+							}
+						}
+
+						+ wrapper#versions {
+							width:81px;
+							padding:0px;
+							flex:initial;
+							 > things {
+								&[ui=popover] {
+									position:absolute;
+									bottom:10px;
+									right:0;
+									border: none;
+									overflow:hidden;
+									min-width:150px;
+									
+									> wrapper#versions {
+										margin: 0;
+										display:none;
+										.border-radius(0px 0px 2px 2px);
+										background: lightgrey;
+										.elevation(1);
+									}
+
+									&[state=open] {
+										> thing[type=version] {
+											//background:@brand-grey-1;
+											background:#0096d6;
+											// color:white;
+										}
+									}
+								}
+							}
+						}
+					}
+
+					.empty();
+				}
+				&[position=left] {
+					/*width: 50%;*/
+					/*flex: initial;*/
+					flex:1;
+
+					+ wrapper#info {
+						flex:1;
+						background:white;
+						.span(y);
+						font-size:14px;
+						font-weight:400;
+						.flex(center-y);
+						padding:0px 2rem;
+						justify-content: flex-end;
+						color:@brand-grey-3;
+						.border-radius(0 5px 0 0);
+						.empty();
+					}
+				}
+				&[position=right] {
+					flex: 1;
+					justify-content: flex-end;
+
+					> tab {
+						border-right:0px none;
+						border-left:1px solid @brand-grey-4;
+						max-width: 420px;
+						min-width: 320px;
+						flex: initial;
+
+					}
+				}
+			}
+		}
+	}
+</style>
+<control type="tools" position="bottom">
+	<wrapper>
+		<tabs position="left"></tabs>
+		<wrapper id="info"></wrapper>
+		<tabs position="right"></tabs>
+	</wrapper>
+</control>

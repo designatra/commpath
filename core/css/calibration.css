@@ -1,0 +1,106 @@
+/*
+	calibration.css
+*/
+
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strong,tt,var,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;/* padding:0; *//* border:0; *//* outline:0; *//* vertical-align:baseline; *//* background:transparent; */}body{line-height:1;}
+
+ul, menu, dir {
+	margin:0;
+	outline:0;
+	vertical-align:baseline;
+	background:transparent;
+	padding:0;
+	border:0;
+}
+/*ol,ul{}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,:focus{outline:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+*/
+
+/**
+ * 1. Prevent system color scheme's background color being used in Firefox, IE,
+ *    and Opera.
+ * 2. Prevent system color scheme's text color being used in Firefox, IE, and
+ *    Opera.
+ * 3. Set default font family to sans-serif.
+ * 4. Prevent iOS text size adjust after orientation change, without disabling
+ *    user zoom.
+ */
+html {
+
+}
+
+/*a {
+	outline:none;
+	cursor:pointer;
+}*/
+/*ul, ol {
+	margin:0;
+	padding:0;
+	list-style-position:inside;
+}
+li {
+	width:auto;
+	cursor:pointer;
+}*/
+h1, h2, h3, h4, h5, h6, p  {
+	/* margin: 0; */
+	padding: 0;
+	font-size: 12px;
+	cursor:pointer;
+}
+input {
+	border:0px none;
+	outline:none;
+}
+
+[role="button"],
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+	-webkit-box-sizing: content-box;
+	-moz-box-sizing: content-box;
+	box-sizing: content-box;
+}
+
+/* Reset `button` and button-style `input` default styles */
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+	background: none;
+	border: 0;
+	color: inherit;
+	/* cursor: default; */
+	font: inherit;
+	line-height: normal;
+	overflow: visible;
+	padding: 0;
+	-webkit-appearance: button; /* for input */
+	-webkit-user-select: none; /* for button */
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+input::-moz-focus-inner,
+button::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+/* Make `a` like a button */
+[role="button"] {
+	color: inherit;
+	cursor: default;
+	display: inline-block;
+	text-align: center;
+	text-decoration: none;
+	white-space: pre;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+/*
+	end of calibration.css
+*/
+
+

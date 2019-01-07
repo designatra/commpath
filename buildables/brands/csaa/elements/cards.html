@@ -1,0 +1,40 @@
+<style rel="stylesheet/less" type="text/less">
+	cards {
+		position: relative;
+		display: flex;
+		justify-content: center;
+
+		> wrapper {
+			display:flex;
+			flex:1;
+		}
+
+		&[columns="1"] {
+			> wrapper {
+				flex-direction: column;
+			}
+		}
+		&[columns="2"] {
+			> wrapper {
+				flex-direction:row;
+				flex-flow:row wrap;
+
+				card {
+					margin-right:16px;
+
+					&:nth-child(even),&:last-child {
+						margin-right:0px;
+					}
+				}
+			}
+		}
+
+		card {
+			flex:1;
+			margin:0 0 16px;
+		}
+	}
+</style>
+<cards attr="id:id,type:type,visible:visible,columns:columns||layout.columns" columns="1">
+	<wrapper></wrapper>
+</cards>

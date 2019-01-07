@@ -1,0 +1,83 @@
+<style rel="stylesheet/less" type="text/less">
+	tabs {
+		position: relative;
+		display: flex;
+		height: 45px;
+
+		&.ducking {
+			margin-top: 45px;
+		}
+		> wrapper {
+			height: 100%;
+			margin: 0 7px 0 0px;	
+		}
+
+		tab {
+			&.active {
+				background:rgba(255,255,255,1);
+			}
+			icon {
+				width: 42px;
+				.flex(center-x);
+			}
+			> wrapper {
+				.flex(center-y);
+				flex:1;
+
+				icon svg {
+					height:24px;
+					width:24px;
+				}
+				label {
+					font-size: 12px;
+					// TODO: Weight was 400, not sure??
+					font-weight: 500; 
+					.font(rubik);
+					text-transform: uppercase;
+				}
+			}
+		}
+	}
+
+	tabs {
+		+ wrapper#tab-body {
+			background: @brand-grey-5;
+			
+			wrapper[tab] {
+				display:none;
+
+				&.active {
+					display:block;
+				}
+
+				> wrapper {
+					display:none;
+				}
+				control {
+					margin: 0px;
+					// background: rgba(255,255,255,1);
+				}
+			}
+			wrapper[tab=projects] {
+				control {
+					background: rgba(255,255,255,0);
+					// overflow-y: auto;
+					// height: 30vh;
+					.transition(height 400ms ease);
+				}
+			}
+			wrapper[tab=inspector]{
+				> wrapper{
+
+					> label {
+						.font(rubik);
+						text-align: center;
+						font-size:12px;
+					}
+				}
+			}
+		}
+	}
+</style>
+<tabs attr="id:id"></tabs>
+<wrapper id="tab-body"></wrapper>

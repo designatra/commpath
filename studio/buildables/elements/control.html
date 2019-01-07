@@ -1,0 +1,58 @@
+<style rel="stylesheet/less" type="text/less">
+	// @blue-2:#0096d6;
+	// @blue-4:#1778d3;
+	// @blue-4-h:#2685de;
+
+	control {
+		> item {
+
+			border-bottom:1px solid @brand-grey-4;	//rgba(0,0,0,0)
+			&:hover {
+				// background:#ebebeb;
+			}
+			&:active {
+				// background:#767676;
+			}
+			&.expanded {
+				border-color:@brand-grey-4;
+
+				&:after {
+					content: "";
+					.pos(top-right);
+					width: 1px;
+					.span(y);
+					background: rgba(0,0,0,.5);
+					z-index: 11;
+					.hide();
+				}
+			}
+			&:last-child:after {
+				content: "";
+				.pos(bottom-left);
+				.span(x);
+				height: 1px;
+				background: rgba(0,0,0,.1);
+			}
+
+			+ items {
+				flex-flow:row wrap;
+			}
+
+			> wrapper > icon svg {
+				width: 20px;
+				height: 20px;
+				fill: rgba(0,0,0,1);
+
+				&:nth-child {
+					&(1) {
+
+					}
+					&(2) {
+
+					}
+				}  
+			}
+		}
+	}
+</style>
+

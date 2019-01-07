@@ -1,0 +1,187 @@
+<style rel="stylesheet/less" type="text/less">
+	field[type=select] {
+		// z-index:2;
+
+		wrapper#input {
+			border:0px none;
+			margin-right:0px;
+			> icon {
+				position:absolute;
+				right:@field-padding;
+				z-index:0;
+				height:15px;
+				width:15px;
+				.transition(.1s);
+				.rotate(0deg);
+
+				> svg {
+					.hide();
+				}
+			}
+
+			> select {
+				option {
+					text-transform: capitalize;
+				}
+			}
+		}
+
+		&[arrow=down] {
+			> wrapper#input {
+				> icon {
+					> svg {
+						&#down {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+		&[arrow=right] {
+			> wrapper#input {
+				> icon {
+					> svg {
+						&#right {
+							display: inline-block;
+						}
+					}
+				}
+			}
+		}
+
+		&#phone_type {	
+			flex: initial;
+			// TODO: Margin-right is a spacing concept that should be in a mixin
+			margin-right: 10px;
+
+			> wrapper#input {
+				> label {
+					&:empty {
+						.hide();
+
+						~ #phone_type-button {
+							opacity:1;
+
+							> .ui-selectmenu-text {
+								margin-top:initial;
+							}
+						}
+					}
+				}
+
+				> icon {
+					// .transition(.1s);
+					// .rotate(0deg);
+				}
+			}
+
+			&[expanded=true] {
+				> wrapper#input {
+					> icon[action] {
+						.rotate(90deg);
+					}
+				}
+			}
+		}
+
+
+		> span.select2-container {
+			.select2-results, .select2-results > .select2-results__options {
+				.select2-results__option {
+					position:relative;
+					&:hover {
+						.transition(background .3s);
+						background-color: #f7f7f7;
+						color: @saber;
+						-webkit-text-stroke: 0.035em @saber;
+						/*-webkit-text-stroke: 0.035em $saber-color;*/
+						/*border: 1px solid $saber-color;*/
+					}
+					&:active {
+						.transition(.1s 0s);
+					}
+				}
+				.select2-results__option--highlighted{
+					z-index:110;
+
+					&:first-child {
+						.border-radius(4px 4px 0 0);
+					}
+					&:last-child {
+						.border-radius(0px 0px 4px 4px);
+					}
+
+				}
+				.select2-results__option:last-child {
+
+				}
+			}
+		}
+
+		// NOTE: Handled expanded version of selection (i.e. picking coverage)
+		&[auto_open=true] {
+			> wrapper#input {
+				display:none;
+			}
+			> span.select2-container {
+
+				> span.select2-dropdown {
+					box-shadow:initial;
+					border-bottom:0px none;
+
+					&.select2-dropdown--below {
+						border-top-width: 1px;
+						border-top-style: solid;
+						border-radius: 4px;
+
+					}
+				}
+
+				.select2-results, .select2-results > .select2-results__options {
+					max-height:initial !important;
+					.select2-results__option {
+						position:relative;
+						&:hover {
+							.transition(background .3s);
+							background-color: #f7f7f7;
+							color: @saber;
+							-webkit-text-stroke: 0.035em @saber;
+							/*-webkit-text-stroke: 0.035em $saber-color;*/
+							/*border: 1px solid $saber-color;*/
+						}
+						&:active {
+							.transition(.1s 0s);
+						}
+						&--highlighted {
+
+						}
+					}
+					.select2-results__option--highlighted{
+						z-index:110;
+
+						&:first-child {
+							.border-radius(4px 4px 0 0);
+						}
+						&:last-child {
+							.border-radius(0px 0px 4px 4px);
+						}
+
+					}
+					.select2-results__option:last-child {
+
+					}
+				}
+			}
+		}
+	}
+</style>
+<field type="select" state="empty" attr="state:state,id:id,arrow:arrow" arrow="down">
+	<wrapper id="input">
+		<!<label content="label"></label>
+		<select attr="id:id,type:type"></select>
+		<!--<icon action>
+			<svg id="down" class="oneui-core-arrow-down"><use xlink:href="#oneui-core-arrow-down"></use></svg>
+			<svg id="right" class="oneui-arrow-38"><use xlink:href="#oneui-arrow-38"></use></svg>
+		</icon>-->
+	</wrapper>
+</field>

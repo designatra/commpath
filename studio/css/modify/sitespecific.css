@@ -1,0 +1,109 @@
+html {
+	font-size: 8px;
+	font-weight: 400;
+	font-family: 'Rubik', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-smoothing: antialiased;
+	-webkit-text-rendering: optimizeLegibility;
+	text-rendering: optimizeLegibility;
+}
+
+#papaBin {
+
+}
+
+svg:empty, .undefined {
+	display:none;
+}
+
+/*
+	FONTASTIC ICONS
+
+	You can use height and width properties to control icon size. 
+	To define icon color use fill property. 
+	Note: currentColor keyword inherits the color value of a parent element.
+*/
+/*[class^="quadrants-"], [class*=" quadrants-"] {
+	display: inline-block; 
+	fill: currentColor; 
+}*/
+* {
+  /* So 100% means 100% */
+  box-sizing: border-box;
+}
+html, body {
+  /* Make the body to be as tall as browser window */
+  height: 100%;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+    height: 32px;
+    width: 32px;
+    display: inline-block; 
+    fill: currentColor; 
+}
+
+::selection {
+	background: rgba(0,0,0,0); 
+}
+::-moz-selection {
+	background: rgba(0,0,0,0);
+}
+
+.hide {
+	display:none;
+}
+.hidden {
+	visibility: hidden;
+}
+.invisible {
+	opacity:0;
+}
+
+clear, .clear {
+	clear:both;
+	display:block;
+	height:0;width:0;
+}
+
+
+loading {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index:100;
+	text-transform: uppercase;
+	text-align: center;
+	line-height:45px;
+	font-size:12px;
+	font-weight:400;
+
+	animation: pulse 1s infinite;
+	/* -webkit-transition:  1000ms linear;
+	-moz-transition:  1000ms linear;
+	-o-transition:  1000ms linear;
+	transition:  1000ms linear;*/
+}
+
+@keyframes pulse {
+	0% {
+		background: #cccccc;
+	}
+	100% {
+		background:rgba(254, 220, 9,1);
+	}
+}
+@keyframes pulse2 {
+	0% {
+		background: rgba(255,255,255,.03);
+	}
+	50% {
+		background:rgba(255,255,255,.15)
+	}
+	100% {
+		background: rgba(255,255,255,.03);
+	}
+}
+

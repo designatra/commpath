@@ -1,0 +1,85 @@
+<style rel="stylesheet/less" type="text/less">
+	ui {
+		.element(flex);
+		// TODO: Reconsider having a default ui background
+		background:white;
+		.border-radius(4px);
+
+		> wrapper {
+			width:100%;
+			padding:45px;
+
+			> wrapper {
+				.empty();
+
+				&#header {
+					block {
+						> wrapper {
+							padding: 40px 0 40px 0px;
+
+							> wrapper:nth-child {
+								// Block > Columns
+								&(2) {
+									> thing:nth-child {
+										// Block > Col2 > Lines
+										&(1) {
+											font-size:24px;
+											font-weight:500;
+
+											mark {
+												background-color:white;
+												padding: 8px 16px;
+												&[theme=saber] {
+													background-color:@saber;
+													color:white;
+												}
+												&[theme=c3po] {
+													background-color:@c3po-h;
+												}
+
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+
+				&#body {
+					margin-top:24px;
+				}
+
+				&#footer {
+
+				}
+			}
+
+			> wrapper#title {
+				font-size:40px;
+				color:@grey-3;
+				display:flex;
+				padding-bottom:18px;
+				border-bottom:1px solid @grey-5;
+				margin-bottom:38px;
+				align-items: center;
+
+				label {
+					font-weight: 100;
+					flex:1;
+				}
+			}
+		}
+
+		&[type=solid] {
+
+		}
+	}
+</style>
+<ui attr="type:type,id:id">
+	<wrapper>
+		<wrapper id="header"></wrapper>
+		<wrapper id="body"></wrapper>
+		<wrapper id="footer"></wrapper>
+	</wrapper>
+</ui>

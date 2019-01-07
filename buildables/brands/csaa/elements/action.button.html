@@ -1,0 +1,158 @@
+<style rel="stylesheet/less" type="text/less">
+	action[type=button] {
+		position:relative;
+		height:@button-height;
+		// min-width:@button-width;
+		flex:1;
+		justify-content: center;
+		.action(button);
+		.border-radius(@radius);
+		border-width: @button-border-width;
+		border-style: @button-border-style;
+		.button(white);
+		.button-seperation();
+
+		&:last-child {
+			margin-right:0px;
+		}
+
+		&[subtype=workflow] {
+			&:first-child {
+				.button(blue;);
+				justify-content: flex-start;
+				&:after {
+					content: "";
+					height: 48px;
+					border-right: 1px solid rgba(255,255,255,.3);
+					position: absolute;
+					left: 50px;
+					top: 0;
+				}
+				> label {
+					// margin-left:50px;
+				}
+
+				+ action[type=button] {
+					.button(yellow;);
+					justify-content: flex-end;
+					// width: 150px;
+					flex: initial;
+					&:before {
+						content: "";
+						height: 48px;
+						border-right: 1px solid rgba(255,255,255,.3);
+						position: absolute;
+						right: 50px;
+						top: 0;
+					}
+					> label {
+						// margin-right:50px;
+					}
+				}
+			}
+			svg {
+				height:16px;
+				position:absolute;
+				width: 50px;
+				text-align: center;
+
+				&.oneui-arrow-right-2 {
+					height:24px;
+				}
+				&:first-child{
+					left: 0;
+				}
+				&:last-child{
+					right: 0;
+				}
+			}
+		}
+
+
+		label {
+			text-transform: uppercase;
+			text-align: center;
+			width: 100%;
+			flex:1;
+		}
+		svg {
+			height:18px;
+			width: 50px;
+			text-align: center;
+			flex:initial;
+
+			+ label {
+				padding-right: 20px;
+			}
+			&:empty {
+				.hide();
+
+				+ label {
+					text-align:center;
+					padding-right: 0px;
+				}
+			}
+		}
+
+		/*TODO: Ensure that these colors roll up and down from brand;*/
+		&.primary-yellow {
+			background:@yellow-1;
+			border-color: @yellow-1;
+			color:@grey-1;
+
+			&:hover {
+				background:@yellow-1-h;
+				border-color:@yellow-1;	
+			}
+			&:active {
+				
+			}
+			&.disabled {
+				background:@grey-5;	
+				border-color:@grey-5;
+				color:@grey-2;				
+			}
+		}
+		&.primary-blue {
+			background:@saber;
+			border-color: @saber;
+			color:@white-1;
+
+			&:hover {
+				background:@saber-h;
+				border-color:@saber;
+			}
+			&:active {
+				background:@blue-6;	
+				border-color:@blue-7;	
+			}
+			&.disabled {
+				background:@grey-5;	
+				border-color:@grey-5;
+				color:@grey-7;
+			}
+		}
+		// TODO: Change secondary to white (semantic color name)
+		&.secondary {
+			.button(white);
+
+			&:hover {
+				border-color:@grey-3;
+			}
+			&:active {
+				border-color:@grey-2;
+			}
+			&.disabled {
+
+			}
+			&[active=true] {
+				.button(blue);
+			}
+		}		
+	}
+</style>
+<action type="button" attr="id:id,class:class,action:action,subtype:subtype,disabled:disabled,active:active">
+	<icon svg="class:icon-left" position="left"></icon>
+	<label content="label"></label>
+	<icon svg="class:icon-right" position="right"></icon>
+</action>

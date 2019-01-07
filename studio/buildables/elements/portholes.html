@@ -1,0 +1,19 @@
+<style rel="stylesheet/less" type="text/less">
+	portholes {
+		.element(block);
+		flex:1;
+		background: rgba(118,118,118, 0);
+		z-index:-1;
+		.transition (background-color .3s ease);
+
+		&[porthole=visible] {
+			background: rgba(118,118,118, .3);
+			z-index:0;
+		}
+
+		&:empty {
+			.hide();
+		}
+	}
+</style>
+<portholes attr="id:id"></portholes>

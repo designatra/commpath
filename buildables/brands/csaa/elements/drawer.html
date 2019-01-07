@@ -1,0 +1,50 @@
+<style rel="stylesheet/less" type="text/less">
+	drawer {
+		.element(block);
+		.span(x);
+
+		//&[type=down] {
+
+		//}
+
+		> wrapper {
+			> wrapper#body {
+				> view {
+
+				}
+			}
+		}
+
+
+
+		view {
+			> wrapper {
+				&[type=title] {
+					title {
+
+					}
+				}
+				&#body {
+
+				}
+			}
+		}
+	}
+</style>
+<drawer type="down" attr="id:id,class:class,showing:visible" showing="false">
+	<wrapper>
+
+		<wrapper id="body">
+
+			<!-- TODO: view will break out as a separate element(s) -->
+			<view type="step" id="1">
+				<wrapper type="title">
+					<title attr="id:id,class:class" content="title"></title>
+				</wrapper>
+				<wrapper id="body"></wrapper>
+			</view>
+
+		</wrapper>
+	</wrapper>
+</drawer>
+

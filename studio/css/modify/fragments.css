@@ -1,0 +1,28 @@
+/*body {
+	height:100%;width:100%;
+}*/
+
+#papaBin {
+	/*height:100%;
+	width:100%;*/
+}
+
+/*
+	Fragments + Custom HTML Entities
+*/
+workspace, notification,papa, loading, sandbox, category, tbody, icon, aux, thumbnail, control, items, item, model, section, title, label, materials, material, wrapper, things, thing, view {
+	display:block;
+	position:relative;
+}
+controls, actor,views {
+	display:block;
+}
+
+/*
+	Fragment Resources/Decendents
+*/
+wrapper {
+	display:block;
+	position:relative;
+}
+

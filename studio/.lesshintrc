@@ -1,0 +1,15 @@
+{
+    "fileExtensions": [".less", ".css"],
+    "excludedFiles": ["vendor.less"],
+    "emptyRule": false, 
+    "importantRule": false
+    "spaceAfterPropertyColon": {
+        "enabled": false
+    },
+     "newLineAfterBlock": {
+        "enabled": false
+    },
+    "stringQuotes":{
+        "style":"double"
+    }
+}

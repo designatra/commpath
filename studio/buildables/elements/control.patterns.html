@@ -1,0 +1,124 @@
+<style rel="stylesheet/less" type="text/less">
+	control[type=patterns] {
+		.element(flex);
+		.pos(bottom);
+		bottom:-121px;
+		//height:118px;//48px;
+		background:@brand-grey-5;
+		border:1px solid @brand-grey-4;
+		border-bottom:0px none;
+		//.border-radius(5px 5px 0px 0px);
+
+		// left: ~"calc(@{controls_leftside-width} + 8px);";
+		//max-width: ~"calc(100vw - @{controls_leftside-width} - 30px - 8px - 8px);";
+		//left: ~"calc(@{controls_leftside-width} + 22px);";
+		left: ~"calc(280px + 8px)";
+		width: ~"calc(100vw - 285px)";
+		.elevation(3);
+		z-index:8;
+		padding:0 16px;
+
+		> wrapper {
+			.span(x);
+			font-size: 16px;
+			line-height: 28px;
+			margin-bottom: 0px;
+			margin-top: 0;
+
+			title {
+				font-size: 24px;
+			}
+
+			> #header {
+				&:first-child {
+					height: 48px;
+					.flex(center-y);
+					margin-bottom: 8px;
+					border-bottom: 1px solid #ccc;
+
+					> title {
+						margin:0;
+						padding:0;
+						.uppercase();
+					}
+				}
+				title {
+					margin-bottom: 16px;
+					padding-bottom: 16px;
+				}
+			}
+			> #body {
+				max-height: 400px;
+				overflow-y: auto;
+				overflow-x: hidden;
+
+				[type=list] {
+					> action {
+						> label {
+
+						}
+					}
+				}
+
+				#sections {
+					> [type=section] {
+						margin-bottom: 0;
+						margin-top: 24px;
+						> title {
+							margin-bottom:8px;
+							border-bottom: 1px solid #ccc;
+							height: 48px;
+							.flex(center-y);
+							justify-content: flex-start;
+							.capitalize();
+							+ p {
+
+							}
+						}
+
+					}
+				}
+				> wrapper {
+					display: flex;
+					> wrapper {
+						display: flex;
+						&[col=left] {
+							flex: 1;
+						}
+						&[col=right] {
+							width: 280px;
+							flex: initial;
+							margin-left:32px;
+						}
+					}
+
+				}
+			}
+		}
+	}
+</style>
+<control type="patterns" position="bottom">
+	<wrapper>
+		<wrapper id="header">
+			<title content="label"></title>
+		</wrapper>
+		<wrapper id="body">
+			<p id="description" content="description"></p>
+			<wrapper>
+				<wrapper col="left">
+					<wrapper id="sections"></wrapper>
+				</wrapper>
+				<wrapper col="right">
+					<wrapper>
+						<wrapper id="sections">
+							<wrapper type="section">
+								<title>Videos</title>
+							</wrapper>
+						</wrapper>
+					</wrapper>
+				</wrapper>
+			</wrapper>
+		</wrapper>
+		<wrapper id="footer"></wrapper>
+	</wrapper>
+</control>

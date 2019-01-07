@@ -1,0 +1,89 @@
+.mixin(@a) when (isnumber(@a)){
+	button when (@a = 5) {
+		color: white;
+	}
+
+	button {
+		color:black; 
+	}
+}
+
+.mixin(5);
+
+
+/*
+	Looping
+*/
+.generate-columns(4);
+
+.generate-columns(@n, @i: 1) when (@i =< @n) {
+	.column-@{i} {
+		width: (@i * 100% / @n);
+	}
+
+	.generate-columns(@n, (@i + 1));
+}
+
+
+/*
+	Merge
+*/
+.mixin() {
+	transform+_: scale(2);
+}
+.myclass {
+	.mixin();
+	transform+_: rotate(15deg);
+}
+
+/*
+	Explosion!
+*/
+p, a, ul, li {
+	border-top: 2px dotted #366;
+
+	& + & {
+		border-top: 0;
+	}
+}
+
+
+/*
+	Extend
+*/
+.animal {
+	background-color: black;
+	color: white;
+}
+.bear {
+	&:extend(.animal);
+	background-color: brown;
+}
+
+/*
+	Homeless Functions
+	https://github.com/pixelass/homeless
+*/
+@list: "a", "b", "c";
+
+.each(@list, {
+	.callback(@item, @index){
+		.@{item} {
+			item:@item;
+			index:@index;
+		}
+	}
+});
+
+.if(isnumber(2), {
+	.then(){
+		test {
+			bool: "pass";
+		}
+	}
+	.else(){
+		test {
+			bool: "fail";
+		}
+	}
+});

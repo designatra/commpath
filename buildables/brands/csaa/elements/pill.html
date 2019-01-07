@@ -1,0 +1,57 @@
+<style rel="stylesheet/less" type="text/less">
+	pill {
+		.flex(center-y);
+        padding: 0 8px 0 8px;
+        height:32px;
+		border-radius: 100px;
+		width:fit-content;
+		.empty();
+        margin-left:8px;
+
+        &:first-child {
+            margin-left:0px;
+        }
+
+
+        // TODO: Should be mixins with the theming styles
+        //       .pill(theme_all);
+
+		&[state=yoda], &[theme=yoda] {
+			background-color:@yoda;
+			color:white;
+		}
+		&[state=grey-4], &[theme=grey-4] {
+			background-color:@grey-4;
+			color:@grey-1;
+            > svg {
+                color:currentColor;
+            }
+		}
+		&[state=bb8], &[theme=bb8] {
+			background-color:@bb8;
+			color:white;
+		}
+        &[state=saber], &[theme=saber] {
+           background-color:@saber;
+           color:white;
+       }
+
+        > svg {
+            height:16px;
+            .empty();
+
+            &:empty {
+                + label {
+
+                }
+            }
+        }
+        > label {
+            padding: 0 8px;
+        }
+	}
+</style>
+<pill attr="state:state||pill.state,theme:theme||pill.theme">
+    <icon svg="class:icon" attr="type:icon_type"></icon>
+    <label content="label||pill.label"></label>
+</pill>

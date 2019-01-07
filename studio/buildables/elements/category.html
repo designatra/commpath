@@ -1,0 +1,134 @@
+<style rel="stylesheet/less" type="text/less">
+	category {
+		cursor:pointer;
+		height: 30px;
+		.span(x);
+		.flex(center-y);
+		border-bottom: 1px solid #cccccc;
+		z-index:1;
+
+		&:last-of-type {
+
+		}
+		* {
+			cursor:pointer;
+		}
+
+		// TODO: couldn't extend from item.html where the mixin was originally defined
+		.itemCount {
+			.font(rubik);
+			font-size: 12px;
+			font-weight: bold;
+			text-transform: uppercase;
+			text-align: center;
+			width:42px;
+			.pos(top-right);
+			.flex(center);
+			.span(y);
+		}
+		&[elements="0"] {
+			&[type=other] {
+				.hide();
+			}
+
+			&:after {
+				display:none
+			}
+		}
+		&:after {
+			&:extend(category .itemCount);
+			content:attr(elements);
+		}
+		&:hover > wrapper {
+
+		}
+		&.expanded {
+			background: @brand-grey-3;
+			color: white;
+			> wrapper {
+
+				&:hover > wrapper {
+
+				}
+			}
+		}
+		> wrapper {
+			.flex(center-y);
+			.span(y);
+		}
+		
+		&[elements] {
+			icon {
+				visibility:visible;
+			}
+		}
+		&[elements="0"] {
+			icon {
+				visibility:hidden;
+			}
+		}
+		icon {
+			width: 42px;
+			.flex(center-x);
+		
+			> svg {
+				height:14px;
+				width:14px;
+			}
+		}
+		label {
+			font-size: 10px;
+			font-weight: 400;
+			.font(lato);
+			text-transform: uppercase;
+			margin-bottom: 0px;
+			height: 30px;
+			line-height: 30px;
+		}
+		> wrapper > label {
+			flex:1;
+		}
+		aux {
+			width: 48px;
+
+			> label {
+				text-align: center;
+				color: rgba(0,0,0,.5);
+			}
+		}
+
+		+ items {
+			> item {
+				aux > icon {
+					background: rgba(0, 127, 206,0);
+					fill: rgba(255,255,255,0);
+					z-index:20;
+
+					.border-radius(35px 0px 0px 35px);
+					margin-left: 12px;
+
+					svg {
+						.hide();
+					}
+				}
+
+				&.selected aux > icon {
+					background: rgba(0, 127, 206,1);
+					fill: rgba(255,255,255,1);
+					.hide();
+				}
+			} 
+		}
+	}
+</style> 
+<category attr="type:type||name"  elements=0>
+	<wrapper>
+		<icon>
+			<svg class="oneui-core-arrow-right"><use xlink:href="#oneui-core-arrow-right"></use></svg>
+		</icon>
+		<label content="type||name||meta.title||title"></label>
+		<aux>
+			<label content="description||summary||meta.summary"></label>
+		</aux>
+	</wrapper>
+</category>

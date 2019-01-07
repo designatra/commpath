@@ -1,0 +1,156 @@
+<style rel="stylesheet/less" type="text/less">
+	card {
+		.element(block);
+		max-width: 970px;
+		min-width: ~"calc(380px - 15px - 15px);";
+		margin:15px;
+		background:rgba(255,255,255,1);	
+		.card-shadow();
+		.card-border();
+
+		.themes(cards);
+
+		thing {
+			.element(block);
+			.empty();
+		}
+
+		wrapper#header {
+			padding:0 24px 24px 24px;
+			margin-bottom: 24px;
+			border-bottom: 2px solid;
+			.card-title-seperator-color();
+			.flex(center-y);
+			
+			> wrapper {
+				label {
+					.card-title-font();
+					.card-title-color();
+				}
+				thing{
+					margin-top:8px;
+				}
+			}
+			
+			> svg {
+				.dims(equal, 42px);
+				color: @saber;
+				margin: 0 10px;
+				&:empty {
+					.hide();
+
+					+ wrapper {
+						margin-left:0px;
+						flex:1;
+					}
+				}
+
+				+ wrapper {
+					margin-left:10px;
+				}
+			}
+
+			+ thing {
+				&#instruction {
+					//padding-top:20px; // 40px total (card header has bottom margin of 20px + instruction 20px padding-top)
+					margin-bottom:20px;
+				}
+			}
+
+			> wrapper#details {
+				padding-bottom:16px;
+				> thing {
+					.element(block);
+					color:@grey-3;
+					margin-top:3px;
+
+					&:first-child {
+						margin-top:0px;
+					}
+				}
+				.empty();
+			}
+
+			+ wrapper#body { 
+				thing#description {
+					margin-top:@seperation/2;
+					display:block;
+					line-height: 18px;
+
+					.empty();
+				}
+			}
+		}
+		> wrapper {
+			// padding: 48px;
+			// padding:48px 48px 24px 48px;
+			padding: 24px 0px 24px 0px;
+			
+			wrapper#body {
+				> action[type=block]{
+					&:first-of-type {
+						margin-top:-16px;
+					}
+					&:last-of-type {
+						border-bottom:0px none;
+					}
+				}
+
+				thing#description {
+					margin-top:@seperation/2;
+					display:block;
+					line-height: 18px;
+
+					.empty();
+				}
+			}
+		}
+
+		&#vehicle_ownership {
+			wrapper#body > form > fields {
+				> action {
+					display:none;
+					margin-top:22px;
+
+					&#add_interest {
+						display:flex;
+					}
+				}
+			}
+		}
+
+		// Experimenting with workflows contained/confined to a card
+		views {
+			position:relative;
+			width:100%;
+
+			> wrapper {
+				.span(all);
+				
+				> view {
+					position:relative;
+					height:250px;
+					background:rgba(255,255,255,.7);
+
+					float: left;
+					width: 374px;
+				}
+			}
+		}
+	}
+</style>
+<card attr="id:id,type:type,visible:visible,theme:theme" theme="white">
+	<wrapper>
+		<wrapper id="header">
+			<icon svg="class:header.icon||icon"></icon>
+			<wrapper position="left">
+				<label content="header.title||title||header.line1||line1"></label>
+				<thing content="header.line2||line2||subtitle"></thing>
+				<thing content="header.line3||line3"></thing>
+			</wrapper>
+			<wrapper position="right"></wrapper>
+		</wrapper>
+		<thing id="instruction" content="header.instruction||header.description||header.line4||instruction||description||line4"></thing>
+		<wrapper id="body"></wrapper>
+	</wrapper>
+</card>

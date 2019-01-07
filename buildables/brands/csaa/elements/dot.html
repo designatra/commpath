@@ -1,0 +1,18 @@
+<style rel="stylesheet/less" type="text/less">
+	thing[type=dot] {
+		.dims(6px);
+		.border-radius(100%);
+		background-color:@grey-4;
+		.transition(background-color .4s);
+		margin-left:6px;
+
+		&:first-of-type {
+			margin-left:0px;
+		}
+
+		&[active=true] {
+			background-color:@blue-4;
+		}
+	}
+</style>
+<thing type="dot" attr="id:id,class:class" content="content||label||title"></thing>
