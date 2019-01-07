@@ -8,12 +8,6 @@ var root = "";
 $j(document).ready(function(){
 	initialize();
 
-	// $j.what({
-	// 	initaldata:{
-  //
-	// 	}
-	// });
-
 	$j.when(
 		//$j.getScript("/buildables/inventory.js"),
 	)
