@@ -39,17 +39,15 @@ $j(document).ready(function(){
 					// 	name: "panel",
 					// 	component:true
 					// },
-					// {
-					// 	name: "card",
-					// 	component:true
-					// },
+					{
+						name: "svg",
+						component:true
+					},
 					"menu",
 					"wrapper",
 					"p",
 					"thing",
-					"item",
-					"tabs",
-					"tab"
+					"svg.body"
 				]
 			},
 			function(frags) {
