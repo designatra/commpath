@@ -7,21 +7,8 @@
 	};
 
 	plugin.methods.dom = {
-		init: function(x) {
-			return overload(x, {
-				string: function() {
-
-				},
-				object: function() {
-
-				},
-				/*
-					$j(el).studio()
-				*/
-				undefined: function() {
-					return privates.data($j(this));
-				}
-			}, $j(this));
+		init: function(o) {
+			return jQuery(this);
 		},
 	};
 
@@ -55,16 +42,6 @@
 		core: function() {
 			return $j.what();
 		}
-		/*
-			private.data($field);
-		*/
-		// data: function($el) {
-		// 	var data = $el.data("field");
-		// 	if(!data) {
-		// 		data = $el.data("field", {});
-		// 	}
-		// 	return data;
-		// }
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate
