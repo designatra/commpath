@@ -5,6 +5,7 @@ function pageBuilder() {
 }
 
 function buildVis() {
+  $j.each($j.what)
   var nodes = new vis.DataSet([
     {
       id: 1,

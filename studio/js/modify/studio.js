@@ -47,6 +47,12 @@
     */
     encode: function(x) {
 		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent(x);
+    },
+    /*
+        $j.studio("node", data);
+    */
+    node: function() {
+
     }
 	};
 

@@ -9,36 +9,31 @@ $j(document).ready(function(){
 	initialize();
 
 	$j.when(
-		//$j.getScript("/buildables/inventory.js"),
+		$j.getScript("/data/dictionary.js"),
+		$j.getScript("/data/network.js")
 	)
 	.then(function() {
 		$j.what($j.extend(true, {}, $j.what(), {
-			buildables:{
-				inventory:{},
-				by:{
-					category:{},
-					pattern:{},
-					tag:{}
+			traffic:{},
+			maps:{
+				nodes:{
+					by: {
+						id:{}
+					}
 				}
 			}
 		}));
 
-		/*
-			V3 > Project and Product Data
-		*/
-		// var productData = $j.what("products"),
-		// 	defaults = productData.defaults,
-		// 	products = productData.inventory,
-		// 	projects = $j.what("projects");
+		var maps = $j.what("maps"),
+			mappedNodes = maps.nodes.by.id;
+		$j.each($j.o("nodes"), function(i, node) {
+			mappedNodes[node.id] = node;
+		});
 
 
 		$j.el("papa").build("setup", {
 				project:"/studio/",
 				elements:[
-					// {
-					// 	name: "panel",
-					// 	component:true
-					// },
 					{
 						name: "svg",
 						component:true
