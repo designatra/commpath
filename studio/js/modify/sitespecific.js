@@ -4,8 +4,21 @@ function pageBuilder() {
   buildVis();
 }
 
+function processNodes() {
+  var nodes = [];
+  $j.each($j.o("nodes"), function() {
+    var node = this;
+
+    //node.title = ???
+    node.label = $j.o("application", this.entity.id);
+    node.image = $j.studio("node", this.logistics);
+
+    nodes.push(node);
+  });
+}
+
 function buildVis() {
-  $j.each($j.what)
+
   var nodes = new vis.DataSet([
     {
       id: 1,
