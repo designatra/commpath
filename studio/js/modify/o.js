@@ -67,6 +67,20 @@
 				return node;
 			}
 			return false;
+		},
+		/*
+				$j.o("entities")
+		*/
+		entities: function() {
+			return privates.core().dictionary;
+		},
+		/*
+				TODO: Create for each entity type
+
+				$j.o("application", 1);
+		*/
+		application:function(id) {
+			return privates.entities().application[id].label;
 		}
 	};
 
