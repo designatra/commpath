@@ -69,6 +69,12 @@
 			return false;
 		},
 		/*
+			$j.o("edges")
+		*/
+		edges: function() {
+			return privates.network().edges;
+		},
+		/*
 				$j.o("entities")
 		*/
 		entities: function() {
