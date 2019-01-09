@@ -45,14 +45,24 @@
     /*
         $j.studio("encode", svg);
     */
-    encode: function(x) {
-		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent(x);
+    encode: function($el) {
+		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent($el);
     },
     /*
-        $j.studio("node", data);
+        $j.studio("node", {
+          in:597,
+	        out:509,
+	        duds:{
+	          biz:88,
+	          it:0,
+	          planned:0
+	        }
+	       });
     */
-    node: function() {
+    node: function(data) {
+    	var $svg = $j("<wrapper></wrapper>").build("svg.node", data);
 
+	    return privates.encode($svg);
     }
 	};
 

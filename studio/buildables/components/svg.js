@@ -60,15 +60,17 @@ $j.build("component")["svg"] = {
 	"node": {
 		build: function (data, config) {
 			return $j(this).build("svg", function () {
-				return $j(this).find("foreignObject").build("svg.body", data, function () {
-					var $body = $j(this);
+				return $j(this)
+					.find("foreignObject")
+					.build("svg.body", data, function () {
+						var $body = $j(this);
 
-					if (config.after) {
-						 config.after.apply($body, [data]);
-					}
-					return $body;
+						if (config.after) {
+							 config.after.apply($body, [data]);
+						}
+						return $body;
+					});
 				});
-			});
 		}
 	}
 };
