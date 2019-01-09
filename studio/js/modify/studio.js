@@ -45,7 +45,7 @@
     /*
         $j.studio("encode", svg);
     */
-    encode: function($el) {
+    encode: function($el) {console.log($el)
 		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent($el);
     },
     /*
@@ -62,8 +62,25 @@
     node: function(data) {
     	var $svg = $j("<wrapper></wrapper>").build("svg.node", data);
 
-	    return privates.encode($svg);
-    }
+	    return privates.encode($svg[0]);
+    },
+		/*
+		    $j.studio("nodes", $j.o("nodes"));
+		*/
+		nodes: function processNodes(nodeList) {
+			var nodes = [];
+			$j.each(nodeList, function() {
+				var node = this;
+
+				//node.title = ???
+				node.label = $j.o("application", this.entity.id);
+				node.image = $j.studio("node", this.logistics);
+				node.shape = "image";
+
+				nodes.push(node);
+			});
+			return nodes;
+		}
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate

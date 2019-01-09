@@ -1,128 +1,11 @@
 function pageBuilder() {
-  var $papa = $j(this);
-
   buildVis();
 }
 
-function processNodes() {
-  var nodes = [];
-  $j.each($j.o("nodes"), function() {
-    var node = this;
-
-    //node.title = ???
-    node.label = $j.o("application", this.entity.id);
-    node.image = $j.studio("node", this.logistics);
-
-    nodes.push(node);
-  });
-}
-
 function buildVis() {
+  var nodes = new vis.DataSet($j.studio("nodes", $j.o("nodes")));
 
-  var nodes = new vis.DataSet([
-    {
-      id: 1,
-      value:10,
-      title:'',
-      label: 'PAS',
-      x: 1,
-      y: 1
-    },
-    {
-      id: 2,
-      value:10,
-      title:'10 IN / 1 FAIL',
-      label: 'MDM'
-    },
-    {
-      id: 3,
-      value:9,
-      title:'9 IN / 9 OUT',
-      label: 'SOA'
-    },
-    {
-      id: 4,
-      value:9,
-      title:'9 IN / 5 FAIL',
-      label: 'Digital COM'
-    },
-    {
-      id: 5,
-      value:2,
-      title:'2 IN',
-      label: 'DCS'
-    },
-    {
-      id: 6,
-      value:4,
-      title:'4 IN',
-      label: 'Delivery Engine'
-    },
-    {
-      id: 7,
-      value:5,
-      title:'10 IN',
-      label: 'Events Consumer'
-    },
-    {
-      id: 8,
-      value:4,
-      title:'4 IN',
-      label: 'Customer'
-    }
-  ]);
-
-  var edges = new vis.DataSet([
-    {
-      from: 1,
-      to: 2,
-      value:10,
-      title:'10 Outbound',
-      arrows: 'to'
-    },
-    {
-      from: 1,
-      to: 7,
-      value:10,
-      title:'10 Outbound',
-      arrows: 'to'
-    },
-    {
-      from: 2,
-      to: 3,
-      value:9,
-      title:'9 Outbound',
-      arrows: 'to'
-    },
-    {
-      from: 3,
-      to: 4,
-      value:9,
-      title:'9 Outbound',
-      arrows: 'to'
-    },
-    {
-      from: 4,
-      to: 6,
-      value:4,
-      title:'4 Outbound',
-      arrows: 'to'
-    },
-    {
-      from: 6,
-      to: 8,
-      value:4,
-      title:'4 Outbound',
-      arrows: 'to'
-    },
-    {
-      from: 4,
-      to: 5,
-      value:2,
-      title:'2 Outbound',
-      arrows: 'to'
-    }
-  ]);
+  var edges = new vis.DataSet($j.o("edges"));
 
   // create a network
   var container = $j.el("papa")[0];
@@ -203,7 +86,7 @@ function buildVis() {
       /*    W/ LABEL: ellipse, circle, database, box, text
             NO Label: image, circularImage, diamond, dot, star, triangle, triangleDown, hexagon, square and icon
       */
-      shape: 'box',
+      //shape: 'box',
       scaling:{
         min:8,
         max:50,

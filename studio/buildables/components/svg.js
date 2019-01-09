@@ -42,8 +42,13 @@ $j.build("component")["svg"] = {
 	/*
 			$j.el("papa").children()
 				.build("svg.node", {
-					name:"michael",
-					dog:"lucy",
+					in:509,
+	        out:458,
+	        duds:{
+	          biz:51,
+	          it:0,
+	          planned:0
+	        },
 					dims: {
 						height:70,
 						width:300
