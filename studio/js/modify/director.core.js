@@ -8,13 +8,15 @@ var root = "";
 $j(document).ready(function(){
 	initialize();
 
+
+
 	$j.when(
 		$j.getScript("/data/dictionary.js"),
 		$j.getScript("/data/network.js")
 	)
 	.then(function() {
 		$j.what($j.extend(true, {}, $j.what(), {
-			traffic:{},
+			logistics:{},
 			maps:{
 				nodes:{
 					by: {
@@ -24,6 +26,7 @@ $j(document).ready(function(){
 			}
 		}));
 
+		// PRE-Process: ...& do some mapping
 		var maps = $j.what("maps"),
 			mappedNodes = maps.nodes.by.id;
 		$j.each($j.o("nodes"), function(i, node) {

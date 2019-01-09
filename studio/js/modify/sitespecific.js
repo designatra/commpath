@@ -227,3 +227,7 @@ function buildVis() {
 
   var network = new vis.Network(container, data, options);
 }
+
+
+
+

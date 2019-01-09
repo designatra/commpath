@@ -191,7 +191,7 @@ function initialize() {
 
 			for( var i = 0; i < length; ++i ) {
 				var index = getRandomInt( 0, parts.length - 1 );
-				id += parts[index];	 
+				id += parts[index];
 			}
 
 			return id;
@@ -257,7 +257,7 @@ function initialize() {
 			array: function(o, keyAs) {
 				// const toArrayWithKey = (obj, keyAs) =>
 				return  _.values(_.mapValues(o, (value, key) => { value[keyAs] = key; return value; }));
-		
+
 			}
 		},
 		/*
@@ -270,7 +270,7 @@ function initialize() {
 			var results = find(x, s);
 			if(results.length>1) {
 				return results;
-			} 
+			}
 			return results[0];
 
 			function find(o, key) {
@@ -303,7 +303,7 @@ function initialize() {
 				1. Migrate to $j core as a dom extension so context may be passed
 				2. Improve logic (pretty bad)
 				3. Extend actors.events.js to accomadate some event settings like:
-					a. if events within should be throttled 
+					a. if events within should be throttled
 					b. throttle timeout/setting config (vs passing)
 				4. Come up with way to reduce parameters needed using unique jqueryID and config
 		*/
@@ -312,7 +312,7 @@ function initialize() {
 			if(event && event.timeStamp) {
 				timeStamp = event.timeStamp;
 			}
-			
+
 			var times = $j.what("times");
 			if(!times[id]) {
 				$j.what("times")[id] = timeStamp;
@@ -603,6 +603,9 @@ function guidGenerator() {
 		};
 	return(S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
+var guid = function() {
+	return guidGenerator();
+}
 
 function duplicates(arr) {
 	var i, len = arr.length,
@@ -801,7 +804,7 @@ var LOG_LEVEL="debug",LOG_OUTPUT_ELEMENT_ID="Log4jsLogOutput",Log4js={logger:nul
  */
 jQuery.fn.extend({everyTime:function(a,b,c,d,e){return this.each(function(){jQuery.timer.add(this,a,b,c,d,e)})},oneTime:function(a,b,c){return this.each(function(){jQuery.timer.add(this,a,b,c,1)})},stopTime:function(a,b){return this.each(function(){jQuery.timer.remove(this,a,b)})}}),jQuery.extend({timer:{guid:1,global:{},regex:/^([0-9]+)\s*(.*s)?$/,powers:{ms:1,cs:10,ds:100,s:1e3,das:1e4,hs:1e5,ks:1e6},timeParse:function(a){if(void 0==a||null==a)return null;var b=this.regex.exec(jQuery.trim(a.toString()));if(b[2]){var c=parseInt(b[1],10),d=this.powers[b[2]]||1;return c*d}return a},add:function(a,b,c,d,e,f){var g=0;if(jQuery.isFunction(c)&&(e||(e=d),d=c,c=b),b=jQuery.timer.timeParse(b),!("number"!=typeof b||isNaN(b)||b<=0)){e&&e.constructor!=Number&&(f=!!e,e=0),e=e||0,f=f||!1,a.$timers||(a.$timers={}),a.$timers[c]||(a.$timers[c]={}),d.$timerID=d.$timerID||this.guid++;var h=function(){f&&this.inProgress||(this.inProgress=!0,(++g>e&&0!==e||d.call(a,g)===!1)&&jQuery.timer.remove(a,c,d),this.inProgress=!1)};h.$timerID=d.$timerID,a.$timers[c][d.$timerID]||(a.$timers[c][d.$timerID]=window.setInterval(h,b)),this.global[c]||(this.global[c]=[]),this.global[c].push(a)}},remove:function(a,b,c){var e,d=a.$timers;if(d){if(b){if(d[b]){if(c)c.$timerID&&(window.clearInterval(d[b][c.$timerID]),delete d[b][c.$timerID]);else for(var c in d[b])window.clearInterval(d[b][c]),delete d[b][c];for(e in d[b])break;e||(e=null,delete d[b])}}else for(b in d)this.remove(a,b,c);for(e in d)break;e||(a.$timers=null)}}}});
 
-/*	
+/*
 	Hover Intent
 	https://briancherne.github.io/jquery-hoverIntent/
 */

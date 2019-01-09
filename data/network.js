@@ -1,72 +1,113 @@
 $j.what("network", {
   nodes: [
     {
-      id:guidGenerator(),
-      value: 10,
-      title: '',
+      id:guid(),
+      logistics:{
+        in:630,
+        out:597,
+        duds:{
+          biz:33,
+          it:0,
+          planned:0
+        }
+      },
       entity:{
         type:"application",
         id:1
       }
     },
     {
-      id:guidGenerator(),
-      value: 10,
-      title: '10 IN / 1 FAIL',
+      id:guid(),
+      logistics:{
+        in:597,
+        out:509,
+        duds:{
+          biz:88,
+          it:0,
+          planned:0
+        }
+      },
       entity:{
         type:"application",
         id:2
       }
     },
     {
-      id:guidGenerator(),
-      value: 9,
-      title: '9 IN / 9 OUT',
+      id:guid(),
+      logistics:{
+        in:509,
+        out:458,
+        duds:{
+          biz:51,
+          it:0,
+          planned:0
+        }
+      },
       entity:{
         type:"application",
         id:3
       }
     },
     {
-      id:guidGenerator(),
-      value: 9,
-      title: '9 IN / 5 FAIL',
+      id:guid(),
+      logistics:{
+        in:458,
+        out:274,
+        duds:{
+          biz:184,
+          it:0,
+          planned:0
+        }
+      },
       entity:{
         type:"application",
         id:4
       }
     },
     {
-      id:guidGenerator(),
-      value: 2,
-      title: '2 IN',
+      id:guid(),
+      logistics:{
+        in:136,
+        out:0
+      },
       entity:{
         type:"application",
         id:5
       }
     },
     {
-      id:guidGenerator(),
-      value: 4,
-      title: '4 IN',
+      id:guid(),
+      logistics:{
+        in:138,
+        out:131,
+        duds:{
+          biz:7,
+          it:0,
+          planned:0
+        }
+      },
       entity:{
         type:"application",
         id:6
       }
     },
     {
-      id:guidGenerator(),
-      value: 5,
-      title: '10 IN',
+      id:guid(),
+      logistics:{
+        in:10,
+        out:0
+      },
       entity:{
         type:"application",
         id:7
       }
     },
     {
-      id:guidGenerator(),
-      value: 4,
-      title: '4 IN',
+      id:guid(),
+      logistics:{
+        in:131,
+        out:0
+      },
       entity:{
         type:"application",
         id:8
@@ -75,60 +116,60 @@ $j.what("network", {
   ],
   edges: [
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 1,
       to: 2,
-      value: 10,
-      title: '10 Outbound',
-      arrows: 'to'
+      arrows: 'to',
+      value: 597,
+      title: ''
     },
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 1,
       to: 7,
+      arrows: 'to',
       value: 10,
-      title: '10 Outbound',
-      arrows: 'to'
+      title: ''
     },
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 2,
       to: 3,
-      value: 9,
-      title: '9 Outbound',
-      arrows: 'to'
+      arrows: 'to',
+      value:509,
+      title: ''
     },
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 3,
       to: 4,
-      value: 9,
-      title: '9 Outbound',
-      arrows: 'to'
+      arrows: 'to',
+      value: 458,
+      title: ''
     },
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 4,
       to: 6,
-      value: 4,
-      title: '4 Outbound',
-      arrows: 'to'
+      arrows: 'to',
+      value: 138,
+      title: ''
     },
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 6,
       to: 8,
-      value: 4,
-      title: '4 Outbound',
-      arrows: 'to'
+      arrows: 'to',
+      value: 131,
+      title: ''
     },
     {
-      id:guidGenerator(),
+      id:guid(),
       from: 4,
       to: 5,
-      value: 2,
-      title: '2 Outbound',
-      arrows: 'to'
+      arrows: 'to',
+      value: 136,
+      title: ''
     }
   ]
 });
