@@ -45,7 +45,7 @@
     /*
         $j.studio("encode", svg);
     */
-    encode: function($el) {console.log($el)
+    encode: function($el) {
 		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent($el);
     },
     /*
@@ -60,9 +60,9 @@
 	       });
     */
     node: function(data) {
-    	var $svg = $j("<wrapper></wrapper>").build("svg.node", data);
+    	var $svg = $j("<div></div>").build("svg.node", data);
 
-	    return privates.encode($svg[0]);
+	    return privates.encode($svg[0].outerHTML);
     },
 		/*
 		    $j.studio("nodes", $j.o("nodes"));

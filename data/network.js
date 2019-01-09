@@ -1,7 +1,7 @@
 $j.what("network", {
   nodes: [
     {
-      id:guid(),
+      id:1,
       logistics:{
         in:630,
         out:597,
@@ -17,7 +17,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:2,
       logistics:{
         in:597,
         out:509,
@@ -33,7 +33,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:3,
       logistics:{
         in:509,
         out:458,
@@ -49,7 +49,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:4,
       logistics:{
         in:458,
         out:274,
@@ -65,7 +65,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:5,
       logistics:{
         in:136,
         out:0
@@ -76,7 +76,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:6,
       logistics:{
         in:138,
         out:131,
@@ -92,7 +92,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:7,
       logistics:{
         in:10,
         out:0
@@ -103,7 +103,7 @@ $j.what("network", {
       }
     },
     {
-      id:guid(),
+      id:8,
       logistics:{
         in:131,
         out:0
