@@ -1,6 +1,7 @@
 $j.what("network", {
   nodes: [
     {
+      id:guidGenerator(),
       value: 10,
       title: '',
       entity:{
@@ -9,6 +10,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 10,
       title: '10 IN / 1 FAIL',
       entity:{
@@ -17,6 +19,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 9,
       title: '9 IN / 9 OUT',
       entity:{
@@ -25,6 +28,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 9,
       title: '9 IN / 5 FAIL',
       entity:{
@@ -33,6 +37,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 2,
       title: '2 IN',
       entity:{
@@ -41,6 +46,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 4,
       title: '4 IN',
       entity:{
@@ -49,6 +55,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 5,
       title: '10 IN',
       entity:{
@@ -57,6 +64,7 @@ $j.what("network", {
       }
     },
     {
+      id:guidGenerator(),
       value: 4,
       title: '4 IN',
       entity:{
@@ -67,6 +75,7 @@ $j.what("network", {
   ],
   edges: [
     {
+      id:guidGenerator(),
       from: 1,
       to: 2,
       value: 10,
@@ -74,6 +83,7 @@ $j.what("network", {
       arrows: 'to'
     },
     {
+      id:guidGenerator(),
       from: 1,
       to: 7,
       value: 10,
@@ -81,6 +91,7 @@ $j.what("network", {
       arrows: 'to'
     },
     {
+      id:guidGenerator(),
       from: 2,
       to: 3,
       value: 9,
@@ -88,6 +99,7 @@ $j.what("network", {
       arrows: 'to'
     },
     {
+      id:guidGenerator(),
       from: 3,
       to: 4,
       value: 9,
@@ -95,6 +107,7 @@ $j.what("network", {
       arrows: 'to'
     },
     {
+      id:guidGenerator(),
       from: 4,
       to: 6,
       value: 4,
@@ -102,6 +115,7 @@ $j.what("network", {
       arrows: 'to'
     },
     {
+      id:guidGenerator(),
       from: 6,
       to: 8,
       value: 4,
@@ -109,6 +123,7 @@ $j.what("network", {
       arrows: 'to'
     },
     {
+      id:guidGenerator(),
       from: 4,
       to: 5,
       value: 2,

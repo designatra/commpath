@@ -44,48 +44,29 @@
 		core: function() {
 			return $j.what();
 		},
-		projects: function() {
-			return this.projects;
+		/*
+				$j.o("network");
+		 */
+		network: function() {
+			return privates.core().network;
 		},
 		/*
-			Utility to get properties of a certain products > project
-
-			$j.o("project", {
-				product:"insurance portal",
-				project:"Scheduled Payments"
-			})
-		*/
-		project: function(o) {
-			var project;
-			$j.each($j.o("projects").by.product[o.product], function() {
-				if(this.title==o.project) {
-					project = this;
-					return false;
-				}
-			});
-			return project;
+				$j.o("nodes");
+		 */
+		nodes: function() {
+			return privates.network().nodes;
 		},
 		/*
-			Utility to get properties of a certain products > projects > tools > version
-			*** ORIGINAL OBJECT
-
-			$j.o("version", {
-				product:"insurance portal",
-				project:"Scheduled Payments",
-				tool:"web",
-				version:0.1
-			})
+				$j.o("node", "b0186417-dde8-d321-4b14-4ab8d709e233");
 		*/
-		version: function(o) {
-			var version;
-			$j.each($j.o("project", o).tools[o.tool].versions, function() {
-				if(this.version==o.version) {
-					version = this;
-					return false;
-				}
-			});
+		node: function(id) {
+			var nodes = $j.what("maps").nodes.by.id,
+				node = nodes[id];
 
-			return version;
+			if(node) {
+				return node;
+			}
+			return false;
 		}
 	};
 
