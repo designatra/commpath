@@ -67,8 +67,8 @@ $j.build("component")["svg"] = {
 						 config.after.apply($body, [data]);
 					}
 					return $body;
-				})
-			})
+				});
+			});
 		}
 	}
-}
+};

@@ -41,7 +41,13 @@
 	var privates = plugin.privates = {
 		core: function() {
 			return $j.what();
-		}
+		},
+    /*
+        $j.studio("encode", svg);
+    */
+    encode: function(x) {
+		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent(x);
+    }
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate
