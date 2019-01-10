@@ -8,7 +8,7 @@ function buildVis() {
   var edges = new vis.DataSet($j.o("edges"));
 
   // create a network
-  var container = $j.el("papa")[0];
+  var container = $j.el("papa").children("#viz")[0];
   var data = {
     nodes: nodes,
     edges: edges
@@ -132,7 +132,11 @@ function buildVis() {
 
   var network = new vis.Network(container, data, options);
 
-  
+  network.on("click", function (params) {
+    params.event = "[original event]";
+    document.getElementById('inspector').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
+    console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
+  });
 }
 
 
