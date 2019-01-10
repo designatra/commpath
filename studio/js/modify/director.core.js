@@ -41,6 +41,11 @@ $j(document).ready(function(){
 						name: "svg",
 						component:true
 					},
+					{
+						name: "inspector",
+						component:true
+					},
+					"inspector.body",
 					"menu",
 					"wrapper",
 					"p",
