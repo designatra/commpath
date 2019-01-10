@@ -60,7 +60,11 @@
 	       });
     */
     node: function(data) {
-    	var $svg = $j("<div></div>").build("svg.node", data);
+    	var $svg = $j("<div></div>").build("svg.node", data, {
+    		populate: function(i, o) {
+    			return o;
+		    }
+	    });
 
 	    return privates.encode($svg[0].outerHTML);
     },
@@ -73,7 +77,7 @@
 				var node = this;
 
 				//node.title = ???
-				node.label = $j.o("application", this.entity.id);
+				node.logistics.label = $j.o("application", this.entity.id);
 				node.image = $j.studio("node", this.logistics);
 				node.shape = "image";
 
