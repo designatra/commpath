@@ -1,24 +1,106 @@
 <style>
-  inspector wrapper[type=body] {
-    > title {
-      font-size:20px;
-      + wrapper {
-        thing {
-          &#in {
+inspector wrapper[type=body] {
+  font-size:14px;
+  font-weight:300;
+  > title {
+    font-size:20px;
+    padding:0 0 8px 0;
+    //margin-bottom:8px;
 
-           }
+    &:after {
+      content:"";
+      position:absolute;
+      left:-8px;
+      bottom:0;
+      border-bottom:1px solid rgba(0,0,0,.3);
+      width:calc(100% + 8px + 8px);
+    }
+
+    + wrapper {
+
+      > wrapper {
+        display:flex;
+
+        > wrapper {
+          flex:1;
+          margin-top: 8px;
+          > title {
+            font-family:Raleway;
+            font-weight:700;
+            font-size:12px;
+          }
+          > thing {
+            margin-top:3px;
+            font-weight:500;
+            color:#333333;
+          }
+
+          &#in {
+            title {
+              color:darkgreen;
+            }
+          }
+          &#out {
+            title {
+              color:darkblue;
+            }
+          }
+        }
+        &#failures {
+          margin-top:16px;
+         display:block;
+          > thing {
+            color:darkred;
+
+            &:after {
+               content:"";
+               position:absolute;
+               left:0px;
+               bottom:0;
+               border-bottom:1px solid rgba(0,0,0,.3);
+               width:calc(100%);
+             }
+          }
+          > wrapper {
+            display:flex;
+            > [type=failure] {
+              flex:1;
+
+              > title {
+                font-family:Raleway;
+                font-weight:700;
+                font-size:12px;
+              }
+              > thing {
+                margin-top:3px;
+                font-weight:500;
+                color:#333333;
+              }
+            }
+          }
         }
       }
     }
   }
+}
 </style>
 <wrapper type="body">
   <title content="title"></title>
   <wrapper>
-    <thing id="in" content="logistics.in"></thing>
-    <thing id="out" content="logistics.out"></thing>
+    <wrapper>
+      <wrapper id="in">
+        <title>in</title>
+        <thing content="logistics.in"></thing>
+      </wrapper>
+      <wrapper id="out">
+        <title>out</title>
+        <thing content="logistics.out"></thing>
+      </wrapper>
+    </wrapper>
+
     <wrapper id="failures">
       <thing>Failures</thing>
+      <wrapper></wrapper>
     </wrapper>
   </wrapper>
 </wrapper>

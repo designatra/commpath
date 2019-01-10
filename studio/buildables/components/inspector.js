@@ -65,7 +65,7 @@ $j.build("component")["inspector"] = {
 							value:value
 						})
 					})
-					$j(this).find("wrapper#failures").build("inspector.failure", duds)
+					$j(this).find("wrapper#failures > wrapper").build("inspector.failure", duds)
 				}
 			);
 		}
