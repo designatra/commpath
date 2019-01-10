@@ -29,7 +29,16 @@ function buildVis() {
         sortMethod: "directed"
       }
     },
+    physics: {
+      stabilization: false
+    },
     edges: {
+      arrows: {
+        to:{
+          enabled:true,
+          scaleFactor:.5
+        }
+      },
       arrowStrikethrough:false,
       chosen:{
         edge:true
@@ -40,20 +49,20 @@ function buildVis() {
       },
       scaling:{
         min:1,
-        max:5
+        max:8
       },
       smooth: {
         type: "horizontal",
-        roundness:0.7
+        roundness:0.3
       },
     },
     nodes: {
-      borderWidth: 1,
-      borderWidthSelected: 1,
+      //borderWidth: 1,
+      //borderWidthSelected: 1,
       chosen: true,
       color: {
-        border: '#666666',
-        background: 'white',
+        //border: '#666666',
+        //background: 'white',
         highlight: {
           border: '#1778d3',
           background: 'white'
@@ -63,51 +72,51 @@ function buildVis() {
           background: '#D2E5FF'
         }
       },
-      font: {
-        color: '#343434',
-        size: 14, // px
-        face: 'Raleway',
-        background: 'none',
-        strokeWidth: 0, // px
-        strokeColor: '#ffffff',
-        align: 'center',
-        multi: true,
-        vadjust: 1
-      },
+      // font: {
+      //   color: '#343434',
+      //   size: 14, // px
+      //   face: 'Raleway',
+      //   background: 'none',
+      //   strokeWidth: 0, // px
+      //   strokeColor: '#ffffff',
+      //   align: 'center',
+      //   multi: true,
+      //   vadjust: 1
+      // },
       labelHighlightBold: false,
       mass: 1,
-      shadow:{
-        enabled: true,
-        color: 'rgba(0,0,0,0.2)',
-        size:4,
-        x:2,
-        y:2
-      },
+      // shadow:{
+      //   enabled: true,
+      //   color: 'rgba(0,0,0,0.8)',
+      //   size:4,
+      //   x:2,
+      //   y:2
+      // },
       /*    W/ LABEL: ellipse, circle, database, box, text
             NO Label: image, circularImage, diamond, dot, star, triangle, triangleDown, hexagon, square and icon
       */
       //shape: 'box',
-      scaling:{
-        min:8,
-        max:50,
-        // label: {
-        //   min:12,
-        //   max:16
-        // }
-      },
-      widthConstraint:{
-        minimum:30,
-        maximum:100
-      },
-      heightConstraint:{
-        minimum:30
-      },
-      margin:{
-        top:0,
-        right:10,
-        bottom:0,
-        left:10
-      },
+      // scaling:{
+      //   min:8,
+      //   max:650,
+      //   // label: {
+      //   //   min:12,
+      //   //   max:16
+      //   // }
+      // },
+      // widthConstraint:{
+      //   minimum:30,
+      //   maximum:100
+      // },
+      // heightConstraint:{
+      //   minimum:30
+      // },
+      // margin:{
+      //   top:0,
+      //   right:10,
+      //   bottom:0,
+      //   left:10
+      // },
       shapeProperties: {
         borderRadius: 1
       }
@@ -122,6 +131,8 @@ function buildVis() {
 
 
   var network = new vis.Network(container, data, options);
+
+  
 }
 
 
