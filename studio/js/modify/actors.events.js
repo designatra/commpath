@@ -14,8 +14,14 @@ $j.actors("register", {
 		$j.what("network").network.on("click", function (e) {
 			$j.log(e);
 
-			var node = $j.o("node", this.getNodeAt(e.pointer.DOM )),
-				application = $j.o("application", node.entity.id);
+			var node = $j.o("node", this.getNodeAt(e.pointer.DOM));
+
+			var entity = node.entity;
+			if(!entity) {
+				return false;
+			}
+
+			var application = $j.o("application", entity.id);
 
 			$inspector.build("inspector.content", {
 				title:application,

@@ -58,14 +58,24 @@ $j.build("component")["inspector"] = {
 			return $j(this)
 				.empty()
 				.build("inspector.body", data, function (i, o) {
-					var duds = [];
+					var duds = [],
+						totalDuds = 0;
 					$j.each(o.logistics.duds, function(key, value) {
+						totalDuds = totalDuds + value;
 						duds.push({
 							type:key,
 							value:value
 						})
-					})
-					$j(this).find("wrapper#failures > wrapper").build("inspector.failure", duds)
+					});
+
+					$j.log(totalDuds)
+					var $failures = $j(this).find("wrapper#failures").hide();
+
+					if(totalDuds>0) {
+						return $failures
+							.show()
+							.children("wrapper").build("inspector.failure", duds)
+					}
 				}
 			);
 		}
