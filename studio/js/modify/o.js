@@ -87,7 +87,13 @@
 		*/
 		application:function(id) {
 			return privates.entities().application[id].label;
-		}
+		},
+		/*
+				$j.o("communications")
+		*/
+		communications: function() {
+			return privates.core().communications;
+		},
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate

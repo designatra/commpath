@@ -1,5 +1,9 @@
 function pageBuilder() {
   $j(this).build("inspector");
+
+  $j(this).build("communications", function(i, data) {
+    $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
+  })
   buildVis();
 }
 
@@ -124,10 +128,10 @@ function buildVis() {
     },
     interaction:{
       hover:true
-    },
-    manipulation: {
-      enabled: true
     }
+    // manipulation: {
+    //   enabled: true
+    // }
   };
 
   $j.what("network").network = new vis.Network(container, data, options);

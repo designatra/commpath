@@ -68,7 +68,6 @@ $j.build("component")["inspector"] = {
 						})
 					});
 
-					$j.log(totalDuds)
 					var $failures = $j(this).find("wrapper#failures").hide();
 
 					if(totalDuds>0) {

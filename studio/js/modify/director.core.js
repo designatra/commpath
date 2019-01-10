@@ -10,7 +10,8 @@ $j(document).ready(function(){
 
 	$j.when(
 		$j.getScript("/data/dictionary.js"),
-		$j.getScript("/data/network.js")
+		$j.getScript("/data/network.js"),
+		$j.getScript("/data/communications.js")
 	)
 	.then(function() {
 		$j.what($j.extend(true, {}, $j.what(), {
@@ -49,7 +50,9 @@ $j(document).ready(function(){
 					"wrapper",
 					"p",
 					"thing",
-					"svg.body"
+					"svg.body",
+					"communications",
+					"communication"
 				]
 			},
 			function(frags) {

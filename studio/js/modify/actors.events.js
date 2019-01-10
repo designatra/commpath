@@ -12,8 +12,6 @@ $j.actors("register", {
 		var $inspector = $j(this);
 
 		$j.what("network").network.on("click", function (e) {
-			$j.log(e);
-
 			var node = $j.o("node", this.getNodeAt(e.pointer.DOM));
 
 			var entity = node.entity;
@@ -27,7 +25,6 @@ $j.actors("register", {
 				title:application,
 				logistics:node.logistics
 			})
-
 		});
 	}
 });
