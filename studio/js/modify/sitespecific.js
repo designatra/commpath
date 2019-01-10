@@ -21,7 +21,7 @@ function buildVis() {
     clickToUse: false,
     layout: {
       hierarchical: {
-        enabled: false,
+        enabled: true,
         levelSeparation: -126,
         nodeSpacing: 245,
         treeSpacing: 440,
