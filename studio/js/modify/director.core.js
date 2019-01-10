@@ -9,9 +9,9 @@ $j(document).ready(function(){
 	initialize();
 
 	$j.when(
-		$j.getScript("/data/dictionary.js"),
-		$j.getScript("/data/network.js"),
-		$j.getScript("/data/communications.js")
+		$j.getScript("/commpath/studio/data/dictionary.js"),
+		$j.getScript("/commpath/studio/data/network.js"),
+		$j.getScript("/commpath/studio/data/communications.js")
 	)
 	.then(function() {
 		$j.what($j.extend(true, {}, $j.what(), {
