@@ -17,6 +17,7 @@
     "less": "^3.0.4",
     "lodash": "^4.17.10",
     "nodemon": "^1.18.9",
+    "stylelint-config-standard": "^18.2.0",
     "typeof": "^1.0.0"
   }
 }
