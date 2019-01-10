@@ -8,8 +8,6 @@ var root = "";
 $j(document).ready(function(){
 	initialize();
 
-
-
 	$j.when(
 		$j.getScript("/data/dictionary.js"),
 		$j.getScript("/data/network.js")
@@ -46,6 +44,7 @@ $j(document).ready(function(){
 						component:true
 					},
 					"inspector.body",
+					"inspector.failure",
 					"menu",
 					"wrapper",
 					"p",

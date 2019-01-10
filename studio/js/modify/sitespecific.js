@@ -131,16 +131,9 @@ function buildVis() {
   };
 
   $j.what("network").network = new vis.Network(container, data, options);
-
   $j.el("inspector").actors({
     type:"network"
   });
-
-  // network.on("click", function (params) {
-  //   params.event = "[original event]";
-  //   document.getElementById('inspector').innerHTML = '<h2>Click event:</h2>' + JSON.stringify(params, null, 4);
-  //   console.log('click event, getNodeAt returns: ' + this.getNodeAt(params.pointer.DOM));
-  // });
 }
 
 

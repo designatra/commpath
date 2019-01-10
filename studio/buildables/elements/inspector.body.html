@@ -1,7 +1,7 @@
 <style>
   inspector wrapper[type=body] {
-    > thing:first-child {
-
+    > title {
+      font-size:20px;
       + wrapper {
         thing {
           &#in {
@@ -13,8 +13,12 @@
   }
 </style>
 <wrapper type="body">
-  <thing content="title"></thing>
+  <title content="title"></title>
   <wrapper>
     <thing id="in" content="logistics.in"></thing>
+    <thing id="out" content="logistics.out"></thing>
+    <wrapper id="failures">
+      <thing>Failures</thing>
+    </wrapper>
   </wrapper>
 </wrapper>

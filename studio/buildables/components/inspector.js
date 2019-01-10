@@ -57,8 +57,15 @@ $j.build("component")["inspector"] = {
 		build: function (data, config) {
 			return $j(this)
 				.empty()
-				.build("inspector.body", data,function () {
-
+				.build("inspector.body", data, function (i, o) {
+					var duds = [];
+					$j.each(o.logistics.duds, function(key, value) {
+						duds.push({
+							type:key,
+							value:value
+						})
+					})
+					$j(this).find("wrapper#failures").build("inspector.failure", duds)
 				}
 			);
 		}
