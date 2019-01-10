@@ -10,7 +10,7 @@ $j.what("dictionary", {
       label:"SOA"
     },
     4: {
-      label:"Digital Communications"
+      label:"Digital Comm"
     },
     5: {
       label:"DCS"

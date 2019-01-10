@@ -22,9 +22,9 @@ function buildVis() {
     layout: {
       hierarchical: {
         enabled: true,
-        levelSeparation: -126,
-        nodeSpacing: 245,
-        treeSpacing: 440,
+        //levelSeparation: -126,
+        //nodeSpacing: 245,
+        //treeSpacing: 440,
         direction: "LR",
         sortMethod: "directed"
       }
