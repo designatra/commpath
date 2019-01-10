@@ -1,0 +1,20 @@
+<style>
+  inspector wrapper[type=body] {
+    > thing:first-child {
+
+      + wrapper {
+        thing {
+          &#in {
+
+           }
+        }
+      }
+    }
+  }
+</style>
+<wrapper type="body">
+  <thing content="title"></thing>
+  <wrapper>
+    <thing id="in" content="logistics.in"></thing>
+  </wrapper>
+</wrapper>
