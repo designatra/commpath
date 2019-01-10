@@ -8,7 +8,20 @@
 	});
 */
 $j.actors("register", {
-	loaded: function(e) {
+	network: function(e) {
+		var $inspector = $j(this);
 
+		$j.what("network").network.on("click", function (e) {
+			$j.log(e);
+
+			var node = $j.o("node", this.getNodeAt(e.pointer.DOM )),
+				application = $j.o("application", node.entity.id);
+
+			$inspector.build("inspector.content", {
+				title:application,
+				logistics:node.logistics
+			})
+
+		});
 	}
 });
