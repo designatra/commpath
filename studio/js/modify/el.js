@@ -44,9 +44,15 @@
 	/*
 		Ideally these could created when fragment creates elements
 	*/
-	plugin.els = {
+	var els = plugin.els = {
 		papa: function() {
 			return $j("body > papa");
+		},
+		/*
+				$j.el("inspector")
+	  */
+		inspector: function() {
+			return els.papa().children("inspector");
 		}
 	};
 
