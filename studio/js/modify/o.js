@@ -75,6 +75,18 @@
 			return privates.network().edges;
 		},
 		/*
+			$j.o("paths");
+		*/
+		paths: function() {
+			return privates.network().paths;
+		},
+		/*
+			$j.o("path", "digitalComm1", 1);
+		*/
+		path: function(id, index) {
+			return privates.paths()[id][index-1];
+		},
+		/*
 				$j.o("entities")
 		*/
 		entities: function() {

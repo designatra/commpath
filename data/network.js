@@ -116,7 +116,7 @@ $j.what("network", {
   ],
   edges: [
     {
-      id:guidGenerator(),
+      id:"edge100",
       from: 1,
       to: 2,
       arrows: 'to',
@@ -124,7 +124,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guidGenerator(),
+      id:"edge101",
       from: 1,
       to: 7,
       arrows: 'to',
@@ -132,7 +132,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guidGenerator(),
+      id:"edge102",
       from: 2,
       to: 3,
       arrows: 'to',
@@ -140,7 +140,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guidGenerator(),
+      id:"edge103",
       from: 3,
       to: 4,
       arrows: 'to',
@@ -148,7 +148,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guidGenerator(),
+      id:"edge104",
       from: 4,
       to: 6,
       arrows: 'to',
@@ -156,7 +156,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guidGenerator(),
+      id:"edge105",
       from: 6,
       to: 8,
       arrows: 'to',
@@ -164,12 +164,133 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guidGenerator(),
+      id:"edge106",
       from: 4,
       to: 5,
       arrows: 'to',
       value: 136,
       title: ''
     }
-  ]
+  ],
+  paths: {
+    // Preparing for having many different types of digital communications
+    digitalComm1: [
+      // PATH ONE
+      [
+        {
+          id:guidGenerator(),
+          from: 1,
+          to: 2,
+          arrows: 'to',
+          value: 597,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 2,
+          to: 3,
+          arrows: 'to',
+          value:509,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 3,
+          to: 4,
+          arrows: 'to',
+          value: 458,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 4,
+          to: 5,
+          arrows: 'to',
+          value: 136,
+          title: ''
+        }
+      ],
+      // PATH 2
+      [
+        {
+          id:guidGenerator(),
+          from: 1,
+          to: 3,
+          arrows: 'to',
+          value: 597,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 3,
+          to: 6,
+          arrows: 'to',
+          value: 458,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 6,
+          to: 8,
+          arrows: 'to',
+          value: 136,
+          title: ''
+        }
+      ],
+      // PATH 3
+      [
+        {
+          id:guidGenerator(),
+          from: 1,
+          to: 4,
+          arrows: 'to',
+          value: 597,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 4,
+          to: 5,
+          arrows: 'to',
+          value: 458,
+          title: ''
+        }
+      ],
+      // PATH 4
+      [
+        {
+          id:guidGenerator(),
+          from: 1,
+          to: 2,
+          arrows: 'to',
+          value: 597,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 2,
+          to: 3,
+          arrows: 'to',
+          value: 458,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 3,
+          to: 6,
+          arrows: 'to',
+          value: 458,
+          title: ''
+        },
+        {
+          id:guidGenerator(),
+          from: 6,
+          to: 8,
+          arrows: 'to',
+          value: 458,
+          title: ''
+        }
+      ]
+    ]
+  }
 });
