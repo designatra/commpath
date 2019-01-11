@@ -10,14 +10,19 @@ function pageBuilder() {
 function buildVis() {
   var nodes = new vis.DataSet($j.studio("nodes", $j.o("nodes")));
 
-  var edges = new vis.DataSet($j.o("edges"));
+  var edges = new vis.DataSet(); //$j.o("edges")
+
+  var data = $j.what("vis", {
+    nodes:nodes,
+    edges:edges
+  });
 
   // create a network
   var container = $j.el("papa").children("#viz")[0];
-  var data = {
-    nodes: nodes,
-    edges: edges
-  };
+  // var data = {
+  //   nodes: nodes,
+  //   edges: edges
+  // };
 
   var options = {
     autoResize: true,
@@ -28,7 +33,7 @@ function buildVis() {
       hierarchical: {
         enabled: true,
         //levelSeparation: -126,
-        //nodeSpacing: 245,
+        nodeSpacing: 100,
         //treeSpacing: 440,
         direction: "LR",
         sortMethod: "directed"
@@ -49,8 +54,8 @@ function buildVis() {
         edge:true
       },
       color: {
-        hover: "#1778d3",
-        inherit: false
+        //hover: "#1778d3",
+        //inherit: false
       },
       scaling:{
         min:1,
@@ -135,6 +140,9 @@ function buildVis() {
   };
 
   $j.what("network").network = new vis.Network(container, data, options);
+
+  $j.studio("updatePath", "digitalComm1")
+
   $j.el("inspector").actors({
     type:"network"
   });

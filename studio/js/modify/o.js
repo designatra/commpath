@@ -51,6 +51,18 @@
 			return privates.core().network;
 		},
 		/*
+				$j.o("vis");
+				$j.o("vis", "nodes");
+				$j.o("vis", "edges");
+		*/
+		vis:function(what) {
+			var vis = privates.core().vis;
+			if(!what) {
+				return vis;
+			}
+			return vis[what];
+		},
+		/*
 				$j.o("nodes");
 		 */
 		nodes: function() {

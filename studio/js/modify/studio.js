@@ -3,7 +3,8 @@
 		name: "studio",
 		methods: {},
 		init: false,
-		data: {}
+		data: {},
+		vis:{}
 	};
 
 	plugin.methods.dom = {
@@ -84,6 +85,79 @@
 				nodes.push(node);
 			});
 			return nodes;
+		},
+		addEdge: function(edge) {
+
+		},
+		/*
+				$j.studio("updatePath", "digitalComm1")
+				$j.studio("updatePath", "digitalComm1", 2)
+		*/
+		updatePath: function(id, path) {
+			var pathIndex = defined(path, random([1,5]))
+			$j.log("Activating Path:", pathIndex);
+			$j.studio("updateEdges", $j.o("path", id, pathIndex), "active");
+		},
+		/*
+				$j.studio("updateEdges", [{...},{...},...]);
+		*/
+		updateEdges: function(edges, state) {
+			var activeEdges = privates.activeEdges();//$j.studio("activeEdges")
+			//$j.o("vis", "edges").getIds()
+
+			$j.each(edges, function(i, edge) {
+				if(activeEdges[edge.id]) {
+					delete activeEdges[edge.id];
+				};
+
+				privates.updateEdge(edge, state);
+			});
+
+			$j.each(activeEdges, function(i, edge) {
+				privates.updateEdge(edge, "inactive");
+			});
+		},
+		/*
+				$j.studio("updateEdge", {...});
+				$j.studio("updateEdge", {...}, "active");
+		*/
+		updateEdge: function(edge, state) {
+			var o = $j.extend({}, edge);
+			$j.methods(state, {
+				active: function() {
+					o.state = "active";
+					o.color = {
+						color: "#1778d3"
+						//highlight:blue
+						//opacity:.3
+						//inherit:'both', 'to', 'from'
+					};
+				},
+				inactive: function() {
+					o.state = "inactive";
+					o.color = {
+						color: "#cccccc"
+					};
+				}
+			});
+
+			$j.o("vis", "edges").update(o);
+		},
+		/*
+				$j.studio("activeEdges")
+		*/
+		activeEdges: function() {
+			var edges = $j.o("vis", "edges");
+			var activeEdges = {};
+			edges.get({
+				filter: function (edge) {
+					if(edge.state == "active") {
+						activeEdges[edge.id] = edge;
+					}
+				}
+			});
+
+			return activeEdges;
 		}
 	};
 

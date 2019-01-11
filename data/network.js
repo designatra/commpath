@@ -178,7 +178,7 @@ $j.what("network", {
       // PATH ONE
       [
         {
-          id:guidGenerator(),
+          id:"edge100",
           from: 1,
           to: 2,
           arrows: 'to',
@@ -186,7 +186,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge102",
           from: 2,
           to: 3,
           arrows: 'to',
@@ -194,7 +194,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge103",
           from: 3,
           to: 4,
           arrows: 'to',
@@ -202,7 +202,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge106",
           from: 4,
           to: 5,
           arrows: 'to',
@@ -213,7 +213,7 @@ $j.what("network", {
       // PATH 2
       [
         {
-          id:guidGenerator(),
+          id:"edge107",
           from: 1,
           to: 3,
           arrows: 'to',
@@ -221,7 +221,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge108",
           from: 3,
           to: 6,
           arrows: 'to',
@@ -229,7 +229,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge105",
           from: 6,
           to: 8,
           arrows: 'to',
@@ -240,7 +240,7 @@ $j.what("network", {
       // PATH 3
       [
         {
-          id:guidGenerator(),
+          id:"edge109",
           from: 1,
           to: 4,
           arrows: 'to',
@@ -248,7 +248,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge106",
           from: 4,
           to: 5,
           arrows: 'to',
@@ -259,7 +259,7 @@ $j.what("network", {
       // PATH 4
       [
         {
-          id:guidGenerator(),
+          id:"edge100",
           from: 1,
           to: 2,
           arrows: 'to',
@@ -267,7 +267,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge102",
           from: 2,
           to: 3,
           arrows: 'to',
@@ -275,7 +275,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge108",
           from: 3,
           to: 6,
           arrows: 'to',
@@ -283,7 +283,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:guidGenerator(),
+          id:"edge105",
           from: 6,
           to: 8,
           arrows: 'to',
