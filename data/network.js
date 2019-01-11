@@ -116,7 +116,7 @@ $j.what("network", {
   ],
   edges: [
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 1,
       to: 2,
       arrows: 'to',
@@ -124,7 +124,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 1,
       to: 7,
       arrows: 'to',
@@ -132,7 +132,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 2,
       to: 3,
       arrows: 'to',
@@ -140,7 +140,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 3,
       to: 4,
       arrows: 'to',
@@ -148,7 +148,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 4,
       to: 6,
       arrows: 'to',
@@ -156,7 +156,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 6,
       to: 8,
       arrows: 'to',
@@ -164,7 +164,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       from: 4,
       to: 5,
       arrows: 'to',

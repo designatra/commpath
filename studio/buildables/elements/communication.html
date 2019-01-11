@@ -8,6 +8,7 @@
     align-items:center;
     border-bottom:1px solid lightgrey;
     padding:0 8px;
+    cursor:pointer;
 
     &:hover {
       background:lightgrey;
@@ -20,9 +21,13 @@
 
       }
     }
+
+    &[active=true] {
+       background:lightgrey;
+    }
   }
 </style>
-<communication attr="id:id">
+<communication attr="id:id,active:active">
   <wrapper>
     <title content="title"></title>
   </wrapper>

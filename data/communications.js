@@ -1,15 +1,16 @@
 $j.what("communications",
   [
     {
-      id:guid(),
+      id:guidGenerator(),
+      active:"true",
       title:"welcome email"
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       title:"policy billing"
     },
     {
-      id:guid(),
+      id:guidGenerator(),
       title:"policy change"
     }
   ]
