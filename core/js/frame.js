@@ -603,7 +603,7 @@ function guidGenerator() {
 		};
 	return(S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
-var guid = function() {
+function guid() {
 	return guidGenerator();
 }
 
