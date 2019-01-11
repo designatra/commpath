@@ -1,8 +1,9 @@
 (function($j) {
 	var plugin = {
-		name: "studio",
+		name: "dice",
 		methods: {},
 		init: false,
+		dice:{},
 		data: {}
 	};
 
@@ -42,48 +43,13 @@
 		core: function() {
 			return $j.what();
 		},
-    /*
-        $j.studio("encode", svg);
-    */
-    encode: function($el) {
-		  return "data:image/svg+xml;charset=utf-8,"+ encodeURIComponent($el);
-    },
-    /*
-        $j.studio("node", {
-          in:597,
-	        out:509,
-	        duds:{
-	          biz:88,
-	          it:0,
-	          planned:0
-	        }
-	       });
-    */
-    node: function(data) {
-    	var $svg = $j("<div></div>").build("svg.node", data, {
-    		populate: function(i, o) {
-    			return o;
-		    }
-	    });
+		role: function(id) {
+				var die = plugin.dice[id];
+				if(!die) {
+					die = plugin.dive[id] = new DiceRoller();
+				}
+				
 
-	    return privates.encode($svg[0].outerHTML);
-    },
-		/*
-		    $j.studio("nodes", $j.o("nodes"));
-		*/
-		nodes: function processNodes(nodeList) {
-			var nodes = [];
-			$j.each(nodeList, function() {
-				var node = this;
-
-				//node.title = ???
-				node.logistics.label = $j.o("application", this.entity.id);
-				node.image = $j.studio("node", this.logistics);
-				node.shape = "image";
-
-				nodes.push(node);
-			});
-			return nodes;
 		}
 	};
 
