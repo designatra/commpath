@@ -136,7 +136,7 @@
 				inactive: function() {
 					o.state = "inactive";
 					o.color = {
-						color: "#cccccc"
+						color: "rgba(0,0,0,0)"
 					};
 				}
 			});

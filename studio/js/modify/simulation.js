@@ -50,9 +50,11 @@
 			return plugin.timers;
 		},
 		/*
-				$j.simulation("start", "eventInterval");
+				$j.simulation("start", "eventInterval", function() {
+					$j.studio("updatePath", "digitalComm1")
+				});
 		*/
-		start: function(id) {
+		start: function(id, callback) {
 			var timer = plugin.timers[id];
 			if(timer===undefined) {
 				timer = plugin.timers[id] = {};
@@ -66,12 +68,14 @@
 				$j.log("Timer is Running.", id);
 			}
 
-
 			var intervalLength = $j.dice("role", "eventInterval", "sides6")*1000;
 			timer = plugin.timers[id] = setTimeout(function() {
 				$j.log("Timer Interval", id, intervalLength);
 
-				return privates.start(id);
+				if(callback) {
+					callback(id);
+				}
+				return privates.start(id, callback);
 			}, intervalLength);
 
 			return timer;

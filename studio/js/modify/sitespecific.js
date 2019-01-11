@@ -1,9 +1,9 @@
 function pageBuilder() {
   $j(this).build("inspector");
 
-  $j(this).build("communications", function(i, data) {
-    $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
-  })
+  // $j(this).build("communications", function(i, data) {
+  //   $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
+  // })
   buildVis();
 }
 
@@ -31,108 +31,65 @@ function buildVis() {
     clickToUse: false,
     layout: {
       hierarchical: {
-        enabled: true,
-        //levelSeparation: -126,
-        nodeSpacing: 100,
-        //treeSpacing: 440,
+        enabled: false,
+        // Distance between levels.
+        levelSeparation: 200,
+        // Minimum distance between nodes on the free axis.
+        nodeSpacing: 300,
+        // Distance between different trees (independent networks).
+        treeSpacing: 100,
         direction: "LR",
-        sortMethod: "directed"
+        sortMethod: "directed",
+        blockShifting:true,
+        edgeMinimization:true,
+        parentCentralization:false
       }
     },
-    physics: {
-      stabilization: false
-    },
+    // physics: {
+    //   // minVelocity:0.75,
+    //   enabled:true,
+    //   stabilization: true,
+    //   hierarchicalRepulsion: {
+    //     centralGravity: 0.0,
+    //     springLength: 100,
+    //     springConstant: 0.01,
+    //     nodeDistance: 120,
+    //     damping: 0.09
+    //   }
+    // },
     edges: {
+      selfReferenceSize: 30,
       arrows: {
         to:{
           enabled:true,
-          scaleFactor:.5
+          scaleFactor:.3
         }
       },
-      arrowStrikethrough:false,
-      chosen:{
-        edge:true
-      },
-      color: {
-        //hover: "#1778d3",
-        //inherit: false
-      },
+      arrowStrikethrough:true,
       scaling:{
         min:1,
         max:8
       },
+      // physics:false,
       smooth: {
-        type: "horizontal",
-        roundness:0.3
-      },
-    },
-    nodes: {
-      //borderWidth: 1,
-      //borderWidthSelected: 1,
-      chosen: true,
-      color: {
-        //border: '#666666',
-        //background: 'white',
-        highlight: {
-          border: '#1778d3',
-          background: 'white'
-        },
-        hover: {
-          border: '#1778d3',
-          background: '#D2E5FF'
-        }
-      },
-      // font: {
-      //   color: '#343434',
-      //   size: 14, // px
-      //   face: 'Raleway',
-      //   background: 'none',
-      //   strokeWidth: 0, // px
-      //   strokeColor: '#ffffff',
-      //   align: 'center',
-      //   multi: true,
-      //   vadjust: 1
-      // },
-      labelHighlightBold: false,
-      mass: 1,
-      // shadow:{
-      //   enabled: true,
-      //   color: 'rgba(0,0,0,0.8)',
-      //   size:4,
-      //   x:2,
-      //   y:2
-      // },
-      /*    W/ LABEL: ellipse, circle, database, box, text
-            NO Label: image, circularImage, diamond, dot, star, triangle, triangleDown, hexagon, square and icon
-      */
-      //shape: 'box',
-      // scaling:{
-      //   min:8,
-      //   max:650,
-      //   // label: {
-      //   //   min:12,
-      //   //   max:16
-      //   // }
-      // },
-      // widthConstraint:{
-      //   minimum:30,
-      //   maximum:100
-      // },
-      // heightConstraint:{
-      //   minimum:30
-      // },
-      // margin:{
-      //   top:0,
-      //   right:10,
-      //   bottom:0,
-      //   left:10
-      // },
-      shapeProperties: {
-        borderRadius: 1
+        type: "dynamic",
+        roundness:0.3,
+        forceDirection: "none"
       }
     },
+    nodes: {
+      labelHighlightBold: false,
+      // widthConstraint: 250,
+      mass: 2
+    },
+    physics: {
+      enabled: false
+    },
     interaction:{
-      hover:true
+      // dragNodes:false,
+      hover:false,
+      hoverConnectedEdges: false,
+      selectConnectedEdges:false
     }
     // manipulation: {
     //   enabled: true

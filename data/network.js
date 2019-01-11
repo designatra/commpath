@@ -2,6 +2,8 @@ $j.what("network", {
   nodes: [
     {
       id:1,
+      //level:0,
+      x:-400, y:-150,
       logistics:{
         in:630,
         out:597,
@@ -18,6 +20,8 @@ $j.what("network", {
     },
     {
       id:2,
+      //level:1,
+      x:-200, y:-150,
       logistics:{
         in:597,
         out:509,
@@ -34,6 +38,8 @@ $j.what("network", {
     },
     {
       id:3,
+      //level:2,
+      x:0, y:0,
       logistics:{
         in:509,
         out:458,
@@ -50,6 +56,8 @@ $j.what("network", {
     },
     {
       id:4,
+      //level:3,
+      x:200, y:0,
       logistics:{
         in:458,
         out:274,
@@ -66,6 +74,8 @@ $j.what("network", {
     },
     {
       id:5,
+      //level:4,
+      x:400, y:-150,
       logistics:{
         in:136,
         out:0
@@ -77,6 +87,8 @@ $j.what("network", {
     },
     {
       id:6,
+      //level:3,
+      x:200, y:150,
       logistics:{
         in:138,
         out:131,
@@ -93,6 +105,8 @@ $j.what("network", {
     },
     {
       id:7,
+      //level:0,
+      x:-400, y:0,
       logistics:{
         in:10,
         out:0
@@ -104,6 +118,8 @@ $j.what("network", {
     },
     {
       id:8,
+      //level:4,
+      x:400, y:150,
       logistics:{
         in:131,
         out:0
