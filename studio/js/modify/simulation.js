@@ -3,7 +3,8 @@
 		name: "simulation",
 		methods: {},
 		init: false,
-		data:{}
+		data:{},
+		timers:{}
 	};
 
 	plugin.methods.dom = {
@@ -41,6 +42,55 @@
 	var privates = plugin.privates = {
 		core: function() {
 			return $j.what();
+		},
+		/*
+				$j.simulation("timers");
+		*/
+		timers: function() {
+			return plugin.timers;
+		},
+		/*
+				$j.simulation("start", "eventInterval");
+		*/
+		start: function(id) {
+			var timer = plugin.timers[id];
+			if(timer===undefined) {
+				timer = plugin.timers[id] = {};
+			} else if(timer===false) {
+				$j.log("Timer Stopped", id);
+				plugin.timers[id] = "stopped";
+				return false;
+			} else if(timer==="stopped") {
+				$j.log("Timer was Stopped. Starting.", id);
+			} else if($j.type(timer)==="number") {
+				$j.log("Timer is Running.", id);
+			}
+
+			var intervalLength = $j.dice("role", "eventInterval", "sides6")*1000;
+			timer = plugin.timers[id] = setTimeout(function() {
+				$j.log("Timer Interval", id, intervalLength);
+
+				return privates.start(id);
+			}, intervalLength);
+
+			return timer;
+		},
+		interval: function(id) {
+			plugin.timers[id] = setTimeout(function() {
+				$j.log("Timer Interval", id, intervalLength);
+
+				return $j.simulation("start", id);
+			}, intervalLength);
+		},
+		/*
+				$j.simulation("stop", "eventInterval");
+		*/
+		stop: function(id) {
+			var timer = plugin.timers[id];
+			if(timer) {
+				plugin.timers[id] = false;
+			}
+			return timer;
 		}
 	};
 
