@@ -189,6 +189,10 @@ $j.what("network", {
     }
   ],
   paths: {
+    history:{
+      map:{},
+      log:[]
+    },
     // Preparing for having many different types of digital communications
     digitalComm1: [
       // PATH ONE

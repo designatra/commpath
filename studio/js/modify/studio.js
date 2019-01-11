@@ -96,7 +96,35 @@
 		updatePath: function(id, path) {
 			var pathIndex = defined(path, random([1,5]))
 			$j.log("Activating Path:", pathIndex);
-			$j.studio("updateEdges", $j.o("path", id, pathIndex), "active");
+
+			var path = $j.studio("determineLogistics", $j.o("path", id, pathIndex))
+
+			$j.studio("updateEdges", path, "active");
+		},
+		/*
+				$j.studio("determineLogistics", path)
+		*/
+		determineLogistics: function(modelPath) {
+			var timeStamp = $j.now();
+
+			var path = [];
+			$j.each(modelPath, function(i, edge) {
+				var roll = $j.dice("roll", "outboundSuccess", "sides20");
+				edge.success = true;
+				if (roll>=(.9*20)) {
+					edge.success = false;
+				}
+				path.push(edge);
+				if(edge.success===false) {
+					//return false;
+				}
+			});
+
+			var history = $j.o("paths").history,
+				logLength = history.log.push(path);
+			history.map[timeStamp] = logLength-1;
+
+			return path;
 		},
 		/*
 				$j.studio("updateEdges", [{...},{...},...]);

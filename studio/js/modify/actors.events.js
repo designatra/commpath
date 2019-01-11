@@ -13,7 +13,7 @@ $j.actors("register", {
 
 		$j.what("network").network.on("click", function (e) {
 			var node = $j.o("node", this.getNodeAt(e.pointer.DOM));
-			
+
 			var entity = node.entity;
 			if(!entity) {
 				return false;

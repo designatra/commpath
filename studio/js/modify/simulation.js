@@ -68,7 +68,7 @@
 				$j.log("Timer is Running.", id);
 			}
 
-			var intervalLength = $j.dice("role", "eventInterval", "sides6")*1000;
+			var intervalLength = $j.dice("roll", "eventInterval", "sides6")*1000;
 			timer = plugin.timers[id] = setTimeout(function() {
 				$j.log("Timer Interval", id, intervalLength);
 
