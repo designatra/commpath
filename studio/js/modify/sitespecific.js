@@ -64,7 +64,7 @@ function buildVis() {
     //   }
     // },
     edges: {
-      selfReferenceSize: 30,
+      //selfReferenceSize: 30,
       arrows: {
         to:{
           enabled:true,

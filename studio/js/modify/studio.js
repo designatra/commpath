@@ -119,7 +119,6 @@
 			});
 
 			privates.updateNodes(nodes);
-			//$j.o("vis", "nodes").update($j.studio("nodes", nodes));
 		},
 		/*
 				$j.studio("updateNodes", nodes);
@@ -133,11 +132,11 @@
 		*/
 		updatePath: function(id, path) {
 			var pathIndex = defined(path, random([1,5]))
-			$j.log("Activating Path:", pathIndex);
+			//$j.log("Activating Path:", pathIndex);
 
-			var path = $j.studio("determineLogistics", $j.o("path", id, pathIndex))
+			var path = privates.determineLogistics($j.o("path", id, pathIndex));
 
-			$j.studio("updateEdges", path, "active");
+			privates.updateEdges(path, "active");
 		},
 		/*
 				$j.studio("determineLogistics", path)
@@ -189,10 +188,10 @@
 				return [dud, whichDud];
 			}
 
-			var nodes = [];
-			$j.each(path, function() {
+			function updateNodeObj(id, edge) {
 				var node = {};
-				node.id=this.to;
+
+				node.id=id;//edge.to;
 
 				var oldLog = $j.o("vis", "nodes").get(node.id).logistics;
 				if(!oldLog.duds) {
@@ -217,18 +216,18 @@
 							},
 							{
 								in:1,
-								out:out(this),
-								duds:duds(this)[0]
+								out:out(edge),
+								duds:duds(edge)[0]
 							});
 					},
 					accumulate: function() {
-						var whichDud = duds(this)[1];
+						var whichDud = duds(edge)[1];
 						var o = $j.extend(true,
 							{},
 							oldLog,
 							{
 								in:oldLog.in+1,
-								out:oldLog.out+out(this),
+								out:oldLog.out+out(edge),
 								duds:{
 									biz:oldLog.duds.biz,
 									it:oldLog.duds.it,
@@ -242,11 +241,19 @@
 
 						return o;
 					}
-				}, this);
+				}, edge);
 
+				return node;
+			}
 
-				nodes.push(node);
-				if(this.success===false) {
+			var nodes = [];
+			$j.each(path, function(i, edge) {
+				if(i<1) {
+					nodes.push(updateNodeObj(edge.from, edge));
+				}
+				//var node = updateNodeObj(id, edge);
+				nodes.push(updateNodeObj(edge.to, edge));
+				if(edge.success===false) {
 					return false;
 				}
 			});
@@ -257,7 +264,6 @@
 		*/
 		updateEdges: function(edges, state) {
 			var activeEdges = privates.activeEdges();//$j.studio("activeEdges")
-			//$j.o("vis", "edges").getIds()
 
 			$j.each(edges, function(i, edge) {
 				if(activeEdges[edge.id]) {
@@ -277,6 +283,7 @@
 		*/
 		updateEdge: function(edge, state) {
 			var o = $j.extend({}, edge);
+			o.value = $j.o("vis", "nodes").get(edge.from).logistics.out;
 			$j.methods(state, {
 				active: function() {
 					o.state = "active";
@@ -290,7 +297,7 @@
 				inactive: function() {
 					o.state = "inactive";
 					o.color = {
-						color: "rgba(0,0,0,0)"
+						color: "rgba(0,0,0,.1)"
 					};
 				}
 			});
