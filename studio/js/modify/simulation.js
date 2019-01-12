@@ -4,7 +4,8 @@
 		methods: {},
 		init: false,
 		data:{},
-		timers:{}
+		timers:{},
+		mode:"single"
 	};
 
 	plugin.methods.dom = {
@@ -42,6 +43,23 @@
 	var privates = plugin.privates = {
 		core: function() {
 			return $j.what();
+		},
+		/*
+				$j.simulation("mode")
+				$j.simulation("mode", "single")
+				$j.simulation("mode", "accumulate")
+		*/
+		mode: function(modeID) {
+			var mode = plugin.mode;
+			if(modeID){
+				plugin.mode = modeID;
+			}
+
+			if(modeID==="accumulate") {
+				$j.studio("resetNodes");
+			}
+
+			return plugin.mode;
 		},
 		/*
 				$j.simulation("timers");

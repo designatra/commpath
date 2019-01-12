@@ -4,7 +4,7 @@
 		methods: {},
 		init: false,
 		data: {},
-		vis:{}
+		vis:{},
 	};
 
 	plugin.methods.dom = {
@@ -89,11 +89,31 @@
 			return nodes;
 		},
 		/*
+				$j.studio("resetNodes");
+		*/
+		resetNodes: function() {
+			var nodes = [];
+			$j.o("vis", "nodes").forEach(function(node) {
+				node.logistics = $j.extend({}, node.logistics, {
+					in:0,
+					out:0,
+					duds:{
+						biz:0,
+						it:0,
+						planned:0
+					}
+				});
+
+				nodes.push(node);
+			});
+
+			privates.updateNodes(nodes);
+			//$j.o("vis", "nodes").update($j.studio("nodes", nodes));
+		},
+		/*
 				$j.studio("updateNodes", nodes);
 		*/
 		updateNodes: function(nodes) {
-			$j.log("NODES", nodes)
-
 			return $j.o("vis", "nodes").update(privates.nodes(nodes));
 		},
 		/*
@@ -132,7 +152,6 @@
 			history.map[timeStamp] = logLength-1;
 
 			var nodes = privates.transferLogistics(path);
-			$j.log("TRANSFERED LOGISTICS", nodes)
 			privates.updateNodes(nodes);
 
 			return path;
@@ -153,33 +172,73 @@
 
 				var dud = {};
 				if(o.success===false) {
-					dud[type[random([0,3])]] = 1;
+					var whichDud = type[random([0,3])];
+					dud[whichDud] = 1;
 				}
 
-				return dud;
+				return [dud, whichDud];
 			}
 
 			var nodes = [];
 			$j.each(path, function() {
-				$j.log(this)
 				var node = {};
 				node.id=this.to;
 
-				node.logistics = $j.extend(true,
-					{},
-					$j.o("vis", "nodes").get(node.id).logistics,
-					{
-						duds:{
-							biz:0,
-							it:0,
-							planned:0
-						}
+				var oldLog = $j.o("vis", "nodes").get(node.id).logistics;
+				if(!oldLog.duds) {
+					oldLog.duds = {
+						biz:0,
+						it:0,
+						planned:0
+					}
+				}
+
+				node.logistics = $j.methods($j.simulation("mode"), {
+					single:function() {
+						return $j.extend(true,
+							{},
+							oldLog,
+							{
+								duds:{
+									biz:0,
+									it:0,
+									planned:0
+								}
+							},
+							{
+								in:1,
+								out:out(this),
+								duds:duds(this)[0]
+							});
 					},
-					{
-						in:1,
-						out:out(this),
-						duds:duds(this)
-					});
+					accumulate: function() {
+						var whichDud = duds(this)[1];
+						var o = $j.extend(true,
+							{},
+							oldLog,
+							// {
+							// 	duds:{
+							// 		biz:0,
+							// 		it:0,
+							// 		planned:0
+							// 	}
+							// },
+							{
+								in:oldLog.in+1,
+								out:oldLog.out+out(this),
+								duds:{
+									biz:oldLog.duds.biz,
+									it:oldLog.duds.it,
+									planned:oldLog.duds.planned
+								}
+							});
+
+						o.duds[whichDud] = o.duds[whichDud] + 1;
+
+						return o;
+					}
+				});
+
 
 				nodes.push(node);
 				if(this.success===false) {
