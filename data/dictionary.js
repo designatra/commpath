@@ -24,5 +24,13 @@ $j.what("dictionary", {
     8: {
       label:"Customer"
     }
+  },
+  colors:{
+    green_1:"rgb(114,153,0)",
+    green_2:"rgb(173,233,0)",
+    black_1:"rgb(39,39,37)",
+    blue_1:"rgb(45,188,254)",
+    blue_2:"rgb(30,108,146)",
+    red_1:"rgb(218,47,24)"
   }
 });

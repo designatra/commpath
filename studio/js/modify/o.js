@@ -118,6 +118,18 @@
 		communications: function() {
 			return privates.core().communications;
 		},
+		/*
+				$j.o("colors")
+		*/
+		colors: function() {
+			return privates.core().dictionary.colors;
+		},
+		/*
+				$j.o("color", "red_1")
+		*/
+		color: function(id) {
+			return privates.colors()[id];
+		}
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate
