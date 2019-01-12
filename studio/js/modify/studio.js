@@ -160,16 +160,26 @@
 			}
 
 			var nodes = [];
-			//$j.o("paths").history.log[1]
 			$j.each(path, function() {
 				$j.log(this)
 				var node = {};
 				node.id=this.to;
-				node.logistics = {
-					in:1,
-					out:out(this),
-					duds:duds(this)
-				};
+
+				node.logistics = $j.extend(true,
+					{},
+					$j.o("vis", "nodes").get(node.id).logistics,
+					{
+						duds:{
+							biz:0,
+							it:0,
+							planned:0
+						}
+					},
+					{
+						in:1,
+						out:out(this),
+						duds:duds(this)
+					});
 
 				nodes.push(node);
 				if(this.success===false) {
