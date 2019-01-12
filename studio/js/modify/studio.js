@@ -288,7 +288,7 @@
 				active: function() {
 					o.state = "active";
 					o.color = {
-						color: "#1778d3"
+						color: $j.o("color", "green_5")
 						//highlight:blue
 						//opacity:.3
 						//inherit:'both', 'to', 'from'
@@ -297,7 +297,7 @@
 				inactive: function() {
 					o.state = "inactive";
 					o.color = {
-						color: "rgba(0,0,0,.1)"
+						color: $j.o("color", "white_2")
 					};
 				}
 			});

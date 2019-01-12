@@ -35,36 +35,7 @@ function buildVis() {
     height: '100%',
     width: '100%',
     clickToUse: false,
-    layout: {
-      hierarchical: {
-        enabled: false,
-        // Distance between levels.
-        levelSeparation: 200,
-        // Minimum distance between nodes on the free axis.
-        nodeSpacing: 300,
-        // Distance between different trees (independent networks).
-        treeSpacing: 100,
-        direction: "LR",
-        sortMethod: "directed",
-        blockShifting:true,
-        edgeMinimization:true,
-        parentCentralization:false
-      }
-    },
-    // physics: {
-    //   // minVelocity:0.75,
-    //   enabled:true,
-    //   stabilization: true,
-    //   hierarchicalRepulsion: {
-    //     centralGravity: 0.0,
-    //     springLength: 100,
-    //     springConstant: 0.01,
-    //     nodeDistance: 120,
-    //     damping: 0.09
-    //   }
-    // },
     edges: {
-      //selfReferenceSize: 30,
       arrows: {
         to:{
           enabled:true,
@@ -76,7 +47,6 @@ function buildVis() {
         min:1,
         max:8
       },
-      // physics:false,
       smooth: {
         type: "dynamic",
         roundness:0.3,
@@ -85,14 +55,12 @@ function buildVis() {
     },
     nodes: {
       labelHighlightBold: false,
-      // widthConstraint: 250,
       mass: 2
     },
     physics: {
       enabled: false
     },
     interaction:{
-      // dragNodes:false,
       hover:false,
       hoverConnectedEdges: false,
       selectConnectedEdges:false
