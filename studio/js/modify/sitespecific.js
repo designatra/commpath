@@ -5,6 +5,12 @@ function pageBuilder() {
   //   $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
   // })
   buildVis();
+
+  $j.el("papa")
+    .find("#simulationControls")
+    .actors({
+      type:"simulation"
+    });
 }
 
 function buildVis() {

@@ -26,5 +26,24 @@ $j.actors("register", {
 				logistics:node.logistics
 			})
 		});
+	},
+	simulation:function(e) {
+		$j(this).on({
+			click: function() {
+				$j(this).trigger($j(this).attr("id"));
+			},
+			play: function() {
+				$j.simulation("mode", "accumulate")
+				$j.simulation("start", "eventInterval", function() {
+					$j.studio("updatePath", "digitalComm1")
+				});
+			},
+			stop: function() {
+				$j.simulation("stop", "eventInterval")
+			},
+			reset: function() {
+				$j.studio("resetNodes");
+			}
+		}, "action")
 	}
 });
