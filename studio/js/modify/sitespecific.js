@@ -68,10 +68,10 @@ function buildVis() {
       arrows: {
         to:{
           enabled:true,
-          scaleFactor:.3
+          scaleFactor:1
         }
       },
-      arrowStrikethrough:true,
+      //arrowStrikethrough:true,
       scaling:{
         min:1,
         max:8

@@ -34,12 +34,12 @@ $j.actors("register", {
 			},
 			play: function() {
 				$j.simulation("mode", "accumulate")
-				$j.simulation("start", "eventInterval", function() {
+				$j.simulation("start", "eventInterval1", function() {
 					$j.studio("updatePath", "digitalComm1")
 				});
 			},
 			stop: function() {
-				$j.simulation("stop", "eventInterval")
+				$j.simulation("stop", "eventInterval1")
 			},
 			reset: function() {
 				$j.studio("resetNodes");

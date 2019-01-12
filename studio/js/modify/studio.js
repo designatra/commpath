@@ -63,6 +63,17 @@
     node: function(data) {
     	var $svg = $j("<div></div>").build("svg.node", data, {
     		populate: function(i, o) {
+    			var total = 0;
+
+			    var duds = o.duds;
+			    if(duds) {
+				    total = duds.biz + duds.it + duds.planned
+			    } else {
+			    	o.duds = {};
+			    }
+
+    			o.duds.total = total;
+
     			return o;
 		    }
 	    });
@@ -169,7 +180,6 @@
 			}
 			function duds(o) {
 				var type = ["biz", "it", "planned"];
-
 				var dud = {};
 				if(o.success===false) {
 					var whichDud = type[random([0,3])];
@@ -216,13 +226,6 @@
 						var o = $j.extend(true,
 							{},
 							oldLog,
-							// {
-							// 	duds:{
-							// 		biz:0,
-							// 		it:0,
-							// 		planned:0
-							// 	}
-							// },
 							{
 								in:oldLog.in+1,
 								out:oldLog.out+out(this),
@@ -233,11 +236,13 @@
 								}
 							});
 
-						o.duds[whichDud] = o.duds[whichDud] + 1;
+						if(whichDud) {
+							o.duds[whichDud] = o.duds[whichDud] + 1;
+						};
 
 						return o;
 					}
-				});
+				}, this);
 
 
 				nodes.push(node);

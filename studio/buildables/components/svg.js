@@ -67,14 +67,21 @@ $j.build("component")["svg"] = {
 			return $j(this).build("svg", function () {
 				return $j(this)
 					.find("foreignObject")
-					.build("svg.body", data, function () {
-						var $body = $j(this);
+					.build("svg.body", data, {
+						populate: function(i, o) {
+							if (config.populate) {
+								return config.populate.apply($j(this), arguments);
+							}
+						},
+						after: function(i, o) {
+								var $body = $j(this);
 
-						if (config.after) {
-							 config.after.apply($body, [data]);
+								if (config.after) {
+									 config.after.apply($body, [data]);
+								}
+								return $body;
 						}
-						return $body;
-					});
+					})
 				});
 		}
 	}
