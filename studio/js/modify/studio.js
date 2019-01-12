@@ -78,7 +78,9 @@
 				var node = this;
 
 				//node.title = ???
-				node.logistics.label = $j.o("application", this.entity.id);
+				if(this.entity) {
+					node.logistics.label = $j.o("application", this.entity.id);
+				}
 				node.image = $j.studio("node", this.logistics);
 				node.shape = "image";
 
@@ -86,8 +88,13 @@
 			});
 			return nodes;
 		},
-		addEdge: function(edge) {
+		/*
+				$j.studio("updateNodes", nodes);
+		*/
+		updateNodes: function(nodes) {
+			$j.log("NODES", nodes)
 
+			return $j.o("vis", "nodes").update(privates.nodes(nodes));
 		},
 		/*
 				$j.studio("updatePath", "digitalComm1")
@@ -116,7 +123,7 @@
 				}
 				path.push(edge);
 				if(edge.success===false) {
-					//return false;
+					return false;
 				}
 			});
 
@@ -124,7 +131,52 @@
 				logLength = history.log.push(path);
 			history.map[timeStamp] = logLength-1;
 
+			var nodes = privates.transferLogistics(path);
+			$j.log("TRANSFERED LOGISTICS", nodes)
+			privates.updateNodes(nodes);
+
 			return path;
+		},
+		/*
+				$j.studio("transferLogistics", path)
+				privates.transferLogistics(path);
+		*/
+		transferLogistics: function(path) {
+			function out(o) {
+				if(o.success===true) {
+					return 1;
+				}
+				return 0;
+			}
+			function duds(o) {
+				var type = ["biz", "it", "planned"];
+
+				var dud = {};
+				if(o.success===false) {
+					dud[type[random([0,3])]] = 1;
+				}
+
+				return dud;
+			}
+
+			var nodes = [];
+			//$j.o("paths").history.log[1]
+			$j.each(path, function() {
+				$j.log(this)
+				var node = {};
+				node.id=this.to;
+				node.logistics = {
+					in:1,
+					out:out(this),
+					duds:duds(this)
+				};
+
+				nodes.push(node);
+				if(this.success===false) {
+					return false;
+				}
+			});
+			return nodes;
 		},
 		/*
 				$j.studio("updateEdges", [{...},{...},...]);
