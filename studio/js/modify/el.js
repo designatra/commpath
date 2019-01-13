@@ -53,6 +53,18 @@
 	  */
 		inspector: function() {
 			return els.papa().children("inspector");
+		},
+		/*
+				$j.el("network")[0]
+		*/
+		network: function () {
+			return els.papa().children("#network")
+		},
+		/*
+		    $j.el("timeline")[0]
+		*/
+		timeline: function () {
+			return els.papa().children("#timeline")
 		}
 	};
 

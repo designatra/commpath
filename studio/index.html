@@ -25,15 +25,17 @@
 		<script language="javascript" type="text/javascript" src="/core/js/actors.js"></script>
 		<script language="javascript" type="text/javascript" src="/core/js/plugins/build.js"></script>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js" integrity="sha256-z4uJf4qxa6fOwudp++XaHza5NiKuOkELRsT6DaF/2n0=" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" integrity="sha256-tTIVWrgsLDcekkoaiqePYP86joMAiyp4KqEswPMmTfQ=" crossorigin="anonymous" />
-
 		<script language="javascript" type="text/javascript" src="/node_modules/rpg-dice-roller/dice-roller.js"></script>
 		<!--<script language="javascript" type="text/javascript" src="/node_modules/moment/min/moment.min.js"></script>-->
 		<!--<script language="javascript" type="text/javascript" src="/node_modules/moment-range/dist/moment-range.js"></script>-->
 		<script src="https://unpkg.com/dayjs@1.7.8/dayjs.min.js"></script>
 		<script src="https://unpkg.com/dayjs@1.7.8/plugin/isBetween.js"></script>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.js" integrity="sha256-ff7iz7mLH5QJA9IUC44b+sqjMi7c2aTR9YO2DSzAGZo=" crossorigin="anonymous"></script>
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.js" integrity="sha256-z4uJf4qxa6fOwudp++XaHza5NiKuOkELRsT6DaF/2n0=" crossorigin="anonymous"></script>-->
+		<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-timeline-graph2d.min.js" integrity="sha256-v9Qo6pYzFF2g0RUa5jlrK3HO2YfYXnj5aXQzPJJ46wY=" crossorigin="anonymous"></script>-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-network.min.css" integrity="sha256-tTIVWrgsLDcekkoaiqePYP86joMAiyp4KqEswPMmTfQ=" crossorigin="anonymous" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis-timeline-graph2d.min.css" integrity="sha256-ttXXbnaumOzkd0djY9bs4c5n86l4gmYrYo6BBUl6YPA=" crossorigin="anonymous" />
 
 		<link href="css/modify/fragments.css,sitespecific.css" rel="stylesheet" />
 
@@ -49,9 +51,17 @@
 
 				/*perspective: 1600px;*/
 			}
-			papa > #viz {
+			papa > #network {
 				height:100vh;
 				width:100vw;
+				z-index: 10;
+			}
+
+			papa > #timeline {
+				height:108px;
+				width:100vw;
+				position:absolute;
+				z-index: 100;
 			}
 			papa > #inspector {
 
@@ -81,7 +91,8 @@
 
 	<body>
 		<papa>
-			<wrapper id="viz"></wrapper>
+			<wrapper id="timeline"></wrapper>
+			<wrapper id="network"></wrapper>
 			<wrapper id="simulationControls">
 				<action id="play">Play</action>
 				<action id="stop">Stop</action>

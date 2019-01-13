@@ -4,31 +4,61 @@ function pageBuilder() {
   // $j(this).build("communications", function(i, data) {
   //   $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
   // })
-  buildVis();
 
   $j.el("papa")
     .find("#simulationControls")
     .actors({
       type:"simulation"
     });
+
+  buildTimeline(function() {
+    buildNetwork();
+  });
 }
 
-function buildVis() {
-  var nodes = new vis.DataSet($j.studio("nodes", $j.o("nodes")));
+function buildTimeline(after) {
+  var container = $j.el("timeline")[0];
 
-  var edges = new vis.DataSet(); //$j.o("edges")
+  // Create a DataSet (allows two way data-binding)
+  var items = new vis.DataSet([
+    {id: 1, content: 'item 1', start: '2013-04-20'},
+    {id: 2, content: 'item 2', start: '2013-04-14'},
+    {id: 3, content: 'item 3', start: '2013-04-18'},
+    {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
+    {id: 5, content: 'item 5', start: '2013-04-25'},
+    {id: 6, content: 'item 6', start: '2013-04-27'}
+  ]);
 
-  var data = $j.what("vis", {
-    nodes:nodes,
-    edges:edges
-  });
+  // Configuration for the Timeline
+  var options = {
+    width: '100%',
+    height: '112px',
+    margin: {
+      item: 20
+    },
+    onInitialDrawComplete: function() {
+      // TODO: Switch to more eventing versus callback
+      if(after) {
+        after.apply(this, arguments);
+      }
+    }
+  };
 
-  // create a network
-  var container = $j.el("papa").children("#viz")[0];
-  // var data = {
-  //   nodes: nodes,
-  //   edges: edges
-  // };
+  // Create a Timeline
+  var timeline = new vis.Timeline(container, items, options);
+
+  $j.log("TIMELINE NEW", timeline)
+}
+
+function buildNetwork() {
+  var container = $j.el("network")[0];
+
+  var nodes = new vis.DataSet($j.studio("nodes", $j.o("nodes"))),
+    edges = new vis.DataSet(),
+    data = $j.what("vis", {
+      nodes:nodes,
+      edges:edges
+    });
 
   var options = {
     autoResize: true,
@@ -65,9 +95,6 @@ function buildVis() {
       hoverConnectedEdges: false,
       selectConnectedEdges:false
     }
-    // manipulation: {
-    //   enabled: true
-    // }
   };
 
   $j.what("network").network = new vis.Network(container, data, options);
