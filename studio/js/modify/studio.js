@@ -43,6 +43,16 @@
 		core: function() {
 			return $j.what();
 		},
+		/*
+				$j.studio("range", ["2016-03-10", "2016-03-15"], "2016-03-13")
+		*/
+		range: function(dates, query) {
+				const start = moment(dates[0]);
+				const end  = moment(dates[1]);
+				const range = moment.range(start, end);
+
+				return range.contains(moment(query));
+		},
     /*
         $j.studio("encode", svg);
     */
