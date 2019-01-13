@@ -77,18 +77,18 @@
 			if(timer===undefined) {
 				timer = plugin.timers[id] = {};
 			} else if(timer===false) {
-				$j.log("Timer Stopped", id);
+				//$j.log("Timer Stopped", id);
 				plugin.timers[id] = "stopped";
 				return false;
 			} else if(timer==="stopped") {
-				$j.log("Timer was Stopped. Starting.", id);
+				//$j.log("Timer was Stopped. Starting.", id);
 			} else if($j.type(timer)==="number") {
-				$j.log("Timer is Running.", id);
+				//$j.log("Timer is Running.", id);
 			}
 
 			var intervalLength = $j.dice("roll", "eventInterval", "sides6")*1000;
 			timer = plugin.timers[id] = setTimeout(function() {
-				$j.log("Timer Interval", id, intervalLength);
+				//$j.log("Timer Interval", id, intervalLength);
 
 				if(callback) {
 					callback(id);
