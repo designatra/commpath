@@ -7,11 +7,12 @@ var root = "";
 
 $j(document).ready(function(){
 	initialize();
+	window['moment-range'].extendMoment(moment);
 
 	$j.when(
-		$j.getScript("/commpath/data/dictionary.js"),
-		$j.getScript("/commpath/data/network.js"),
-		$j.getScript("/commpath/data/communications.js")
+		$j.getScript("/data/dictionary.js"),
+		$j.getScript("/data/network.js"),
+		$j.getScript("/data/communications.js")
 	)
 	.then(function() {
 		$j.what($j.extend(true, {}, $j.what(), {
