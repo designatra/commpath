@@ -7,7 +7,7 @@ var root = "";
 
 $j(document).ready(function(){
 	initialize();
-	window['moment-range'].extendMoment(moment);
+	//window['moment-range'].extendMoment(moment);
 
 	$j.when(
 		$j.getScript("/data/dictionary.js"),
