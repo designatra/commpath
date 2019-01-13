@@ -44,14 +44,36 @@
 			return $j.what();
 		},
 		/*
-				$j.studio("range", ["2016-03-10", "2016-03-15"], "2016-03-13")
-		*/
-		range: function(dates, query) {
-				const start = moment(dates[0]);
-				const end  = moment(dates[1]);
-				const range = moment.range(start, end);
+				TODO: Migrate to own util
 
-				return range.contains(moment(query));
+				$j.studio("inRange", "2016-03-13", ["2016-03-10", "2016-03-15"])
+				returns > TRUE or FALSE
+		*/
+		inRange: function(query, dates) {
+				return dayjs(query).isBetween(dates[0], dates[1]);
+		},
+		/*
+				$j.studio("filterPaths", ["2019-01-13T06:46:55-08:00", "2019-01-13T06:56:27-08:00"],"dateRange", function(contained, path) {
+						$j.log("Iteration", contained, path)
+				})
+		*/
+		filterPaths: function(haystack, filter, after) {
+			var matches=[];
+			var paths = $j.o("paths").history;
+			$j.each(paths.map, function(timeStamp, index) {
+				//var path = paths.log[index]
+
+				var contained = privates.inRange(timeStamp, haystack);
+				if(contained) {
+					// NOTE: Not sure if looping again to accumulte is worth it > ahh, maybe have a callback
+					matches.push(index);
+				}
+
+				if(after) {
+					after(contained, paths.log[index]);
+				}
+			})
+			return matches;
 		},
     /*
         $j.studio("encode", svg);
@@ -152,7 +174,7 @@
 				$j.studio("determineLogistics", path)
 		*/
 		determineLogistics: function(modelPath) {
-			var timeStamp = $j.now();
+			var timeStamp = dayjs().format();//$j.now();
 
 			var path = [];
 			$j.each(modelPath, function(i, edge) {

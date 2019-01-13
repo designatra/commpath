@@ -8,6 +8,7 @@ var root = "";
 $j(document).ready(function(){
 	initialize();
 	//window['moment-range'].extendMoment(moment);
+	dayjs.extend(window.dayjs_plugin_isBetween);
 
 	$j.when(
 		$j.getScript("/data/dictionary.js"),
