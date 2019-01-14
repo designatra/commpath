@@ -699,10 +699,15 @@ Array.prototype.remove = function(from, to) {
 	Creates a slice of array with n elements taken from the end.
 	** lodash uses takeLeft for the same functionality
 
-	array.fromEnd(2)
+	array.fromEnd(1) > return last value (not in an array)
+	array.fromEnd(2) > returns array of values
 */
 Array.prototype.fromEnd = function(n) {
-	return this.slice(Math.max(this.length - defined(n, 1), 0));
+	var newArray = this.slice(Math.max(this.length - defined(n, 1), 0));
+	if(n===1) {
+		return newArray[0];
+	}
+	return newArray;
 }
 
 String.prototype.capitalize = function() {
