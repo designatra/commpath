@@ -16,11 +16,11 @@
 
 
 	var util = plugin.methods.util = {
-		init: function(x, y, z) {
+		init: function(x, y, z, a, b) {
 			return overload(x, {
 				string: function() {
 					if(plugin.privates[x]) {
-						return plugin.privates[x](y, z);
+						return plugin.privates[x](y, z, a, b);
 					}
 					// if method name but no private method registered
 					// helpful with data calls $j.o("undefinedMethod") would key off data in $j.what()
@@ -109,32 +109,46 @@
 			return timer;
 		},
 		/*
-				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
-						DEFs > timeperiod = week
-									 intervalUnit = minute
+				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "second");
+				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
 
-						List of all available units
-						---------------------------
-						date		        Date of Month
-						day	        d	  Day of Week (Sunday as 0, Saturday as 6)
-						month	      M	  Month
-						year	      y	  Year
-						hour	      h	  Hour
-						minute	    m	  Minute
-						second	    s	  Second
-						millisecond	ms	Millisecond
+				****  Generating second for a week, will likely create call stack issues so stay away.
+				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
+				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "hour");
+				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
+
+				DEFs > timeperiod = week
+							 intervalUnit = minute
+
+				List of all available units
+				---------------------------
+				date		        Date of Month
+				day	        d	  Day of Week (Sunday as 0, Saturday as 6)
+				month	      M	  Month
+				year	      y	  Year
+				hour	      h	  Hour
+				minute	    m	  Minute
+				second	    s	  Second
+				millisecond	ms	Millisecond
 		*/
 		generate:function(timeperiod, timestamp, intervalUnit) {
+			var timestamps = [];
+
 			function generateRange(timestamp) {
 				var d = dayjs(timestamp);
 
 				var start = d.startOf(timeperiod),
 					end = d.endOf(timeperiod);
 
-				var timestamps = [start];
+				timestamps.push(start);
 
-				function next(lastTime) {
-					var nextTime = lastTime.add($j.dice("roll", "bulkEventGeneration", "sides6"), defined(intervalUnit, 'minute'));
+				var diceMethod = "sides6";
+				if(intervalUnit==="second") {
+					diceMethod = "complex_2";
+				}
+
+				function next() {
+					var nextTime = timestamps.fromEnd(1).add($j.dice("roll", "bulkEventGeneration", diceMethod), defined(intervalUnit, 'minute'));
 
 					// If the next random time falls before the time periods end time
 					if(!nextTime.isAfter(end)) {
@@ -146,13 +160,20 @@
 					return false;
 				};
 
-				next(timestamps.fromEnd(1));
+				next();
 			}
 
-			generateRange(timestamp);
+			return generateRange(timestamp);
 		}
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate
-	jQuery.fn[plugin.name]=function(e){var r=plugin.methods.dom;return r[e]?r[e].apply(this,Array.prototype.slice.call(arguments,1)):"object"!=typeof e&&e&&r[e]?void jQuery.error("Method "+e+" does not exist on jQuery(el)."+plugin.name):r.init.apply(this,arguments)},jQuery[plugin.name]=function(e){jQuery.isNumeric(e)&&(e=parseInt(e));var r=plugin.methods.util;return r[e]?r[e].apply(r,Array.prototype.slice.call(arguments,1)):"object"==typeof e||!e||!r[e]||plugin.data[e]||jQuery.isNumeric(e)?r.init.apply(r,arguments):void jQuery.error("Method "+e+" does not exist on jQuery."+plugin.name)};
+	jQuery.fn[plugin.name] = function (e) {
+		var r = plugin.methods.dom;
+		return r[e] ? r[e].apply(this, Array.prototype.slice.call(arguments, 1)) : "object" != typeof e && e && r[e] ? void jQuery.error("Method " + e + " does not exist on jQuery(el)." + plugin.name) : r.init.apply(this, arguments)
+	}, jQuery[plugin.name] = function (e) {
+		jQuery.isNumeric(e) && (e = parseInt(e));
+		var r = plugin.methods.util;
+		return r[e] ? r[e].apply(r, Array.prototype.slice.call(arguments, 1)) : "object" == typeof e || !e || !r[e] || plugin.data[e] || jQuery.isNumeric(e) ? r.init.apply(r, arguments) : void jQuery.error("Method " + e + " does not exist on jQuery." + plugin.name)
+	};
 })(jQuery);

@@ -1,4 +1,5 @@
 (function($j) {
+	// http://rpg.greenimp.co.uk/dice-roller/
 	var plugin = {
 		name: "dice",
 		methods: {},
@@ -7,10 +8,10 @@
 		formats: {
 			sides6:"d6",// or 1d6 (A 6 sided die)
 			sides6x2:"2d6",// (Two 6 sided dice)
-			sides20:"d20"
-			// 1d6+4 (Roll a 6 sided dice and add 4 to the result)
-			// 2d10*4+1d20 (Roll two 10 sided dice multiply by four, and roll one 20 sided die)
-			// 2d10+4+2d20-L (Roll two 10 sided dice add four, and roll two 20 sided die, taking away the lowest of the two)
+			sides20:"d20",
+			sides6plus4: "1d6+4", //(Roll a 6 sided dice and add 4 to the result)
+			complex_1: "2d10*4+1d20", //(Roll two 10 sided dice multiply by four, and roll one 20 sided die)
+			complex_2: "2d10+4+2d20-L" //(Roll two 10 sided dice add four, and roll two 20 sided die, taking away the lowest of the two)
 			// d% (A percentile die - equivalent to d100)
 			// dF or dF.2 (A standard fudge dice - 2 thirds of each symbol)
 			// dF.1 (A non-standard fudge dice - 1 positive, 1 negative, 4 blank)
