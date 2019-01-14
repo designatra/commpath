@@ -21,21 +21,27 @@ function buildTimeline(after) {
 
   // Create a DataSet (allows two way data-binding)
   var items = new vis.DataSet([
-    {id: 1, content: 'item 1', start: '2013-04-20'},
-    {id: 2, content: 'item 2', start: '2013-04-14'},
-    {id: 3, content: 'item 3', start: '2013-04-18'},
-    {id: 4, content: 'item 4', start: '2013-04-16', end: '2013-04-19'},
-    {id: 5, content: 'item 5', start: '2013-04-25'},
-    {id: 6, content: 'item 6', start: '2013-04-27'}
+    {id: 1, content: 'item 1', start: '2018-04-20'},
+    {id: 2, content: 'item 2', start: '2018-04-14'},
+    {id: 3, content: 'item 3', start: '2018-04-18'},
+    {id: 4, content: 'item 4', start: '2018-04-16', end: '2018-04-19'},
+    {id: 5, content: 'item 5', start: '2018-04-25'},
+    {id: 6, content: 'item 6', start: '2018-04-27'}
   ]);
 
   // Configuration for the Timeline
   var options = {
-    width: '100%',
-    height: '112px',
+    width: '100vw',
+    //height: '150px',
+    maxHeight:'300px',
     margin: {
       item: 20
     },
+    // rollingMode:{
+    //   follow:true
+    // },
+    start:'2018-04-14',
+    showCurrentTime:true,
     onInitialDrawComplete: function() {
       // TODO: Switch to more eventing versus callback
       if(after) {

@@ -9,6 +9,7 @@ $j(document).ready(function(){
 	initialize();
 	//window['moment-range'].extendMoment(moment);
 	dayjs.extend(window.dayjs_plugin_isBetween);
+	dayjs.extend(window.dayjs_plugin_isSameOrAfter);
 
 	$j.when(
 		$j.getScript("/data/dictionary.js"),

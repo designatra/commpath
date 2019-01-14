@@ -264,7 +264,7 @@
       // Does a sim for this year exist
       if(!sim[year]){
 	      $j.simulation("generateYear", {
-		      timestamp: "2018-01-02",
+		      timestamp: start,
 		      intervalUnit: "day"
 	      }, function(map, timestamps) {
 		      return $j.o("sim")[year] = {
@@ -279,25 +279,23 @@
 			      }
 		      };
 	      });
-
-
-        // $j.simulation("generateYear", start, function(map, timestamps) {
-        //   return $j.o("sim")[year] = {
-        //     map:map,
-        //     timestamps:timestamps,
-        //     /*
-        //         $j.o("sim", 2013).get("2013-01-01T08:00:00.000Z")
-        //           >>> Returns the Day Object
-        //     */
-        //     get: function(timestamp) {
-        //       return this.timestamps[this.map[timestamp]];
-        //     }
-        //   };
-        // });
       };
 
+      var filteredTimestamps = [];
+      $j.each(sim[year].map, function(timestamp, index) {
+      	var thisDay = dayjs(timestamp);
+
+      	if(thisDay.isSameOrAfter(start)) {
+			      if(thisDay.isSameOrAfter(end)) {
+				      return false
+			      }
+			      filteredTimestamps.push(sim[year].get(timestamp))
+	      }
+      });
+
+      // $j.log("YEAR", year, sim[year])
       if(after) {
-        return after(sim[year]);
+        return after(filteredTimestamps, sim[year]);
       }
     }
 	};
