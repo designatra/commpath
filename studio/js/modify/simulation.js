@@ -71,13 +71,31 @@
 				$j.simulation("start", "eventInterval", function() {
 					$j.studio("updatePath", "digitalComm1")
 				});
+
+				$j.simulation("start", "day", function() {
+					$j.studio("updatePath", "digitalComm1")
+
+					$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "second");  >> ~2981
+
+				});
 		*/
 		start: function(id, callback) {
+		  if($j.type(id)==="object") {
+		    var sim = id;
+		    $j.each(sim.timestamps, function() {
+		      if(callback) {
+		        callback(this.timestamp);
+          }
+        })
+
+			  return false;
+      }
+
+
 			var timer = plugin.timers[id];
 			if(timer===undefined) {
 				timer = plugin.timers[id] = {};
 			} else if(timer===false) {
-				//$j.log("Timer Stopped", id);
 				plugin.timers[id] = "stopped";
 				return false;
 			} else if(timer==="stopped") {
@@ -156,7 +174,6 @@
 						return next();
 					}
 
-					$j.log("Generation Complete: ", timestamps);
 					return false;
 				};
 
@@ -199,7 +216,7 @@
 			function day(timestamp) {
 			  return {
 			    timestamp:timestamp,
-          events:[]
+          paths:[]                // Not sure what is the best name to use here
         }
       }
 

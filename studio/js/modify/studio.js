@@ -161,20 +161,23 @@
 		/*
 				$j.studio("updatePath", "digitalComm1")
 				$j.studio("updatePath", "digitalComm1", 2)
+				$j.studio("updatePath", "digitalComm1", undefined, "2013-01-13T08:00:00.000Z")
 		*/
-		updatePath: function(id, path) {
+		updatePath: function(id, path, timestamp) {
 			var pathIndex = defined(path, random([1,5]))
-			//$j.log("Activating Path:", pathIndex);
 
-			var path = privates.determineLogistics($j.o("path", id, pathIndex));
+			var path = privates.determineLogistics($j.o("path", id, pathIndex), timestamp);
 
 			privates.updateEdges(path, "active");
 		},
 		/*
 				$j.studio("determineLogistics", path)
+				$j.studio("determineLogistics", path, "2013-01-13T08:00:00.000Z")
 		*/
-		determineLogistics: function(modelPath) {
-			var timeStamp = dayjs().format();//$j.now();
+		determineLogistics: function(modelPath, timestamp) {
+		  if(!timestamp) {
+        var timeStamp = dayjs().format();//$j.now();
+      }
 
 			var path = [];
 			$j.each(modelPath, function(i, edge) {
@@ -189,15 +192,20 @@
 				}
 			});
 
-			var history = $j.o("paths").history,
-				logLength = history.log.push(path);
-			history.map[timeStamp] = logLength-1;
+			if(!timestamp) {
+        var history = $j.o("paths").history,
+          logLength = history.log.push(path);
+        history.map[timeStamp] = logLength-1;
+      } else {
+        $j.o("sim", dayjs(timestamp).year()).get(timestamp).paths.push(path);
+      }
 
 			var nodes = privates.transferLogistics(path);
 			privates.updateNodes(nodes);
 
 			return path;
 		},
+
 		/*
 				$j.studio("transferLogistics", path)
 				privates.transferLogistics(path);
