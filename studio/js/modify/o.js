@@ -135,6 +135,8 @@
 
 				$j.o("sim")
 				$j.o("sim", 2013)
+
+				$j.o("sim", 2013).get("2013-01-01T08:00:00.000Z")
 		*/
 		sim: function(year) {
 			var sim = privates.core().simulation;

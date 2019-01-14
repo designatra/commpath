@@ -209,6 +209,8 @@
         $j.simulation("updateRange", [start, end], function(sim) {
 
         })
+
+        $j.o("sim", 2013).get("2013-01-01T08:00:00.000Z")
     */
     updateRange: function(range, after) {
       var sim =  $j.o("sim");
@@ -223,7 +225,14 @@
         $j.simulation("generateYear", start, function(map, timestamps) {
           return $j.o("sim")[year] = {
             map:map,
-            timestamps:timestamps
+            timestamps:timestamps,
+            /*
+                $j.o("sim", 2013).get("2013-01-01T08:00:00.000Z")
+                  >>> Returns the Day Object
+            */
+            get: function(timestamp) {
+              return this.timestamps[this.map[timestamp]];
+            }
           };
         });
       };
