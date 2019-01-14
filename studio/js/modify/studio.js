@@ -351,8 +351,7 @@
 			});
 
 			return activeEdges;
-		},
-
+		}
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate

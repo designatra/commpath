@@ -129,6 +129,19 @@
 		*/
 		color: function(id) {
 			return privates.colors()[id];
+		},
+		/*
+				Shortcut for simulation data
+
+				$j.o("sim")
+				$j.o("sim", 2013)
+		*/
+		sim: function(year) {
+			var sim = privates.core().simulation;
+			if(!year) {
+				return sim;
+			}
+			return sim[year];
 		}
 	};
 

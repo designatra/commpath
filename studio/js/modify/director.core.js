@@ -19,6 +19,7 @@ $j(document).ready(function(){
 	.then(function() {
 		$j.what($j.extend(true, {}, $j.what(), {
 			logistics:{},
+      simulation: {},
 			maps:{
 				nodes:{
 					by: {

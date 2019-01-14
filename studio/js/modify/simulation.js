@@ -167,30 +167,71 @@
 		},
 		/*
 				TODO: Refactor so it utilizes the more abstract set of functionality found in generate()
-				$j.simulation("generateYear", "2018-01-01")
+				$j.simulation("generateYear", "2018-01-01", function(year, timestamps) {
+
+				})
 		*/
-		generateYear: function(timestamp) {
+		generateYear: function(timestamp, after) {
 			var d = dayjs(timestamp);
 
 			var start = d.startOf('year'),
 				end = d.endOf('year');
 
-			var timestamps = [start];
+			var map = {};
 
-			function next() {
-				var nextDay = timestamps.fromEnd(1).add(1, 'day');
+			var timestamps = [day(start)];
+      map[start.toISOString()] = 0;
+
+        function next() {
+				var nextDay = timestamps.fromEnd(1).timestamp.add(1, 'day');
 
 				if(!nextDay.isAfter(end)) {
-					timestamps.push(nextDay);
+          map[nextDay.toISOString()] = timestamps.push(day(nextDay))-1;
 					return next();
 				}
 
-				$j.log("Generation Complete: ", timestamps);
-				return false;
+				if(after) {
+					return after(map, timestamps);
+				}
+				return timestamps;
 			}
 
+			function day(timestamp) {
+			  return {
+			    timestamp:timestamp,
+          events:[]
+        }
+      }
+
 			return next();
-		}
+		},
+    /*
+        $j.simulation("updateRange", [start, end], function(sim) {
+
+        })
+    */
+    updateRange: function(range, after) {
+      var sim =  $j.o("sim");
+
+      var start = dayjs(range[0]),
+          end = dayjs(range[1]);
+
+      var year = start.year();
+
+      // Does a sim for this year exist
+      if(!sim[year]){
+        $j.simulation("generateYear", start, function(map, timestamps) {
+          return $j.o("sim")[year] = {
+            map:map,
+            timestamps:timestamps
+          };
+        });
+      };
+
+      if(after) {
+        return after(sim[year]);
+      }
+    }
 	};
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate
