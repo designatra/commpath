@@ -27,6 +27,26 @@ $j.actors("register", {
 			})
 		});
 	},
+	timeline: function(e) {
+		var timeline = $j.what("timeline").timeline;
+
+		timeline.on("rangechange", function (e) {
+			$j.log("rangechange", e)
+		});
+		timeline.on("rangechanged", function (e) {
+			$j.log("rangechanged", dayjs(e.start), dayjs(e.end), e)
+
+		});
+		timeline.on("timechange", function (e) {
+			$j.log("timechange", e)
+		});
+		timeline.on("timechanged", function (e) {
+			$j.log("timechanged", e)
+		});
+		timeline.on("click", function (e) {
+			$j.log("click", e)
+		});
+	},
 	simulation:function(e) {
 		$j(this).on({
 			click: function() {

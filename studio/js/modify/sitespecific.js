@@ -45,9 +45,11 @@ function buildTimeline(after) {
   };
 
   // Create a Timeline
-  var timeline = new vis.Timeline(container, items, options);
+  var timeline =$j.what("timeline").timeline = new vis.Timeline(container, items, options);
 
-  $j.log("TIMELINE NEW", timeline)
+  $j.el("timeline").actors({
+    type:"timeline"
+  });
 }
 
 function buildNetwork() {

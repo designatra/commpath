@@ -13,6 +13,7 @@ $j(document).ready(function(){
 	$j.when(
 		$j.getScript("/data/dictionary.js"),
 		$j.getScript("/data/network.js"),
+		$j.getScript("/data/timeline.js"),
 		$j.getScript("/data/communications.js")
 	)
 	.then(function() {
