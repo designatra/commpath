@@ -107,6 +107,49 @@
 				plugin.timers[id] = false;
 			}
 			return timer;
+		},
+		/*
+				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
+						DEFs > timeperiod = week
+									 intervalUnit = minute
+
+						List of all available units
+						---------------------------
+						date		        Date of Month
+						day	        d	  Day of Week (Sunday as 0, Saturday as 6)
+						month	      M	  Month
+						year	      y	  Year
+						hour	      h	  Hour
+						minute	    m	  Minute
+						second	    s	  Second
+						millisecond	ms	Millisecond
+		*/
+		generate:function(timeperiod, timestamp, intervalUnit) {
+			function generateRange(timestamp) {
+				var d = dayjs(timestamp);
+
+				var start = d.startOf(timeperiod),
+					end = d.endOf(timeperiod);
+
+				var timestamps = [start];
+
+				function next(lastTime) {
+					var nextTime = lastTime.add($j.dice("roll", "bulkEventGeneration", "sides6"), defined(intervalUnit, 'minute'));
+
+					// If the next random time falls before the time periods end time
+					if(!nextTime.isAfter(end)) {
+						timestamps.push(nextTime);
+						return next(nextTime);
+					}
+
+					$j.log("Generation Complete: ", timestamps);
+					return false;
+				};
+
+				next(timestamps.fromEnd(1));
+			}
+
+			generateRange(timestamp);
 		}
 	};
 
