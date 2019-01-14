@@ -32,8 +32,8 @@ function buildTimeline(after) {
   // Configuration for the Timeline
   var options = {
     width: '100vw',
-    //height: '150px',
-    maxHeight:'300px',
+    height: '112px',
+    //maxHeight:'300px',
     margin: {
       item: 20
     },

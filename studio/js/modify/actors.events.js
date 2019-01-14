@@ -37,20 +37,21 @@ $j.actors("register", {
 			$j.simulation("updateRange", [e.start, e.end], function(filteredTimestamps, sim) {
 				var days = filteredTimestamps//sim.timestamps;
 $j.log(days)
-				// $j.each(days, function(i, day) {
-				// 	//ß$j.log("DAY", day.paths.length)
-				// 	var paths = day.paths;
-				// 	if(paths.length<1) {
-				// 		$j.simulation("generate", {
-				// 			period: "day",                                                                // Duration of time of which random timestamps will be generated
-				// 			timestamp: day.timestamp,      // Sample timestamp during the period
-				// 			intervalUnit: "minute"	                                                    // Generation coarseness (bigger array with smaller units)
-				// 		}, function(map, timestamps) {
-				// 			// GENERATE path for each timestamp (~410 timestamps per day)
-				// 			day.paths = timestamps;
-				// 		});
-				// 	}
-				// });
+
+				$j.each(days, function(i, day) {
+					//ß$j.log("DAY", day.paths.length)
+					var paths = day.paths;
+					if(paths.length<1) {
+						$j.simulation("generate", {
+							period: "day",                                                                // Duration of time of which random timestamps will be generated
+							timestamp: day.timestamp,      // Sample timestamp during the period
+							intervalUnit: "minute"	                                                    // Generation coarseness (bigger array with smaller units)
+						}, function(map, timestamps) {
+							// GENERATE path for each timestamp (~410 timestamps per day)
+							day.paths = timestamps;
+						});
+					}
+				});
 			})
 
       // $j.simulation("updateRange", [e.start, e.end], function(sim) {
