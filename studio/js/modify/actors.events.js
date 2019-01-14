@@ -34,12 +34,12 @@ $j.actors("register", {
 		// 	$j.log("rangechange", e)
 		// });
 		timeline.on("rangechanged", function (e) {
-      $j.simulation("updateRange", [e.start, e.end], function(sim) {
-	      $j.simulation("mode", "accumulate")
-	      $j.simulation("start", $j.o("sim", 2013), function(timestamp) {
-		      $j.studio("updatePath", "digitalComm1", undefined, timestamp)
-	      });
-      })
+      // $j.simulation("updateRange", [e.start, e.end], function(sim) {
+	    //   $j.simulation("mode", "accumulate")
+	    //   $j.simulation("start", $j.o("sim", 2013), function(timestamp) {
+		  //     $j.studio("updatePath", "digitalComm1", undefined, timestamp)
+	    //   });
+      // })
 
 
 		});

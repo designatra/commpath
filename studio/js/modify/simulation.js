@@ -127,13 +127,25 @@
 			return timer;
 		},
 		/*
-				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "second");  >> ~2981
+				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "second", function(timestamps) {
+						// >> ~2981
+						$j.log(timestamps)
+				});
 				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");  >> ~411
 				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "hour");    >> ~8
 
 				****  Generating second for a week, will likely create call stack issues so stay away.
 				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute"); >> ~2938
 				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "hour");   >> ~52
+
+
+				$j.simulation("generate", {
+						period: "day",                                                                // Duration of time of which random timestamps will be generated
+						timestamp: "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)",      // Sample timestamp during the period
+						intervalUnit: "minute"	                                                    // Generation coarseness (bigger array with smaller units)
+				}, function(map, path) {
+						$j.log(map, path)
+				});
 
 				DEFs > timeperiod = week
 							 intervalUnit = minute
@@ -149,61 +161,78 @@
 				second	    s	  Second
 				millisecond	ms	Millisecond
 		*/
-		generate:function(timeperiod, timestamp, intervalUnit) {
+		generate:function(conf, after) {
 			var timestamps = [];
 
 			function generateRange(timestamp) {
 				var d = dayjs(timestamp);
 
-				var start = d.startOf(timeperiod),
-					end = d.endOf(timeperiod);
+				var start = d.startOf(conf.period),
+					end = d.endOf(conf.period);
 
-				timestamps.push(start);
+				var map = {};
+				map[start.toISOString()] = 0;
+
+				timestamps.push(objs.second(start));
 
 				var diceMethod = "sides6";
-				if(intervalUnit==="second") {
+				if(conf.intervalUnit==="second") {
 					diceMethod = "complex_2";
 				}
 
 				function next() {
-					var nextTime = timestamps.fromEnd(1).add($j.dice("roll", "bulkEventGeneration", diceMethod), defined(intervalUnit, 'minute'));
+					var nextTime = timestamps.fromEnd(1).timestamp.add($j.dice("roll", "bulkEventGeneration", diceMethod), defined(conf.intervalUnit, 'minute'));
 
 					// If the next random time falls before the time periods end time
 					if(!nextTime.isAfter(end)) {
-						timestamps.push(nextTime);
+						//timestamps.push(objs.second(nextTime))
+						map[nextTime.toISOString()] = timestamps.push(objs.second(nextTime))-1;
 						return next();
 					}
 
-					return false;
+					if(after) {
+						return after(map, timestamps);
+					}
+					return timestamps;
 				};
 
 				next();
 			}
 
-			return generateRange(timestamp);
+			return generateRange(conf.timestamp);
 		},
 		/*
 				TODO: Refactor so it utilizes the more abstract set of functionality found in generate()
+
+				$j.simulation("generateYear", {
+						timestamp: "2018-01-02",                                                // Sample timestamp during the period
+						intervalUnit: "day"	                                                   // Generation coarseness (bigger array with smaller units)
+				}, function(map, timestamps) {
+						$j.log(map, timestamps)
+				});
+
 				$j.simulation("generateYear", "2018-01-01", function(year, timestamps) {
 
 				})
 		*/
-		generateYear: function(timestamp, after) {
-			var d = dayjs(timestamp);
+		generateYear: function(conf, after) {
+			var d = dayjs(conf.timestamp);
 
-			var start = d.startOf('year'),
-				end = d.endOf('year');
+			var period = defined(conf.period, "year");
+
+			var start = d.startOf(period),
+				end = d.endOf(period);
 
 			var map = {};
-
-			var timestamps = [day(start)];
       map[start.toISOString()] = 0;
 
-        function next() {
-				var nextDay = timestamps.fromEnd(1).timestamp.add(1, 'day');
+			var timestamps = [objs.day(start)];
+
+      function next() {
+				var nextDay = timestamps.fromEnd(1).timestamp.add(1, conf.intervalUnit);
 
 				if(!nextDay.isAfter(end)) {
-          map[nextDay.toISOString()] = timestamps.push(day(nextDay))-1;
+          map[nextDay.toISOString()] = timestamps.push(objs.day(nextDay))-1;
 					return next();
 				}
 
@@ -213,12 +242,7 @@
 				return timestamps;
 			}
 
-			function day(timestamp) {
-			  return {
-			    timestamp:timestamp,
-          paths:[]                // Not sure what is the best name to use here
-        }
-      }
+			//objs.day(conf.timestamp);
 
 			return next();
 		},
@@ -239,19 +263,37 @@
 
       // Does a sim for this year exist
       if(!sim[year]){
-        $j.simulation("generateYear", start, function(map, timestamps) {
-          return $j.o("sim")[year] = {
-            map:map,
-            timestamps:timestamps,
-            /*
+	      $j.simulation("generateYear", {
+		      timestamp: "2018-01-02",
+		      intervalUnit: "day"
+	      }, function(map, timestamps) {
+		      return $j.o("sim")[year] = {
+			      map:map,
+			      timestamps:timestamps,
+			      /*
                 $j.o("sim", 2013).get("2013-01-01T08:00:00.000Z")
                   >>> Returns the Day Object
             */
-            get: function(timestamp) {
-              return this.timestamps[this.map[timestamp]];
-            }
-          };
-        });
+			      get: function(timestamp) {
+				      return this.timestamps[this.map[timestamp]];
+			      }
+		      };
+	      });
+
+
+        // $j.simulation("generateYear", start, function(map, timestamps) {
+        //   return $j.o("sim")[year] = {
+        //     map:map,
+        //     timestamps:timestamps,
+        //     /*
+        //         $j.o("sim", 2013).get("2013-01-01T08:00:00.000Z")
+        //           >>> Returns the Day Object
+        //     */
+        //     get: function(timestamp) {
+        //       return this.timestamps[this.map[timestamp]];
+        //     }
+        //   };
+        // });
       };
 
       if(after) {
@@ -259,6 +301,21 @@
       }
     }
 	};
+
+	var objs = {
+		day:function(timestamp) {
+			return {
+				timestamp:timestamp,
+				paths:[]
+			}
+		},
+		second: function(timestamp) {
+			return {
+				timestamp:timestamp,
+				path:[]
+			}
+		}
+	}
 
 	// DON'T MODIFY > dollarJ (based on jQuery) plugin boilerplate
 	jQuery.fn[plugin.name] = function (e) {
