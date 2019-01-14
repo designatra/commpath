@@ -109,13 +109,13 @@
 			return timer;
 		},
 		/*
-				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "second");
-				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
+				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "second");  >> ~2981
+				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");  >> ~411
+				$j.simulation("generate", "day", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "hour");    >> ~8
 
 				****  Generating second for a week, will likely create call stack issues so stay away.
-				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
-				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "hour");
-				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute");
+				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "minute"); >> ~2938
+				$j.simulation("generate", "week", "Sun Apr 14 2018 14:32:51 GMT-0700 (Pacific Daylight Time)", "hour");   >> ~52
 
 				DEFs > timeperiod = week
 							 intervalUnit = minute
@@ -153,7 +153,7 @@
 					// If the next random time falls before the time periods end time
 					if(!nextTime.isAfter(end)) {
 						timestamps.push(nextTime);
-						return next(nextTime);
+						return next();
 					}
 
 					$j.log("Generation Complete: ", timestamps);
@@ -164,6 +164,32 @@
 			}
 
 			return generateRange(timestamp);
+		},
+		/*
+				TODO: Refactor so it utilizes the more abstract set of functionality found in generate()
+				$j.simulation("generateYear", "2018-01-01")
+		*/
+		generateYear: function(timestamp) {
+			var d = dayjs(timestamp);
+
+			var start = d.startOf('year'),
+				end = d.endOf('year');
+
+			var timestamps = [start];
+
+			function next() {
+				var nextDay = timestamps.fromEnd(1).add(1, 'day');
+
+				if(!nextDay.isAfter(end)) {
+					timestamps.push(nextDay);
+					return next();
+				}
+
+				$j.log("Generation Complete: ", timestamps);
+				return false;
+			}
+
+			return next();
 		}
 	};
 
