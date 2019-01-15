@@ -5,7 +5,8 @@
 		init: false,
 		data:{},
 		timers:{},
-		mode:"single"
+		mode:"single",
+		worker:false
 	};
 
 	plugin.methods.dom = {
@@ -104,7 +105,7 @@
 				//$j.log("Timer is Running.", id);
 			}
 
-			var intervalLength = $j.dice("roll", "eventInterval", "sides6")*1000;
+			var intervalLength = $j.dice("roll", "eventInterval", "sides20")*1000;
 			timer = plugin.timers[id] = setTimeout(function() {
 				//$j.log("Timer Interval", id, intervalLength);
 
@@ -162,39 +163,54 @@
 				millisecond	ms	Millisecond
 		*/
 		generate:function(conf, after) {
-			var timestamps = [];
-			var d = dayjs(conf.timestamp);
+			// $j.simulation("generateWorker", conf, function(data) {
+			// 	// $j.log("DONE with ", data.data)
+			// 	return after(data.data.map, data.data.timestamps);
+			// });
+			if(plugin.worker===false) {
+				plugin.worker = new Worker('js/workers/generate.js');
 
-			var start = d.startOf(conf.period),
-				end = d.endOf(conf.period);
-
-			var map = {};
-			map[start.toISOString()] = 0;
-
-			timestamps.push(objs.second(start));
-
-			var diceMethod = "sides20";
-			if(conf.intervalUnit==="second") {
-				diceMethod = "complex_2";
+				if (typeof (Worker) !== "undefined") {
+					plugin.worker.onmessage = function (data) {
+						$j.log(data)
+						return after(data.data.map, data.data.timestamps)
+					};
+				}
 			}
 
-			function next() {
-				var nextTime = dayjs(timestamps.fromEnd(1).timestamp).add($j.dice("roll", "bulkEventGeneration", diceMethod), defined(conf.intervalUnit, 'minute'));
+			plugin.worker.postMessage(conf);
 
-				// If the next random time falls before the time periods end time
-				if(!nextTime.isAfter(end)) {
-					//timestamps.push(objs.second(nextTime))
-					map[nextTime.toISOString()] = timestamps.push(objs.second(nextTime))-1;
-					return next();
-				}
-
-				if(after) {
-					return after(map, timestamps);
-				}
-				// return timestamps;
-			};
-
-			next();
+			// var d = dayjs(conf.timestamp);
+			//
+			// var start = d.startOf(conf.period),
+			// 	end = d.endOf(conf.period);
+			//
+			// var map = {};
+			// map[start.toISOString()] = 0;
+			//
+			// var timestamps = new PowerArray([objs.second(start)]);
+			//
+			// var diceMethod = "sides20";
+			// if(conf.intervalUnit==="second") {
+			// 	diceMethod = "complex_2";
+			// }
+			//
+			// function next() {
+			// 	var nextTime = dayjs(timestamps.fromEnd(1).timestamp).add($j.dice("roll", "bulkEventGeneration", diceMethod), conf.intervalUnit);
+			//
+			// 	// If the next random time falls before the time periods end time
+			// 	if(!nextTime.isAfter(end)) {
+			// 		map[nextTime.toISOString()] = timestamps.push(objs.second(nextTime))-1;
+			// 		return next();
+			// 	}
+			//
+			// 	if(after) {
+			// 		$j.log("DONE Original")
+			// 		return after(map, timestamps);
+			// 	}
+			// };
+			//
+			// next();
 		},
 		/*
 				TODO: Refactor so it utilizes the more abstract set of functionality found in generate()
@@ -221,7 +237,7 @@
 			var map = {};
       map[start.toISOString()] = 0;
 
-			var timestamps = [objs.day(start)];
+			var timestamps = new PowerArray([objs.day(start)]);
 
       function next() {
 				var nextDay = dayjs(timestamps.fromEnd(1).timestamp).add(1, conf.intervalUnit);
@@ -236,8 +252,6 @@
 				}
 				return timestamps;
 			}
-
-			//objs.day(conf.timestamp);
 
 			return next();
 		},
@@ -276,7 +290,7 @@
 	      });
       };
 
-      var filteredTimestamps = [];
+      var filteredTimestamps = new PowerArray();
       $j.each(sim[year].map, function(timestamp, index) {
       	var thisDay = dayjs(timestamp);
 
@@ -288,7 +302,6 @@
 	      }
       });
 
-      // $j.log("YEAR", year, sim[year])
       if(after) {
         return after(filteredTimestamps, sim[year]);
       }
@@ -299,13 +312,13 @@
 		day:function(timestamp) {
 			return {
 				timestamp:timestamp.toISOString(),
-				paths:[]
+				paths:new PowerArray()
 			}
 		},
 		second: function(timestamp) {
 			return {
 				timestamp:timestamp.toISOString(),
-				path:[]
+				path:new PowerArray()
 			}
 		}
 	}

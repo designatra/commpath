@@ -34,20 +34,26 @@ $j.actors("register", {
 		timeline.on("rangechanged", function (e) {
 			$j.throttle("buildingPaths", e, 1000, function() {
 				$j.simulation("updateRange", [e.start, e.end], function(filteredTimestamps, sim) {
-					var days = filteredTimestamps;
-					$j.each(days, function(i, day) {
-						var paths = day.paths;
+					var days = new PowerArray(filteredTimestamps);
 
+					days.forEach(function(day){
+						$j.log("DAY", day.timestamp)
+					//\$j.each(days, function(i, day) {
+						var paths = day.paths;
+$j
 						if(paths.length<1) {
 							$j.simulation("generate", {
 								period: "day",                                                                // Duration of time of which random timestamps will be generated
 								timestamp: day.timestamp,      // Sample timestamp during the period
-								intervalUnit: "minute"	                                                    // Generation coarseness (bigger array with smaller units)
+								intervalUnit: "second"	                                                    // Generation coarseness (bigger array with smaller units)
 							}, function(map, timestamps) {
+								// $j.log("ACTOR EVENTS CALLBACK", map, timestamps)
 								// GENERATE path for each timestamp (~410 timestamps per day)
+								//$j.log(timestamps)
 								day.paths = timestamps;
-
+								$j.log("DAY", day)
 								var timestamp = dayjs(day.timestamp);
+
 								var week = {
 									start:timestamp.startOf("week"),
 									end:timestamp.endOf("week")
@@ -67,13 +73,13 @@ $j.actors("register", {
 						}
 					});
 
+					$j.log(weeks)
 					var timelineData = [];
 					$j.each(weeks, function(id, week) {
 						week.content = week.paths.toString();
 						timelineData.push(week)
 					})
 					$j.what("timeline").data.update(timelineData);
-
 				});
 			})
 		  //    $j.studio("updatePath", "digitalComm1", undefined, timestamp)
