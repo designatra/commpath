@@ -359,6 +359,18 @@
 			});
 
 			return activeEdges;
+		},
+		/*
+				$j.studio("updateTimeline", dataSet, function() {
+
+				})
+		*/
+		updateTimeline: function(dataSet, after) {
+			var id$ = $j.o("timeline").data.update(dataSet)
+			if(after) {
+				return after(ids);
+			}
+			return ids;
 		}
 	};
 

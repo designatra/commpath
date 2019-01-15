@@ -163,16 +163,11 @@
 				millisecond	ms	Millisecond
 		*/
 		generate:function(conf, after) {
-			// $j.simulation("generateWorker", conf, function(data) {
-			// 	// $j.log("DONE with ", data.data)
-			// 	return after(data.data.map, data.data.timestamps);
-			// });
 			if(plugin.worker===false) {
 				plugin.worker = new Worker('js/workers/generate.js');
 
 				if (typeof (Worker) !== "undefined") {
 					plugin.worker.onmessage = function (data) {
-						$j.log(data)
 						return after(data.data.map, data.data.timestamps)
 					};
 				}

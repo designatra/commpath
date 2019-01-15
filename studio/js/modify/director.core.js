@@ -12,12 +12,13 @@ $j(document).ready(function(){
 	dayjs.extend(window.dayjs_plugin_isSameOrAfter);
 
 	$j.when(
+		$j.getJSON("/data/trends/2014_weekly.1.json"),
+		$j.getJSON("/data/trends/2014_weekly.2.json"),
 		$j.getScript("/data/dictionary.js"),
 		$j.getScript("/data/network.js"),
 		$j.getScript("/data/timeline.js"),
-		$j.getScript("/data/communications.js")
-	)
-	.then(function() {
+		$j.getScript("/data/communications.js"))
+	.then(function(trend_1, trend_2) {
 		$j.what($j.extend(true, {}, $j.what(), {
 			logistics:{},
       simulation: {},
@@ -25,6 +26,13 @@ $j(document).ready(function(){
 				nodes:{
 					by: {
 						id:{}
+					}
+				}
+			},
+			trends:{
+				by_week:{
+					since:{
+						2014:[new PowerArray(trend_1[0]), new PowerArray(trend_2[0])]
 					}
 				}
 			}
@@ -36,7 +44,6 @@ $j(document).ready(function(){
 		$j.each($j.o("nodes"), function(i, node) {
 			mappedNodes[node.id] = node;
 		});
-
 
 		$j.el("papa").build("setup", {
 				project:"/studio/",

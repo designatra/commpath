@@ -37,49 +37,45 @@ $j.actors("register", {
 					var days = new PowerArray(filteredTimestamps);
 
 					days.forEach(function(day){
-						$j.log("DAY", day.timestamp)
-					//\$j.each(days, function(i, day) {
-						var paths = day.paths;
-$j
-						if(paths.length<1) {
-							$j.simulation("generate", {
-								period: "day",                                                                // Duration of time of which random timestamps will be generated
-								timestamp: day.timestamp,      // Sample timestamp during the period
-								intervalUnit: "second"	                                                    // Generation coarseness (bigger array with smaller units)
-							}, function(map, timestamps) {
-								// $j.log("ACTOR EVENTS CALLBACK", map, timestamps)
-								// GENERATE path for each timestamp (~410 timestamps per day)
-								//$j.log(timestamps)
-								day.paths = timestamps;
-								$j.log("DAY", day)
-								var timestamp = dayjs(day.timestamp);
 
-								var week = {
-									start:timestamp.startOf("week"),
-									end:timestamp.endOf("week")
-								}
-								week.id = week.start.toISOString()+week.end.toISOString();
-
-								if(weeks[week.id]===undefined) {
-									weeks[week.id] = {
-										id:week.id,
-										start:week.start.format("YYYY-MM-DD"),
-										end:week.end.format("YYYY-MM-DD"),
-										paths:0
-									};
-								}
-								weeks[week.id].paths=weeks[week.id].paths+day.paths.length;
-							});
-						}
+						// NOTE: Big issues here with variable bleeding into microierations (while iterating over a year of days, single timestamp is held constant)
+						// var paths = day.paths;
+						//
+						// if(paths.length<1) {
+						// 	$j.simulation("generate", {
+						// 		period: "day",                                                                // Duration of time of which random timestamps will be generated
+						// 		timestamp: day.timestamp,      // Sample timestamp during the period
+						// 		intervalUnit: "second"	                                                    // Generation coarseness (bigger array with smaller units)
+						// 	}, function(map, timestamps) {
+						// 		day.paths = timestamps;
+						//
+						// 		var timestamp = dayjs(day.timestamp);
+						//
+						// 		var week = {
+						// 			start:timestamp.startOf("week"),
+						// 			end:timestamp.endOf("week")
+						// 		}
+						// 		week.id = week.start.toISOString()+week.end.toISOString();
+						//
+						// 		if(weeks[week.id]===undefined) {
+						// 			weeks[week.id] = {
+						// 				id:week.id,
+						// 				start:week.start.format("YYYY-MM-DD"),
+						// 				end:week.end.format("YYYY-MM-DD"),
+						// 				paths:0
+						// 			};
+						// 		}
+						// 		weeks[week.id].paths=weeks[week.id].paths+day.paths.length;
+						// 	});
+						// }
 					});
 
-					$j.log(weeks)
-					var timelineData = [];
-					$j.each(weeks, function(id, week) {
-						week.content = week.paths.toString();
-						timelineData.push(week)
-					})
-					$j.what("timeline").data.update(timelineData);
+					// var timelineData = [];
+					// $j.each(weeks, function(id, week) {
+					// 	week.content = week.paths.length;
+					// 	timelineData.push(week)
+					// })
+					// $j.what("timeline").data.update(timelineData);
 				});
 			})
 		  //    $j.studio("updatePath", "digitalComm1", undefined, timestamp)

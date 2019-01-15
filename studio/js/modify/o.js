@@ -144,6 +144,18 @@
 				return sim;
 			}
 			return sim[year];
+		},
+		/*
+				$j.o("timeline")
+		*/
+		timeline: function() {
+			return privates.core().timeline;
+		},
+		/*
+				$j.o("trends", "week", 2014)
+		*/
+		trends: function(increment, sinceWhen) {
+			return privates.core().trends["by_"+increment].since[sinceWhen];
 		}
 	};
 

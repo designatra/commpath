@@ -11,8 +11,8 @@
 			sides20:"d20",
 			sides6plus4: "1d6+4", //(Roll a 6 sided dice and add 4 to the result)
 			complex_1: "2d10*4+1d20", //(Roll two 10 sided dice multiply by four, and roll one 20 sided die)
-			complex_2: "2d10+4+2d20-L" //(Roll two 10 sided dice add four, and roll two 20 sided die, taking away the lowest of the two)
-			// d% (A percentile die - equivalent to d100)
+			complex_2: "2d10+4+2d20-L", //(Roll two 10 sided dice add four, and roll two 20 sided die, taking away the lowest of the two)
+			percent: "d%" //(A percentile die - equivalent to d100)
 			// dF or dF.2 (A standard fudge dice - 2 thirds of each symbol)
 			// dF.1 (A non-standard fudge dice - 1 positive, 1 negative, 4 blank)
 			// 2d6! (Exploding dice - two 6 sided die, rolling again for each roll of the maximum value)

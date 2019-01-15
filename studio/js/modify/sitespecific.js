@@ -19,30 +19,58 @@ function pageBuilder() {
 function buildTimeline(after) {
   var container = $j.el("timeline")[0];
 
-  // Create a DataSet (allows two way data-binding)
-  var items = $j.what("timeline").data = new vis.DataSet([
-    //{id: 1, content: 'item 1', start: '2018-04-20'},
-    // {id: 2, content: 'item 2', start: '2018-04-14'},
-    // {id: 3, content: 'item 3', start: '2018-04-18'},
-    {id: guid(), content: 'Yay!', start: '2018-01-01'},
-    // {id: 5, content: 'item 5', start: '2018-04-25'},
-    // {id: 6, content: 'item 6', start: '2018-04-27'}
+  var dataSet = [];
+  var trend = $j.o("trends", "week", 2014);
+  trend[0].forEach(function(week, i) {
+      var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
+      // Success
+      dataSet.push({
+        id:guid(),
+        start:week[0],
+        end:end,
+        content:scaleUp(week[2]).toString(),
+        group:0
+      });
+
+      var week_alt = trend[1][i];
+      // Failure
+      dataSet.push({
+        id:guid(),
+        start:week[0],
+        end:end,
+        content:(week_alt[1]*random([67,71])).toString(),
+        group:1
+      })
+  });
+
+  function scaleUp(eventTotal) {
+    //$j.dice("roll", "multiplier", "percent")
+    return (eventTotal*1)*random([283,286]);
+  }
+
+  var groups = new vis.DataSet([
+    {id: 1, content: 'Failures', value: 3},
+    {id: 0, content: 'Events', value: 1},
+    // {id: 2, content: 'Second', value: 2}
   ]);
+
+  var items = $j.what("timeline").data = new vis.DataSet(dataSet);
 
   // Configuration for the Timeline
   var options = {
     width: '100vw',
-    minHeight: '112px',
+    //minHeight: '112px',
     maxHeight:'300px',
     margin: {
-      item: 20
+      item: 10
     },
-    start:'2018-01-01',
-    end:'2019-01-13',
-    min: new Date(2018, 0, 1),                // lower limit of visible range
+    stack:false,
+    start:trend[0][0][0],
+    end:'2019-04-1',
+    min: new Date(2014, 0, 1),                // lower limit of visible range
     max: new Date(2019, 4, 1),                // upper limit of visible range
     zoomMin: 1000 * 60 * 60 * 24,             // one day in milliseconds
-    zoomMax: 1000 * 60 * 60 * 24 * 31 * 3,     // about three months in milliseconds
+    zoomMax: 1000 * 60 * 60 * 24 * 31 * 6,     // about three months in milliseconds
     showCurrentTime:true,
     onInitialDrawComplete: function() {
       // TODO: Switch to more eventing versus callback
@@ -53,7 +81,8 @@ function buildTimeline(after) {
   };
 
   // Create a Timeline
-  var timeline =$j.what("timeline").timeline = new vis.Timeline(container, items, options);
+  var timeline = $j.what("timeline").timeline = new vis.Timeline(container, items, options);
+  timeline.setGroups(groups);
 
   $j.el("timeline").actors({
     type:"timeline"
