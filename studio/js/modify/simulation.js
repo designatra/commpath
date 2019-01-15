@@ -149,7 +149,7 @@
 					callback(id);
 				}
 				return privates.start(id, callback);
-			}, intervalLength/100);
+			}, intervalLength);
 
 			return timer;
 		},

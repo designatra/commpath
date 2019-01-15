@@ -72,11 +72,11 @@ function buildTimeline(after) {
       item: 10
     },
     stack:false,
-    start:trend[0][0][0],
+    //start:trend[0][0][0],
     end:'2019-01-05',
     min: new Date(2014, 0, 1),                // lower limit of visible range
     max: new Date(2019, 4, 1),                // upper limit of visible range
-    zoomMin: 1000 * 60 * 60 * 24*31,             // one day in milliseconds
+    zoomMin: 1000 * 60 * 60 * 24,             // one day in milliseconds
     zoomMax: 1000 * 60 * 60 * 24 * 31 * 6,     // about three months in milliseconds
     showCurrentTime:true,
     onInitialDrawComplete: function() {
