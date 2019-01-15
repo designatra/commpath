@@ -6,7 +6,12 @@
 		data:{},
 		timers:{},
 		mode:"single",
-		worker:false
+		worker:false,
+		cycler:{
+			id:null,
+			timer:null,
+			playing:false
+		}
 	};
 
 	plugin.methods.dom = {
@@ -14,6 +19,8 @@
 			return jQuery(this);
 		},
 	};
+
+	var requestID;
 
 
 	var util = plugin.methods.util = {
@@ -68,6 +75,35 @@
 		timers: function() {
 			return plugin.timers;
 		},
+		// Deprecating start
+		/*
+				$j.simulation("begin")
+		*/
+		begin: function(maxCount) {
+			$j.simulation("mode", "accumulate")
+			plugin.cycler.playing = true;
+			var i = 0;
+
+			function cycle() {
+				var requestID = plugin.cycler.id = requestAnimationFrame(cycle);
+
+				if(plugin.cycler.playing===true) {
+					if(i<maxCount) {
+						$j.studio("updatePath", "digitalComm1", 3, dayjs().toISOString())
+						++i;
+					} else {
+						$j.simulation("end")
+					}
+				}
+			};
+			cycle();
+		},
+		end: function() {
+			plugin.cycler.playing = false;
+			// use the requestID to cancel the requestAnimationFrame call
+			 cancelAnimationFrame(requestID);
+			 return cancelAnimationFrame(plugin.cycler.id)
+		},
 		/*
 				$j.simulation("start", "eventInterval", function() {
 					$j.studio("updatePath", "digitalComm1")
@@ -113,7 +149,7 @@
 					callback(id);
 				}
 				return privates.start(id, callback);
-			}, intervalLength);
+			}, intervalLength/100);
 
 			return timer;
 		},

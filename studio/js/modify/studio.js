@@ -136,6 +136,10 @@
 		*/
 		resetNodes: function() {
 			var nodes = [];
+
+			// if(!$j.what("vis")) {
+			// 	return false;
+			// }
 			$j.o("vis", "nodes").forEach(function(node) {
 				node.logistics = $j.extend({}, node.logistics, {
 					in:0,
@@ -179,6 +183,7 @@
         var timeStamp = dayjs().format();//$j.now();
       }
 
+		  // Deprecated this with $j.simulation("distribute", 20382, 4);
 			var path = [];
 			$j.each(modelPath, function(i, edge) {
 				var roll = $j.dice("roll", "outboundSuccess", "sides20");
@@ -233,6 +238,9 @@
 
 				node.id=id;//edge.to;
 
+				if(!$j.o("vis")) {
+					return false;
+				}
 				var oldLog = $j.o("vis", "nodes").get(node.id).logistics;
 				if(!oldLog.duds) {
 					oldLog.duds = {

@@ -46,9 +46,13 @@ $j.actors("register", {
 					calcs[item.group] = calcs[item.group] + parseInt(item.content);
 				});
 
-				$j.log(calcs)
+				var distributions = {
+					success: $j.simulation("distribute", calcs.success, 4),
+					failure: $j.simulation("distribute", calcs.failure, 4)
+				}
+
+				//$j.simulation("begin", distributions.success[0])
 			})
-		  //    $j.studio("updatePath", "digitalComm1", undefined, timestamp)
 		});
 	},
 	simulation:function(e) {

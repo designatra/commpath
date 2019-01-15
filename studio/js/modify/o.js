@@ -60,6 +60,7 @@
 			if(!what) {
 				return vis;
 			}
+
 			return vis[what];
 		},
 		/*

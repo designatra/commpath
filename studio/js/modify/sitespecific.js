@@ -10,9 +10,13 @@ function pageBuilder() {
     .actors({
       type:"simulation"
     });
+  //
+  // buildTimeline(function() {
+  //   buildNetwork();
+  // });
 
-  buildTimeline(function() {
-    buildNetwork();
+  buildNetwork(function() {
+    buildTimeline();
   });
 }
 
@@ -44,14 +48,12 @@ function buildTimeline(after) {
   });
 
   function scaleUp(eventTotal) {
-    //$j.dice("roll", "multiplier", "percent")
     return (eventTotal*1)*random([283,286]);
   }
 
   var groups = new vis.DataSet([
     {id: "failure", content: 'Failure', value: 3},
-    {id: "success", content: 'Success', value: 1},
-    // {id: 2, content: 'Second', value: 2}
+    {id: "success", content: 'Success', value: 1}
   ]);
 
   var items = $j.what("timeline").data = new vis.DataSet(dataSet);
@@ -66,7 +68,7 @@ function buildTimeline(after) {
     },
     stack:false,
     start:trend[0][0][0],
-    end:'2019-04-1',
+    end:'2019-01-05',
     min: new Date(2014, 0, 1),                // lower limit of visible range
     max: new Date(2019, 4, 1),                // upper limit of visible range
     zoomMin: 1000 * 60 * 60 * 24,             // one day in milliseconds
@@ -89,7 +91,7 @@ function buildTimeline(after) {
   });
 }
 
-function buildNetwork() {
+function buildNetwork(after) {
   var container = $j.el("network")[0];
 
   var nodes = new vis.DataSet($j.studio("nodes", $j.o("nodes"))),
@@ -143,6 +145,10 @@ function buildNetwork() {
   $j.el("inspector").actors({
     type:"network"
   });
+
+  if(after) {
+    after.apply(this, arguments);
+  }
 }
 
 
