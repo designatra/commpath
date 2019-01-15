@@ -12,14 +12,14 @@
 			sides6plus4: "1d6+4", //(Roll a 6 sided dice and add 4 to the result)
 			complex_1: "2d10*4+1d20", //(Roll two 10 sided dice multiply by four, and roll one 20 sided die)
 			complex_2: "2d10+4+2d20-L", //(Roll two 10 sided dice add four, and roll two 20 sided die, taking away the lowest of the two)
-			percent: "d%" //(A percentile die - equivalent to d100)
+			percent: "d%", //(A percentile die - equivalent to d100)
 			// dF or dF.2 (A standard fudge dice - 2 thirds of each symbol)
 			// dF.1 (A non-standard fudge dice - 1 positive, 1 negative, 4 blank)
 			// 2d6! (Exploding dice - two 6 sided die, rolling again for each roll of the maximum value)
 			// 2d6!! (Exploding & compounding dice - like exploding, but adding together into single roll)
 			// 2d6!p (Penetrating dice - like exploding, but subtract 1 from each consecutive roll)
 			// 2d6!!p (Penetrating & compounding dice - like exploding & compounding, but subtract 1 from each consecutive roll)
-			// 2d6!>=4 (Exploding dice, but only if you roll a 4 or greater - Also usable with compounding and penetrating dice)
+			exploding_1: "2d6!>=4" //(Exploding dice, but only if you roll a 4 or greater - Also usable with compounding and penetrating dice)
 			// 2d6>4 (Dice pool - anything greater t
 		}
 	};

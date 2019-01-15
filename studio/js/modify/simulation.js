@@ -300,7 +300,43 @@
       if(after) {
         return after(filteredTimestamps, sim[year]);
       }
-    }
+    },
+		/*
+				$j.simulation("distribute", 20382, 4);
+		*/
+		distribute(amount, branches) {
+			var remaining = 100;
+			var remainingAmount = amount;
+
+			var distributions = [];
+
+			var step, distribution;
+			for (step = 0; step < branches; step++) {
+				// First Distibution
+				if(step == 0) {
+					distribution = $j.dice("roll", "eventInterval", "exploding_1");
+					remaining = remaining - distribution;
+				} else if(step == (branches-1)) {
+					// Last Distribution
+					distribution = remaining;
+				} else {
+					distribution = random([0, remaining])
+					remaining = remaining - distribution;
+				}
+
+				var distributionAmount;
+				if(step == (branches-1)) {
+					distributionAmount = remainingAmount;
+				} else {
+					distributionAmount = Math.floor(remainingAmount*(distribution/100))
+					remainingAmount = remainingAmount - distributionAmount;
+				}
+
+				distributions.push(distributionAmount);
+			}
+
+			return distributions;
+		}
 	};
 
 	var objs = {
