@@ -29,37 +29,54 @@ $j.actors("register", {
 	},
 	timeline: function(e) {
 		var timeline = $j.what("timeline").timeline;
+		var weeks = {};
 
-		// timeline.on("rangechange", function (e) {
-		// 	$j.log("rangechange", e)
-		// });
 		timeline.on("rangechanged", function (e) {
-			$j.simulation("updateRange", [e.start, e.end], function(filteredTimestamps, sim) {
-				var days = filteredTimestamps//sim.timestamps;
-$j.log(days)
+			$j.throttle("buildingPaths", e, 1000, function() {
+				$j.simulation("updateRange", [e.start, e.end], function(filteredTimestamps, sim) {
+					var days = filteredTimestamps;
+					$j.each(days, function(i, day) {
+						var paths = day.paths;
 
-				$j.each(days, function(i, day) {
-					//ß$j.log("DAY", day.paths.length)
-					var paths = day.paths;
-					if(paths.length<1) {
-						$j.simulation("generate", {
-							period: "day",                                                                // Duration of time of which random timestamps will be generated
-							timestamp: day.timestamp,      // Sample timestamp during the period
-							intervalUnit: "minute"	                                                    // Generation coarseness (bigger array with smaller units)
-						}, function(map, timestamps) {
-							// GENERATE path for each timestamp (~410 timestamps per day)
-							day.paths = timestamps;
-						});
-					}
+						if(paths.length<1) {
+							$j.simulation("generate", {
+								period: "day",                                                                // Duration of time of which random timestamps will be generated
+								timestamp: day.timestamp,      // Sample timestamp during the period
+								intervalUnit: "minute"	                                                    // Generation coarseness (bigger array with smaller units)
+							}, function(map, timestamps) {
+								// GENERATE path for each timestamp (~410 timestamps per day)
+								day.paths = timestamps;
+
+								var timestamp = dayjs(day.timestamp);
+								var week = {
+									start:timestamp.startOf("week"),
+									end:timestamp.endOf("week")
+								}
+								week.id = week.start.toISOString()+week.end.toISOString();
+
+								if(weeks[week.id]===undefined) {
+									weeks[week.id] = {
+										id:week.id,
+										start:week.start.format("YYYY-MM-DD"),
+										end:week.end.format("YYYY-MM-DD"),
+										paths:0
+									};
+								}
+								weeks[week.id].paths=weeks[week.id].paths+day.paths.length;
+							});
+						}
+					});
+
+					var timelineData = [];
+					$j.each(weeks, function(id, week) {
+						week.content = week.paths.toString();
+						timelineData.push(week)
+					})
+					$j.what("timeline").data.update(timelineData);
+
 				});
 			})
-
-      // $j.simulation("updateRange", [e.start, e.end], function(sim) {
-	    //   $j.simulation("mode", "accumulate")
-	    //   $j.simulation("start", $j.o("sim", 2013), function(timestamp) {
-		  //     $j.studio("updatePath", "digitalComm1", undefined, timestamp)
-	    //   });
-      // })
+		  //    $j.studio("updatePath", "digitalComm1", undefined, timestamp)
 		});
 	},
 	simulation:function(e) {

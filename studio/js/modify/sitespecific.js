@@ -20,27 +20,29 @@ function buildTimeline(after) {
   var container = $j.el("timeline")[0];
 
   // Create a DataSet (allows two way data-binding)
-  var items = new vis.DataSet([
-    {id: 1, content: 'item 1', start: '2018-04-20'},
-    {id: 2, content: 'item 2', start: '2018-04-14'},
-    {id: 3, content: 'item 3', start: '2018-04-18'},
-    {id: 4, content: 'item 4', start: '2018-04-16', end: '2018-04-19'},
-    {id: 5, content: 'item 5', start: '2018-04-25'},
-    {id: 6, content: 'item 6', start: '2018-04-27'}
+  var items = $j.what("timeline").data = new vis.DataSet([
+    //{id: 1, content: 'item 1', start: '2018-04-20'},
+    // {id: 2, content: 'item 2', start: '2018-04-14'},
+    // {id: 3, content: 'item 3', start: '2018-04-18'},
+    {id: guid(), content: 'Yay!', start: '2018-01-01'},
+    // {id: 5, content: 'item 5', start: '2018-04-25'},
+    // {id: 6, content: 'item 6', start: '2018-04-27'}
   ]);
 
   // Configuration for the Timeline
   var options = {
     width: '100vw',
-    height: '112px',
-    //maxHeight:'300px',
+    minHeight: '112px',
+    maxHeight:'300px',
     margin: {
       item: 20
     },
-    // rollingMode:{
-    //   follow:true
-    // },
-    start:'2018-04-14',
+    start:'2018-01-01',
+    end:'2019-01-13',
+    min: new Date(2018, 0, 1),                // lower limit of visible range
+    max: new Date(2019, 4, 1),                // upper limit of visible range
+    zoomMin: 1000 * 60 * 60 * 24,             // one day in milliseconds
+    zoomMax: 1000 * 60 * 60 * 24 * 31 * 3,     // about three months in milliseconds
     showCurrentTime:true,
     onInitialDrawComplete: function() {
       // TODO: Switch to more eventing versus callback

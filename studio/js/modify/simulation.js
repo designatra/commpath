@@ -163,43 +163,38 @@
 		*/
 		generate:function(conf, after) {
 			var timestamps = [];
+			var d = dayjs(conf.timestamp);
 
-			function generateRange(timestamp) {
-				var d = dayjs(timestamp);
+			var start = d.startOf(conf.period),
+				end = d.endOf(conf.period);
 
-				var start = d.startOf(conf.period),
-					end = d.endOf(conf.period);
+			var map = {};
+			map[start.toISOString()] = 0;
 
-				var map = {};
-				map[start.toISOString()] = 0;
+			timestamps.push(objs.second(start));
 
-				timestamps.push(objs.second(start));
-
-				var diceMethod = "sides6";
-				if(conf.intervalUnit==="second") {
-					diceMethod = "complex_2";
-				}
-
-				function next() {
-					var nextTime = timestamps.fromEnd(1).timestamp.add($j.dice("roll", "bulkEventGeneration", diceMethod), defined(conf.intervalUnit, 'minute'));
-
-					// If the next random time falls before the time periods end time
-					if(!nextTime.isAfter(end)) {
-						//timestamps.push(objs.second(nextTime))
-						map[nextTime.toISOString()] = timestamps.push(objs.second(nextTime))-1;
-						return next();
-					}
-
-					if(after) {
-						return after(map, timestamps);
-					}
-					return timestamps;
-				};
-
-				next();
+			var diceMethod = "sides20";
+			if(conf.intervalUnit==="second") {
+				diceMethod = "complex_2";
 			}
 
-			return generateRange(conf.timestamp);
+			function next() {
+				var nextTime = dayjs(timestamps.fromEnd(1).timestamp).add($j.dice("roll", "bulkEventGeneration", diceMethod), defined(conf.intervalUnit, 'minute'));
+
+				// If the next random time falls before the time periods end time
+				if(!nextTime.isAfter(end)) {
+					//timestamps.push(objs.second(nextTime))
+					map[nextTime.toISOString()] = timestamps.push(objs.second(nextTime))-1;
+					return next();
+				}
+
+				if(after) {
+					return after(map, timestamps);
+				}
+				// return timestamps;
+			};
+
+			next();
 		},
 		/*
 				TODO: Refactor so it utilizes the more abstract set of functionality found in generate()
@@ -229,7 +224,7 @@
 			var timestamps = [objs.day(start)];
 
       function next() {
-				var nextDay = timestamps.fromEnd(1).timestamp.add(1, conf.intervalUnit);
+				var nextDay = dayjs(timestamps.fromEnd(1).timestamp).add(1, conf.intervalUnit);
 
 				if(!nextDay.isAfter(end)) {
           map[nextDay.toISOString()] = timestamps.push(objs.day(nextDay))-1;
@@ -303,13 +298,13 @@
 	var objs = {
 		day:function(timestamp) {
 			return {
-				timestamp:timestamp,
+				timestamp:timestamp.toISOString(),
 				paths:[]
 			}
 		},
 		second: function(timestamp) {
 			return {
-				timestamp:timestamp,
+				timestamp:timestamp.toISOString(),
 				path:[]
 			}
 		}

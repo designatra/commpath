@@ -45,39 +45,49 @@
 
 		<style>
 			papa {
-				height: 100%;
-				width: 100%;
+				height: 100vh;
+				width: 100vw;
 				overflow: hidden;
 				display:flex;
+				flex-direction:column;
 
 				/*perspective: 1600px;*/
 			}
 			papa > #network {
-				height:100vh;
+				/*height:100vh;*/
 				width:100vw;
 				z-index: 10;
+				flex:1;
 			}
 
 			papa > #timeline {
-				height:112px;
+				/*height:200px;*/
 				width:100vw;
-				position:absolute;
+				/*position:absolute;*/
 				z-index: 100;
+				flex:initial;
 			}
 			papa > #inspector {
 
 			}
 
 			papa #simulationControls {
-				position:absolute;
-				top:112px;
-				right:0;
+				/*position:absolute;*/
+				/*top:112px;*/
+				/*right:0;*/
+				width:100vw;
+				display:flex;
+				/*flex:initial;*/
+				z-index:20;
+				justify-content: flex-end;
+			}
+			papa #simulationControls > wrapper {
 				width:200px;
 				height:50px;
 				display:flex;
-				z-index:20;
+				flex:initial;
 			}
-			papa #simulationControls > action {
+			papa #simulationControls > wrapper > action {
 				flex:1;
 				display:flex;
 				justify-content: center;
@@ -94,13 +104,14 @@
 	<body>
 		<papa>
 			<wrapper id="timeline"></wrapper>
-			<wrapper id="network"></wrapper>
 			<wrapper id="simulationControls">
-				<action id="play">Play</action>
-				<action id="stop">Stop</action>
-				<action id="reset">Reset</action>
+				<wrapper>
+					<action id="play">Play</action>
+					<action id="stop">Stop</action>
+					<action id="reset">Reset</action>
+				</wrapper>
 			</wrapper>
-
+			<wrapper id="network"></wrapper>
 		</papa>
 	</body>
 </html>
