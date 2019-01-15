@@ -29,7 +29,7 @@ function buildTimeline(after) {
         start:week[0],
         end:end,
         content:scaleUp(week[2]).toString(),
-        group:0
+        group:"success"
       });
 
       var week_alt = trend[1][i];
@@ -39,7 +39,7 @@ function buildTimeline(after) {
         start:week[0],
         end:end,
         content:(week_alt[1]*random([67,71])).toString(),
-        group:1
+        group:"failure"
       })
   });
 
@@ -49,8 +49,8 @@ function buildTimeline(after) {
   }
 
   var groups = new vis.DataSet([
-    {id: 1, content: 'Failures', value: 3},
-    {id: 0, content: 'Events', value: 1},
+    {id: "failure", content: 'Failure', value: 3},
+    {id: "success", content: 'Success', value: 1},
     // {id: 2, content: 'Second', value: 2}
   ]);
 

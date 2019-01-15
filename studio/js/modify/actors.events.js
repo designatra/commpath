@@ -28,55 +28,25 @@ $j.actors("register", {
 		});
 	},
 	timeline: function(e) {
-		var timeline = $j.what("timeline").timeline;
+		var t = $j.o("timeline"),
+				timeline = t.timeline;
 		var weeks = {};
 
 		timeline.on("rangechanged", function (e) {
 			$j.throttle("buildingPaths", e, 1000, function() {
-				$j.simulation("updateRange", [e.start, e.end], function(filteredTimestamps, sim) {
-					var days = new PowerArray(filteredTimestamps);
+				var calcs = {
+					failure:0,
+					success:0
+				};
 
-					days.forEach(function(day){
+				var visibleItems = timeline.getVisibleItems();
 
-						// NOTE: Big issues here with variable bleeding into microierations (while iterating over a year of days, single timestamp is held constant)
-						// var paths = day.paths;
-						//
-						// if(paths.length<1) {
-						// 	$j.simulation("generate", {
-						// 		period: "day",                                                                // Duration of time of which random timestamps will be generated
-						// 		timestamp: day.timestamp,      // Sample timestamp during the period
-						// 		intervalUnit: "second"	                                                    // Generation coarseness (bigger array with smaller units)
-						// 	}, function(map, timestamps) {
-						// 		day.paths = timestamps;
-						//
-						// 		var timestamp = dayjs(day.timestamp);
-						//
-						// 		var week = {
-						// 			start:timestamp.startOf("week"),
-						// 			end:timestamp.endOf("week")
-						// 		}
-						// 		week.id = week.start.toISOString()+week.end.toISOString();
-						//
-						// 		if(weeks[week.id]===undefined) {
-						// 			weeks[week.id] = {
-						// 				id:week.id,
-						// 				start:week.start.format("YYYY-MM-DD"),
-						// 				end:week.end.format("YYYY-MM-DD"),
-						// 				paths:0
-						// 			};
-						// 		}
-						// 		weeks[week.id].paths=weeks[week.id].paths+day.paths.length;
-						// 	});
-						// }
-					});
-
-					// var timelineData = [];
-					// $j.each(weeks, function(id, week) {
-					// 	week.content = week.paths.length;
-					// 	timelineData.push(week)
-					// })
-					// $j.what("timeline").data.update(timelineData);
+				visibleItems.forEach(function(itemID) {
+					var item = t.data.get(itemID);
+					calcs[item.group] = calcs[item.group] + parseInt(item.content);
 				});
+
+				$j.log(calcs)
 			})
 		  //    $j.studio("updatePath", "digitalComm1", undefined, timestamp)
 		});
