@@ -23,28 +23,33 @@ function pageBuilder() {
 function buildTimeline(after) {
   var container = $j.el("timeline")[0];
 
+  var weekOf = $j.what("weekOf", {});
   var dataSet = [];
   var trend = $j.o("trends", "week", 2014);
   trend[0].forEach(function(week, i) {
-      var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
-      // Success
-      dataSet.push({
-        id:guid(),
-        start:week[0],
-        end:end,
-        content:scaleUp(week[2]).toString(),
-        group:"success"
-      });
+      if(!weekOf[week[0]]) {
+        weekOf[week[0]] = true;
 
-      var week_alt = trend[1][i];
-      // Failure
-      dataSet.push({
-        id:guid(),
-        start:week[0],
-        end:end,
-        content:(week_alt[1]*random([67,71])).toString(),
-        group:"failure"
-      })
+        var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
+        // Success
+        dataSet.push({
+          id: guid(),
+          start: week[0],
+          end: end,
+          content: scaleUp(week[2]).toString(),
+          group: "success"
+        });
+
+        var week_alt = trend[1][i];
+        // Failure
+        dataSet.push({
+          id: guid(),
+          start: week[0],
+          end: end,
+          content: (week_alt[1] * random([67, 71])).toString(),
+          group: "failure"
+        })
+      }
   });
 
   function scaleUp(eventTotal) {
@@ -71,7 +76,7 @@ function buildTimeline(after) {
     end:'2019-01-05',
     min: new Date(2014, 0, 1),                // lower limit of visible range
     max: new Date(2019, 4, 1),                // upper limit of visible range
-    zoomMin: 1000 * 60 * 60 * 24,             // one day in milliseconds
+    zoomMin: 1000 * 60 * 60 * 24*31,             // one day in milliseconds
     zoomMax: 1000 * 60 * 60 * 24 * 31 * 6,     // about three months in milliseconds
     showCurrentTime:true,
     onInitialDrawComplete: function() {
