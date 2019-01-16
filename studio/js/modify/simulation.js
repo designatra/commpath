@@ -339,6 +339,8 @@
     },
 		/*
 				$j.simulation("distribute", 20382, 4);
+
+				Determines how (much of) a large number is spread
 		*/
 		distribute(amount, branches) {
 			var remaining = 100;
@@ -372,6 +374,67 @@
 			}
 
 			return distributions;
+		},
+		/*
+				$j.simulation("fork", 304, {
+						id: "success",
+						bias: .90
+				});
+
+				Makes a decision with simple bias configuration.
+				-- utilizes a 20 sided die to create reasonable variability
+				-- last prong doesn't require a bias
+
+				TODO: To make this logic block work the way I intended ,
+				would require enhancements to determine what matches
+		*/
+		fork(amount, prongs) {
+			var roll = $j.dice("roll", "outboundSuccess", "sides20");
+
+			var success = true;
+			if (roll>=(.9*20)) {
+				success = false;
+			}
+			return success;
+		},
+		/*
+				(Pretends to) Travel down a linear path,
+					-- to determine if a journey will be a success
+					-- otherwise will assign the failure to intaking node
+
+				*** WE neeed to make sure we give it plenty of ways to succeed since I"m just realizing how it would likely be even.
+		*/
+		traverse: function(path) {
+			var roll = $j.dice("roll", "outboundSuccess", "sides20");
+
+
+			// TODO: Need to come uopw it simple way to support a dynamic
+			// set of nodes/edges, and how we can specify an equal
+			// distribution for each, except for the success node (last n
+			// ode which gets 40-50% of the end
+			var journey = new Array(path.length);
+			var i;
+			for (i = 0; i < path.length; i++) {
+				journey[i]
+			}
+
+			$j.each(modelPath, function(i, edge) {
+				var roll =
+				edge.success = true;
+				if (roll>=(.9*20)) {
+					edge.success = false;
+				}
+				path.push(edge);
+				if(edge.success===false) {
+					return false;
+				}
+			});
+
+			// This ends the loop since a failure would prevcent the path from continuing
+			// path.push(edge);
+			// if(edge.success===false) {
+			// 	return false;
+			// }false
 		}
 	};
 
