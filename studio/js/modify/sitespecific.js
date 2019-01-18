@@ -156,6 +156,14 @@ function buildNetwork(after) {
   }
 }
 
+function populateNetwork(successes, failures) {
+  var modelPaths = $j.o("paths").digitalComm1;
+  var distributedSuccess = $j.simulation("distribute", successes, modelPaths.length);
+  $j.each(distributedSuccess, function(i, total) {
+    $j.log($j.simulation("generateGoodPaths", total, modelPaths[i]))
+  })
+}
+
 
 
 
