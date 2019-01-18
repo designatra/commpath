@@ -408,7 +408,7 @@
 			var roll = $j.dice("roll", "outboundSuccess", "sides20");
 
 
-			// TODO: Need to come uopw it simple way to support a dynamic
+			// TODO: Need to come up with a simple way to support a dynamic
 			// set of nodes/edges, and how we can specify an equal
 			// distribution for each, except for the success node (last n
 			// ode which gets 40-50% of the end
@@ -435,6 +435,32 @@
 			// if(edge.success===false) {
 			// 	return false;
 			// }false
+		},
+		/*
+				$j.simulation("generateBadPaths", 5000, $j.what("network").paths.digitalComm1[0])
+
+				NOTE: This will create an average failure rate across nodes but that might be ok since we have multiple paths
+		*/
+		generateBadPaths(howMany, modelPath) {
+			var nodes = {};
+			var pathLength = modelPath.length;
+			var dudTypes = ["biz", "it", "planned"];
+
+			var i;
+			for (i = 0; i < howMany; i++) {
+				var badNode = modelPath[random([0,pathLength])].to;
+				var node = nodes[badNode];
+				if(!node) {
+					nodes[badNode] = {
+						biz:0,
+						it:0,
+						planned:0
+					};
+				}
+				++nodes[badNode][dudTypes[random([0,3])]];
+			}
+
+			return nodes;
 		}
 	};
 
