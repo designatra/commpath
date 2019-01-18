@@ -447,19 +447,52 @@
 			var dudTypes = ["biz", "it", "planned"];
 
 			var i;
-			for (i = 0; i < howMany; i++) {
-				var badNode = modelPath[random([0,pathLength])].to;
-				var node = nodes[badNode];
-				if(!node) {
-					nodes[badNode] = {
-						biz:0,
-						it:0,
-						planned:0
-					};
+			for(i=0; i<pathLength; i++) {
+				var path = modelPath[i];
+				if(i==0) {
+					nodes[path.from]=newNode();
 				}
-				++nodes[badNode][dudTypes[random([0,3])]];
+				nodes[path.to]=newNode();
 			}
 
+			function newNode() {
+				return {
+					in: 0,
+					out: 0,
+					duds: {
+						biz: 0,
+						it: 0,
+						planned: 0
+					}
+				}
+			}
+
+
+			for (var q = howMany; q--;) {
+				var randomIndex = random([0, pathLength]);
+				var badNode = modelPath[randomIndex].to;
+				var node = nodes[badNode];
+				// if (!node) {
+				// 	nodes[badNode] = {
+				// 		in: 0,
+				// 		out: 0,
+				// 		duds: {
+				// 			biz: 0,
+				// 			it: 0,
+				// 			planned: 0
+				// 		}
+				// 	}
+				// }
+				++nodes[badNode].in;
+				++nodes[badNode].duds[dudTypes[random([0, 3])]];
+
+
+				for (var i = randomIndex; i--;) {
+					var goodNode = modelPath[i].from;
+					++nodes[goodNode].in
+					++nodes[goodNode].out
+				}
+			}
 			return nodes;
 		}
 	};
