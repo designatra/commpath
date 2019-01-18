@@ -467,30 +467,34 @@
 				}
 			}
 
-
 			for (var q = howMany; q--;) {
 				var randomIndex = random([0, pathLength]);
 				var badNode = modelPath[randomIndex].to;
-				var node = nodes[badNode];
-				// if (!node) {
-				// 	nodes[badNode] = {
-				// 		in: 0,
-				// 		out: 0,
-				// 		duds: {
-				// 			biz: 0,
-				// 			it: 0,
-				// 			planned: 0
-				// 		}
-				// 	}
-				// }
+
+				// If there is an error with the first path segment
+				if(randomIndex==0) {
+					// THen refer to the first segment origin (from) & and it wont haveb a two
+					badNode = modelPath[randomIndex].from;
+					//++nodes[modelPath[randomIndex].from].in;
+				} else {
+
+					++nodes[modelPath[0].from].out;
+				}
+
 				++nodes[badNode].in;
 				++nodes[badNode].duds[dudTypes[random([0, 3])]];
 
+				if(randomIndex>0) {
 
-				for (var i = randomIndex; i--;) {
-					var goodNode = modelPath[i].from;
-					++nodes[goodNode].in
-					++nodes[goodNode].out
+					for (var d = randomIndex; d--;) {
+						var goodNode = modelPath[d].to;
+						if (d == 0) {
+							++nodes[modelPath[0].from].in;
+						}
+
+						++nodes[goodNode].in
+						++nodes[goodNode].out
+					}
 				}
 			}
 			return nodes;
