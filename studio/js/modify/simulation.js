@@ -437,6 +437,51 @@
 			// }false
 		},
 		/*
+				$j.simulation("generateGoodPaths", howMany, modelPath)
+				$j.simulation("generateGoodPaths", 5000, $j.what("network").paths.digitalComm1[0])
+
+				TODO: Refactor generateGoodPaths & BadPaths so they reuse the same path walking loops
+		*/
+		generateGoodPaths(howMany, modelPath) {
+			var nodes = {};
+			var pathLength = modelPath.length;
+
+			for(var i=0; i<pathLength; i++) {
+				var path = modelPath[i];
+				if(i==0) {
+					nodes[path.from]=newNode(path.from);
+				}
+				nodes[path.to]=newNode(path.to);
+			}
+
+			function newNode(id) {
+				var o = {
+					in: 0,
+					out: 0,
+					duds: {
+						biz: 0,
+						it: 0,
+						planned: 0
+					}
+				};
+
+				o.id = id;
+				return o;
+			}
+
+			for (var q = howMany; q--;) {
+				for (var d = 0; d<pathLength; d++) {
+					++nodes[modelPath[d].from].in;
+					++nodes[modelPath[d].from].out;
+
+					if(d==pathLength-1) {
+						++nodes[modelPath[d].to].in;
+					}
+				}
+			}
+			return nodes;
+		},
+		/*
 				$j.simulation("generateBadPaths", 5000, $j.what("network").paths.digitalComm1[0])
 
 				NOTE: This will create an average failure rate across nodes but that might be ok since we have multiple paths
@@ -450,13 +495,13 @@
 			for(i=0; i<pathLength; i++) {
 				var path = modelPath[i];
 				if(i==0) {
-					nodes[path.from]=newNode();
+					nodes[path.from]=newNode(path.from);
 				}
-				nodes[path.to]=newNode();
+				nodes[path.to]=newNode(path.to);
 			}
 
-			function newNode() {
-				return {
+			function newNode(id) {
+				var o = {
 					in: 0,
 					out: 0,
 					duds: {
@@ -464,7 +509,10 @@
 						it: 0,
 						planned: 0
 					}
-				}
+				};
+
+				o.id = id;
+				return o;
 			}
 
 			for (var q = howMany; q--;) {
