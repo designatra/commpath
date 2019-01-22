@@ -46,10 +46,12 @@ $j.actors("register", {
 					calcs[item.group] = calcs[item.group] + parseInt(item.content);
 				});
 
-				var distributions = {
-					success: $j.simulation("distribute", calcs.success, 4),
-					failure: $j.simulation("distribute", calcs.failure, 4)
-				}
+				// var distributions = {
+				// 	success: $j.simulation("distribute", calcs.success, 4),
+				// 	failure: $j.simulation("distribute", calcs.failure, 4)
+				// }
+
+				populateNetwork(calcs.success, calcs.failure);
 
 				//$j.simulation("begin", distributions.success[0])
 			})

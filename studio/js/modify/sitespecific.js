@@ -159,6 +159,7 @@ function buildNetwork(after) {
 function populateNetwork(successes, failures) {
   var modelPaths = $j.o("paths").digitalComm1;
   var collection = {};
+  var edges = {};
 
   generatePath("Good", $j.simulation("distribute", successes, modelPaths.length), collection);
   generatePath("Bad", $j.simulation("distribute", failures, modelPaths.length), collection);
@@ -188,7 +189,37 @@ function populateNetwork(successes, failures) {
     })
   }
 
-  $j.log(collection)
+  var nodes = [];
+  $j.each(collection, function(id, node) {
+    var o = {};
+    o.id = id;
+    o.logistics = node;
+    nodes.push(o);
+  });
+
+  $j.studio("updateNodes", nodes);
+
+  // Generate Edges
+  var edges = {}
+  $j.each(modelPaths, function(i, modelPath) {
+    $j.each(modelPath, function(i, thisEdge) {
+      var edge = edges[thisEdge.id];
+      if(!edge) {
+        edge = edges[thisEdge.id] = thisEdge;
+        edge.value = 0;
+        edge.value = $j.o("vis", "nodes").get(thisEdge.from).logistics.out;
+      } else {
+        edge.value = edge.value + $j.o("vis", "nodes").get(thisEdge.from).logistics.out
+      }
+
+    })
+  });
+  var edgesArray = [];
+  $j.each(edges, function(id, edge) {
+    edgesArray.push(edge);
+  })
+  $j.o("vis", "edges").update(edgesArray);
+
   return collection;
 }
 
