@@ -158,10 +158,38 @@ function buildNetwork(after) {
 
 function populateNetwork(successes, failures) {
   var modelPaths = $j.o("paths").digitalComm1;
-  var distributedSuccess = $j.simulation("distribute", successes, modelPaths.length);
-  $j.each(distributedSuccess, function(i, total) {
-    $j.log($j.simulation("generateGoodPaths", total, modelPaths[i]))
-  })
+  var collection = {};
+
+  generatePath("Good", $j.simulation("distribute", successes, modelPaths.length), collection);
+  generatePath("Bad", $j.simulation("distribute", failures, modelPaths.length), collection);
+
+  function generatePath(type, distribution, collection) {
+    $j.each(distribution, function(i, total) {
+      var paths = $j.simulation("generate"+type+"Paths", total, modelPaths[i]);
+      $j.each(paths, function(i) {
+        var node = collection[this.id];
+        if(!node) {
+          node = collection[this.id] = this;
+        } else {
+          $j.each(this, function(key,value) {
+            if(key!=="id") {
+              if(key==="duds") {
+                var duds = node.duds;
+                $j.each(value, function(dudKey, dudValue) {
+                  duds[dudKey] = duds[dudKey] + dudValue;
+                })
+              } else {
+                node[key] = node[key] + value;
+              }
+            }
+          })
+        }
+      })
+    })
+  }
+
+  $j.log(collection)
+  return collection;
 }
 
 
