@@ -546,8 +546,6 @@
 					}
 				}
 			}
-
-			$j.log(nodes)
 			return nodes;
 		}
 	};

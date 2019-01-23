@@ -75,5 +75,19 @@ $j.actors("register", {
 				$j.studio("resetNodes");
 			}
 		}, "action")
+	},
+	filterPaths: function(e) {
+		var $paths = $j(this);
+
+		$paths.on({
+			click: function(e) {
+				if($j(this).is(".active")) {
+					return false;
+				}
+
+				var id = $j(this).klass("swap", "active").attr("id")*1;
+				$j.studio("updateEdges", $j.o("path", "digitalComm1", $j(this).attr("id")*1), "active")
+			}
+		}, "control[type=path]")
 	}
 });

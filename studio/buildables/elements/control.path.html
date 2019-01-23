@@ -16,20 +16,22 @@
         align-items: center;
         padding:0 16px;
         border-radius: 3px;
-        border:1px solid rgba(255,255,255,0);
-        background-color:white;
+        border:1px solid rgba(0,0,0,.1);
+        background-color:rgba(0,0,0,.1);
+        font-weight: 500;
+        color:#333333;
       }
 
-      &:hover {
+      &.active, &:hover {
         > thing {
-          background-color:#1778d3;
-          border-color:#1778d3;
+          background-color:rgba(90,138,0, 1);
+          border-color:rgba(90,138,0, 1);
           color:white;
         }
       }
     }
 	}
 </style>
-<control type="path">
-  <thing content="id"></thing>
+<control type="path" attr="id:id">
+  <thing content="label"></thing>
 </control>

@@ -20,20 +20,24 @@ function pageBuilder() {
 }
 
 function buildPathSelector($paths, modelPathID) {
-  $paths
+  var $el = $paths
     .children("#paths")
     .build("control.path", $j.o("path", modelPathID), {
       populate: function(i, data) {
+        var id = i+1;
         var o = {
-          id:"Path: " + (i+1),
+          id:id,
+          label:"Path: " + id,
           paths:data
         };
         return o;
       },
-      after: function(i, data) {
-
+      completed: function(o) {
+       o.$parent.actors({
+         type:"filterPaths"
+       })
       }
-    })
+    });
 }
 
 function buildTimeline(after) {
