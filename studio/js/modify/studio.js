@@ -157,6 +157,29 @@
 			privates.updateNodes(nodes);
 		},
 		/*
+				$j.studio("resetEdges")
+	  */
+		resetEdges: function() {
+			//var edges = [];
+			$j.o("vis", "edges").forEach(function(edge) {
+				edge.state = "inactive";
+				edge.color = {
+					color: $j.o("color", "white_1")
+				};
+				edge.value = 0;
+				$j.o("vis", "edges").update(edge)
+			});
+
+			//$j.o("vis", "edges").update(edges);
+		},
+		/*
+				$j.studio("resetNetwork")
+		*/
+		resetNetwork: function() {
+			privates.resetNodes();
+			privates.resetEdges();
+		},
+		/*
 				$j.studio("updateNodes", nodes);
 		*/
 		updateNodes: function(nodes) {
