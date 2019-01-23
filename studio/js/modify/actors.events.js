@@ -33,7 +33,7 @@ $j.actors("register", {
 		var weeks = {};
 
 		timeline.on("rangechanged", function (e) {
-			$j.throttle("buildingPaths", e, 1000, function() {
+			$j.throttle("buildingPaths", e, 400, function() {
 				var calcs = {
 					failure:0,
 					success:0
