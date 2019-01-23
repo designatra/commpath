@@ -94,10 +94,15 @@
 			return privates.network().paths;
 		},
 		/*
+			$j.o("path", "digitalComm1");
 			$j.o("path", "digitalComm1", 1);
 		*/
 		path: function(id, index) {
-			return privates.paths()[id][index-1];
+			var paths = privates.paths()[id];
+			if(!index) {
+				return paths;
+			}
+			return paths[index-1];
 		},
 		/*
 				$j.o("entities")
