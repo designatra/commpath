@@ -64,7 +64,8 @@ $j(document).ready(function(){
 					"thing",
 					"svg.body",
 					"communications",
-					"communication"
+					"communication",
+					"control.path"
 				]
 			},
 			function(frags) {

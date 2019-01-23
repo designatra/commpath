@@ -1,0 +1,35 @@
+<style rel="stylesheet/less" type="text/less">
+	control {
+    &[type=path] {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      text-transform: uppercase;
+      font-size: 12px;
+      cursor: pointer;
+
+      > thing {
+        height:24px;
+        display:flex;
+        align-items: center;
+        padding:0 16px;
+        border-radius: 3px;
+        border:1px solid rgba(255,255,255,0);
+        background-color:white;
+      }
+
+      &:hover {
+        > thing {
+          background-color:#1778d3;
+          border-color:#1778d3;
+          color:white;
+        }
+      }
+    }
+	}
+</style>
+<control type="path">
+  <thing content="id"></thing>
+</control>
