@@ -87,9 +87,17 @@
 				justify-content: flex-end;
 			}
 			papa #simulationControls > wrapper {
-				width:200px;
 				height:50px;
 				display:flex;
+				flex:1;
+			}
+			papa #simulationControls > #paths {
+				max-width: 400px;
+				flex: 1;
+				/*padding: 0 0 0 20px;*/
+			}
+			papa #simulationControls > #playback {
+				width:200px;
 				flex:initial;
 			}
 			papa #simulationControls > wrapper > action {
@@ -110,7 +118,9 @@
 		<papa>
 			<wrapper id="timeline"></wrapper>
 			<wrapper id="simulationControls">
-				<wrapper>
+				<wrapper id="paths"></wrapper>
+				<wrapper id="spacer"></wrapper>
+				<wrapper id="playback">
 					<action id="play">Play</action>
 					<action id="stop">Stop</action>
 					<action id="reset">Reset</action>

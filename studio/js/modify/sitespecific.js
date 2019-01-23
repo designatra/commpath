@@ -5,19 +5,35 @@ function pageBuilder() {
   //   $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
   // })
 
-  $j.el("papa")
+  var $simulationControls = $j.el("papa")
     .find("#simulationControls")
     .actors({
       type:"simulation"
     });
-  //
-  // buildTimeline(function() {
-  //   buildNetwork();
-  // });
+
+  buildPathSelector($simulationControls, "digitalComm1");
 
   buildNetwork(function() {
     buildTimeline();
   });
+
+}
+
+function buildPathSelector($paths, modelPathID) {
+  $paths
+    .children("#paths")
+    .build("control.path", $j.o("path", modelPathID), {
+      populate: function(i, data) {
+        var o = {
+          id:"Path: " + (i+1),
+          paths:data
+        };
+        return o;
+      },
+      after: function(i, data) {
+
+      }
+    })
 }
 
 function buildTimeline(after) {
@@ -27,29 +43,29 @@ function buildTimeline(after) {
   var dataSet = [];
   var trend = $j.o("trends", "week", 2014);
   trend[0].forEach(function(week, i) {
-      if(!weekOf[week[0]]) {
-        weekOf[week[0]] = true;
+    if(!weekOf[week[0]]) {
+      weekOf[week[0]] = true;
 
-        var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
-        // Success
-        dataSet.push({
-          id: guid(),
-          start: week[0],
-          end: end,
-          content: scaleUp(week[2]).toString(),
-          group: "success"
-        });
+      var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
+      // Success
+      dataSet.push({
+        id: guid(),
+        start: week[0],
+        end: end,
+        content: scaleUp(week[2]).toString(),
+        group: "success"
+      });
 
-        var week_alt = trend[1][i];
-        // Failure
-        dataSet.push({
-          id: guid(),
-          start: week[0],
-          end: end,
-          content: (week_alt[1] * random([67, 71])).toString(),
-          group: "failure"
-        })
-      }
+      var week_alt = trend[1][i];
+      // Failure
+      dataSet.push({
+        id: guid(),
+        start: week[0],
+        end: end,
+        content: (week_alt[1] * random([67, 71])).toString(),
+        group: "failure"
+      })
+    }
   });
 
   function scaleUp(eventTotal) {
@@ -156,13 +172,14 @@ function buildNetwork(after) {
   }
 }
 
+// TODO: Refactor this crappy crappy procedure
 function populateNetwork(successes, failures) {
-  var modelPaths = $j.o("paths").digitalComm1;
+  var modelPaths = $j.o("path", "digitalComm1");
   var collection = {};
   var edges = {};
 
   generatePath("Good", $j.simulation("distribute", successes, modelPaths.length), collection);
-  generatePath("Bad", $j.simulation("distribute", failures, modelPaths.length), collection);
+  $j.log(generatePath("Bad", $j.simulation("distribute", failures, modelPaths.length), collection));
 
   function generatePath(type, distribution, collection) {
     $j.each(distribution, function(i, total) {
@@ -170,7 +187,7 @@ function populateNetwork(successes, failures) {
       $j.each(paths, function(i) {
         var node = collection[this.id];
         if(!node) {
-          node = collection[this.id] = this;
+          node = collection[this.id] = $j.extend($j.extend({}, $j.o("vis", "nodes").get(this.id)).logistics, this);
         } else {
           $j.each(this, function(key,value) {
             if(key!=="id") {
@@ -187,6 +204,8 @@ function populateNetwork(successes, failures) {
         }
       })
     })
+
+    return collection;
   }
 
   var nodes = [];
@@ -209,7 +228,7 @@ function populateNetwork(successes, failures) {
         edge.value = 0;
         edge.value = $j.o("vis", "nodes").get(thisEdge.from).logistics.out;
       } else {
-        edge.value = edge.value + $j.o("vis", "nodes").get(thisEdge.from).logistics.out
+        edge.value = edge.value + $j.o("vis", "nodes").get(thisEdge.from).logistics.out;
       }
 
     })
