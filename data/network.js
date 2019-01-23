@@ -124,7 +124,7 @@ $j.what("network", {
   ],
   edges: [
     {
-      id:"edge100",
+      id:"edge1_2",
       from: 1,
       to: 2,
       arrows: 'to',
@@ -132,7 +132,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:"edge101",
+      id:"edge1_7",
       from: 1,
       to: 7,
       arrows: 'to',
@@ -140,7 +140,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:"edge102",
+      id:"edge2_3",
       from: 2,
       to: 3,
       arrows: 'to',
@@ -148,7 +148,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:"edge103",
+      id:"edge3_4",
       from: 3,
       to: 4,
       arrows: 'to',
@@ -156,7 +156,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:"edge104",
+      id:"edge4_6",
       from: 4,
       to: 6,
       arrows: 'to',
@@ -164,7 +164,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:"edge105",
+      id:"edge6_8",
       from: 6,
       to: 8,
       arrows: 'to',
@@ -172,7 +172,7 @@ $j.what("network", {
       title: ''
     },
     {
-      id:"edge106",
+      id:"edge4_5",
       from: 4,
       to: 5,
       arrows: 'to',
@@ -190,7 +190,7 @@ $j.what("network", {
       // PATH ONE
       [
         {
-          id:"edge100",
+          id:"edge1_2",
           from: 1,
           to: 2,
           arrows: 'to',
@@ -198,7 +198,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge102",
+          id:"edge2_3",
           from: 2,
           to: 3,
           arrows: 'to',
@@ -206,7 +206,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge103",
+          id:"edge3_4",
           from: 3,
           to: 4,
           arrows: 'to',
@@ -214,7 +214,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge106",
+          id:"edge4_5",
           from: 4,
           to: 5,
           arrows: 'to',
@@ -225,7 +225,7 @@ $j.what("network", {
       // PATH 2
       [
         {
-          id:"edge107",
+          id:"edge1_3",
           from: 1,
           to: 3,
           arrows: 'to',
@@ -233,7 +233,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge108",
+          id:"edge3_6",
           from: 3,
           to: 6,
           arrows: 'to',
@@ -241,7 +241,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge105",
+          id:"edge6_8",
           from: 6,
           to: 8,
           arrows: 'to',
@@ -252,7 +252,7 @@ $j.what("network", {
       // PATH 3
       [
         {
-          id:"edge109",
+          id:"edge1_4",
           from: 1,
           to: 4,
           arrows: 'to',
@@ -260,7 +260,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge106",
+          id:"edge4_5",
           from: 4,
           to: 5,
           arrows: 'to',
@@ -271,7 +271,7 @@ $j.what("network", {
       // PATH 4
       [
         {
-          id:"edge100",
+          id:"edge1_2",
           from: 1,
           to: 2,
           arrows: 'to',
@@ -279,7 +279,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge102",
+          id:"edge2_3",
           from: 2,
           to: 3,
           arrows: 'to',
@@ -287,7 +287,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge108",
+          id:"edge3_6",
           from: 3,
           to: 6,
           arrows: 'to',
@@ -295,7 +295,7 @@ $j.what("network", {
           title: ''
         },
         {
-          id:"edge105",
+          id:"edge6_8",
           from: 6,
           to: 8,
           arrows: 'to',

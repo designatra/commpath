@@ -87,6 +87,36 @@ $j.actors("register", {
 
 				var id = $j(this).klass("swap", "active").attr("id")*1;
 				$j.studio("updateEdges", $j.o("path", "digitalComm1", $j(this).attr("id")*1), "active")
+
+				var nodes = $j.o("vis", "nodes");
+				var history = $j.what("history")[id];
+
+				var edge = [];
+				$j.each(history.Good, function(id, logistics) {
+					var thisNode = nodes.get(id),
+							thisLogistics = thisNode.logistics;
+
+					// CRY ME A RIVER :(((
+					thisLogistics.in = logistics.in + history.Bad[id].in;
+					thisLogistics.out = logistics.out + history.Bad[id].out;
+
+					thisLogistics.duds.biz = logistics.duds.biz + history.Bad[id].duds.biz;
+					thisLogistics.duds.it = logistics.duds.it + history.Bad[id].duds.it;
+					thisLogistics.duds.planned = logistics.duds.planned + history.Bad[id].duds.planned;
+
+					$j.studio("updateNodes", [thisNode]);
+
+					if(edge.length===2) {
+						$j.o("vis", "edges").update({
+							id:"edge"+edge[0]+"_"+edge[1],
+							value:thisLogistics.out
+						})
+						//$j.studio("updateEdge", );
+						edge = [id];
+					} else {
+						edge.push(id);
+					}
+				});
 			}
 		}, "control[type=path]")
 	}

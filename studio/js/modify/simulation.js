@@ -523,7 +523,7 @@
 				if(randomIndex==0) {
 					// THen refer to the first segment origin (from) & and it wont haveb a two
 					// NOTE: changed .from TO .to so now first node doesn't have duds but second node does
-					badNode = modelPath[randomIndex].to;
+					badNode = modelPath[randomIndex].from;
 					//++nodes[modelPath[randomIndex].from].in;
 				} else {
 
