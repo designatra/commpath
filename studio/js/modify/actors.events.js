@@ -46,14 +46,10 @@ $j.actors("register", {
 					calcs[item.group] = calcs[item.group] + parseInt(item.content);
 				});
 
-				// var distributions = {
-				// 	success: $j.simulation("distribute", calcs.success, 4),
-				// 	failure: $j.simulation("distribute", calcs.failure, 4)
-				// }
-
 				populateNetwork(calcs.success, calcs.failure);
 
-				//$j.simulation("begin", distributions.success[0])
+				// TODO: SUPER SLOPPY if it works
+				$j("#paths control.active").trigger("activate");
 			})
 		});
 	},
@@ -84,7 +80,9 @@ $j.actors("register", {
 				if($j(this).is(".active")) {
 					return false;
 				}
-
+				$j(this).trigger("activate");
+			},
+			activate: function() {
 				var id = $j(this).klass("swap", "active").attr("id")*1;
 				$j.studio("updateEdges", $j.o("path", "digitalComm1", $j(this).attr("id")*1), "active")
 
@@ -96,7 +94,7 @@ $j.actors("register", {
 				var edge = [];
 				$j.each(history.Good, function(id, logistics) {
 					var thisNode = nodes.get(id),
-							thisLogistics = thisNode.logistics;
+						thisLogistics = thisNode.logistics;
 
 					// CRY ME A RIVER :(((
 					thisLogistics.in = logistics.in + history.Bad[id].in;

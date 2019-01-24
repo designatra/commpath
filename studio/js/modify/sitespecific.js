@@ -191,7 +191,6 @@ function populateNetwork(successes, failures) {
     $j.each(distribution, function(i, total) {
       var paths = $j.simulation("generate"+type+"Paths", total, modelPaths[i]);
 
-      // $j.log(type, "path",i, paths)
       var pathHistory = history[i+1];
       if(!pathHistory) {
         pathHistory = history[i+1] = {
@@ -203,30 +202,22 @@ function populateNetwork(successes, failures) {
 
 
       $j.each(paths, function(i) {
-        //$j.log(type, this)
         var node = collection[this.id];
         if(!node) {
           node = collection[this.id] = $j.extend($j.extend({}, $j.o("vis", "nodes").get(this.id)).logistics, this);
-          //node.breakdown = [];
         } else {
-          // var instance = {
-          //   duds:{}
-          // };
           $j.each(this, function(key,value) {
             if(key!=="id") {
               if(key==="duds") {
                 var duds = node.duds;
                 $j.each(value, function(dudKey, dudValue) {
                   duds[dudKey] = duds[dudKey] + dudValue;
-                  //instance.duds[dudKey] = dudValue;
                 })
               } else {
                 node[key] = node[key] + value;
-                //instance[key] = value;
               }
             }
           })
-          //node.breakdown.push(instance)
         }
       })
     })
