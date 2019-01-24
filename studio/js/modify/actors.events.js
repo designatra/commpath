@@ -91,6 +91,8 @@ $j.actors("register", {
 				var nodes = $j.o("vis", "nodes");
 				var history = $j.what("history")[id];
 
+				$j.studio("resetNetwork");
+
 				var edge = [];
 				$j.each(history.Good, function(id, logistics) {
 					var thisNode = nodes.get(id),
@@ -106,15 +108,17 @@ $j.actors("register", {
 
 					$j.studio("updateNodes", [thisNode]);
 
+					edge.push(id);
 					if(edge.length===2) {
 						$j.o("vis", "edges").update({
 							id:"edge"+edge[0]+"_"+edge[1],
-							value:thisLogistics.out
+							state:"active",
+							color: {
+								color: $j.o("color", "green_5")
+							},
+							value:thisLogistics.in
 						})
-						//$j.studio("updateEdge", );
-						edge = [id];
-					} else {
-						edge.push(id);
+						edge = [edge[1]];
 					}
 				});
 			}
