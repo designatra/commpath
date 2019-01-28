@@ -3,9 +3,11 @@
 
 
 	wrapper#timeline {
-    .background(@hex) {
+    .background(@hex; @color: black; @weight: 500;) {
       background-color:@hex;
       border-color:@hex;
+      color:@color;
+      font-weight:@weight;
     }
 
     > .vis-timeline {
@@ -46,27 +48,27 @@
       }
 
       .hex_ef6548 {
-        .background(#ef6548);
+        .background(#ef6548;);
       }
 
       .hex_e85c3a {
-        .background(#e85c3a);
+        .background(#e85c3a;);
       }
 
       .hex_dd4029 {
-        .background(#fff7ec);
+        .background(#dd4029; @color: white;);
       }
 
       .hex_d7301f {
-        .background(#d7301f);
+        .background(#d7301f; @color: white;);
       }
 
       .hex_b30000 {
-        .background(#b30000);
+        .background(#b30000; @color: white;);
       }
 
       .hex_7f0000 {
-        .background(#7f0000);
+        .background(#7f0000; @color: white;);
       }
     }
   }
