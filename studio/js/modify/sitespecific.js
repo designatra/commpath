@@ -53,7 +53,7 @@ function buildTimeline(after) {
       var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
       // Success
       var successValue = scaleUp(week[2]);
-      var heatColor = $j.studio("heatColor", successValue);
+      var heatColor = $j.studio("heatColor", "greens", successValue);
       dataSet.push({
         id: guid(),
         start: week[0],
@@ -67,6 +67,7 @@ function buildTimeline(after) {
 
       var week_alt = trend[1][i];
       var failureValue = (week_alt[1] * random([67, 71]));
+      var heatColor = $j.studio("heatColor", "reds", failureValue);
       // Failure
       dataSet.push({
         id: guid(),
@@ -74,6 +75,7 @@ function buildTimeline(after) {
         end: end,
         content: failureValue.toString(),
         value:failureValue,
+        className:"hex_"+heatColor,
         group: "failure"
       })
     }
@@ -271,6 +273,12 @@ function populateNetwork(successes, failures) {
   return collection;
 }
 
+function sortArray(a) {
+  var sorted = a.slice().sort(function(a, b) {
+    return a - b;
+  });
 
+  return sorted;
+}
 
 

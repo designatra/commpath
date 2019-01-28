@@ -405,12 +405,12 @@
 			return ids;
 		},
 		/*
-				$j.studio("heatColor", 3382);
+				$j.studio("heatColor", "reds", 3382);
 		*/
-		heatColor(value) {
-			var colors = $j.o("color", "heat");
+		heatColor(palette, value) {
+			var colors = $j.o("color", "heat")[palette];
 
-			var ranges = $j.o("entities").ranges;
+			var ranges = $j.o("entities").ranges[palette];
 
 			Number.prototype.between = function(min, max) {
 				return ((this - min) * (this - max) <= 0);

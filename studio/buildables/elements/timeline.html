@@ -2,21 +2,27 @@
 <style rel="stylesheet/less" type="text/less">
 
 
-	wrapper#timeline {
-    .background(@hex; @color: black; @weight: 500;) {
+  wrapper#timeline {
+    .background(@hex; @border:@hex; @color: black; @weight: 500;) {
       background-color:@hex;
-      border-color:@hex;
       color:@color;
       font-weight:@weight;
+      border-width: 1px;
+      border-style: solid;
+      font-size:12px;
+      border-color:darken(@border, 20%);
+
+      .font(proxima_condensed; @weight:600;);
     }
+
 
     > .vis-timeline {
       .hex_ffffff {
-        .background(#ffffff)
+        .background(#ffffff);
       }
 
       .hex_fff7ec {
-        .background(#fff7ec);
+        .background(#fff7ec );
       }
 
       .hex_feeed9 {
@@ -69,6 +75,34 @@
 
       .hex_7f0000 {
         .background(#7f0000; @color: white;);
+      }
+
+      .hex_ffffff {
+        .background(#ffffff; @border:lightgrey;);
+      }
+      .hex_f7fcb9 {
+        .background(#f7fcb9);
+      }
+      .hex_d9f0a3 {
+        .background(#d9f0a3);
+      }
+      .hex_addd8e {
+        .background(#addd8e);
+      }
+      .hex_78c679 {
+        .background(#78c679);
+      }
+      .hex_41ab5d {
+        .background(#41ab5d);
+      }
+      .hex_238443 {
+        .background(#238443; @color: white;);
+      }
+      .hex_006837 {
+        .background(#006837; @color: white;);
+      }
+      .hex_004529 {
+        .background(#004529; @color: white;);
       }
     }
   }
