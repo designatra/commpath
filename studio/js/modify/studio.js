@@ -403,6 +403,24 @@
 				return after(ids);
 			}
 			return ids;
+		},
+		/*
+				$j.studio("heatColor", 3382);
+		*/
+		heatColor(value) {
+			var colors = $j.o("color", "heat");
+
+			var ranges = j.o("entities").ranges;
+
+			Number.prototype.between = function(min, max) {
+				return ((this - min) * (this - max) <= 0);
+			}
+
+			for (var i = 0; i < ranges.length; i++) {
+				if(value.between(ranges[i][0], ranges[i][1])) {
+					return colors[i];
+				}
+			}
 		}
 	};
 

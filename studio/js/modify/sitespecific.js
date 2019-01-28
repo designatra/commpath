@@ -52,28 +52,37 @@ function buildTimeline(after) {
 
       var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
       // Success
+      var successValue = scaleUp(week[2]);
       dataSet.push({
         id: guid(),
         start: week[0],
         end: end,
-        content: scaleUp(week[2]).toString(),
+        content: successValue.toString(),
+        value: successValue,
         group: "success"
       });
 
       var week_alt = trend[1][i];
+      var failureValue = (week_alt[1] * random([67, 71]));
       // Failure
       dataSet.push({
         id: guid(),
         start: week[0],
         end: end,
-        content: (week_alt[1] * random([67, 71])).toString(),
+        content: failureValue.toString(),
+        value:failureValue,
         group: "failure"
       })
     }
   });
 
   function scaleUp(eventTotal) {
-    return (eventTotal*1)*random([283,286]);
+    if(isNaN(eventTotal)) {
+      var eventTotal = random([0,4])
+    }
+    var scaledValue = (eventTotal*1)*random([283,286]);
+
+    return scaledValue;
   }
 
   var groups = new vis.DataSet([
