@@ -3,20 +3,89 @@
 
 
   wrapper#timeline {
+    width:100vw;
+    z-index: 100;
+    flex:initial;
+    .font(rubik; @weight:500;);
+    font-size: 12px;
+    color: #000;
+    /*margin-top:-6px;*/
+
     .background(@hex; @border:@hex; @color: black; @weight: 500;) {
       background-color:@hex;
-      color:@color;
+      color:lighten(@color, 20%);
       font-weight:@weight;
       border-width: 1px;
       border-style: solid;
       font-size:12px;
       border-color:darken(@border, 20%);
-
-      .font(proxima_condensed; @weight:600;);
     }
 
-
     > .vis-timeline {
+      border-bottom:0px none;
+
+      &.vis-bottom {
+        border-bottom: 1px dotted #d3d3d3;
+        /*box-shadow: -2px 0px 4px 1px rgba(0,0,0,.1);*/
+      }
+
+      .vis-panel.vis-bottom, .vis-panel.vis-center, .vis-panel.vis-top {
+        border-bottom:1px dotted lightgrey;
+      }
+      .vis-panel.vis-center, .vis-panel.vis-left, .vis-panel.vis-right {
+        border-bottom:0px none;
+      }
+      .vis-panel {
+        .vis-text {
+          font-size: 12px;
+          .font(proxima_condensed; @weight:800;);
+          /*padding:4px;*/
+
+          &.vis-minor {
+            margin-top:2px;
+            .font(proxima_condensed; @weight:700;);
+          }
+        }
+        .vis-labelset .vis-label {
+          border-bottom: 1px dotted lightgrey;
+          display: flex;
+          align-items: center;
+          text-align: right;
+          justify-content: flex-end;
+
+          .vis-inner {
+            padding: 0 5px 0 5px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+          }
+        }
+      }
+
+      .vis-item {
+        text-align:left;
+        /*top: 0 !important;*/
+        display: flex;
+        align-items: center;
+        height:34px;
+        .vis-item-overflow {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          overflow: hidden;
+          align-items: center;
+        }
+      }
+      .vis-item.vis-range .vis-item-content {
+        display: flex;
+        justify-content: center;
+      }
+
+
       .hex_ffffff {
         .background(#ffffff);
       }

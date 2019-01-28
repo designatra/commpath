@@ -14,7 +14,14 @@ function pageBuilder() {
   buildPathSelector($simulationControls, "digitalComm1");
 
   buildNetwork(function() {
-    buildTimeline();
+    buildTimeline(function() {
+      $j.what("timeline").timeline.setWindow(dayjs().subtract(90, "days").format("YYYY-MM-DD"),dayjs().format("YYYY-MM-DD"), {
+        animation:{
+          duration:800,
+          easingFunction:"easeInOutQuart"
+        }
+      })
+    });
   });
 
 }
@@ -96,28 +103,67 @@ function buildTimeline(after) {
   ]);
 
   var items = $j.what("timeline").data = new vis.DataSet(dataSet);
-
   // Configuration for the Timeline
   var options = {
     width: '100vw',
-    //minHeight: '112px',
-    maxHeight:'300px',
+    minHeight: '112px',
+    maxHeight:'200px',
+    align:"center",
     margin: {
-      item: 10
+      item: {
+        horizontal:0,
+        vertical:0
+      },
+      axis:0
     },
     stack:false,
-    //start:trend[0][0][0],
+    start:dayjs().startOf("year").format("YYYY-MM-DD"),
     end:'2019-01-05',
     min: new Date(2014, 0, 1),                // lower limit of visible range
     max: new Date(2019, 4, 1),                // upper limit of visible range
     zoomMin: 1000 * 60 * 60 * 24,             // one day in milliseconds
     zoomMax: 1000 * 60 * 60 * 24 * 31 * 6,     // about three months in milliseconds
     showCurrentTime:true,
+    format: {
+      minorLabels: {
+        millisecond:'SSS',
+        second:     's',
+        minute:     'HH:mm', //HH:mm
+        hour:       'HH:mm',
+        weekday:    'ddd D',
+        day:        'D',
+        week:       'w',
+        month:      'MMM',
+        year:       'YYYY'
+      },
+      majorLabels: {
+        millisecond:'HH:mm:ss',
+        second:     'D MMMM HH:mm',
+        minute:     'ddd D MMMM',
+        hour:       'ddd, M/D',
+        weekday:    'MMMM YYYY',
+        day:        'MMMM YYYY',
+        week:       'MMMM YYYY',
+        month:      'YYYY',
+        year:       ''
+      }
+    },
+    // height:200,
+    // minHeight:100,
+    // rollingMode:{
+    //   follow: true
+    // },
     onInitialDrawComplete: function() {
       // TODO: Switch to more eventing versus callback
       if(after) {
         after.apply(this, arguments);
       }
+    },
+    onMove: function() {
+      $j.log("onMove", arguments)
+    },
+    onMoving: function() {
+      $j.log("onMoving", arguments)
     }
   };
 

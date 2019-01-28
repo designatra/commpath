@@ -52,7 +52,7 @@ $j.what("dictionary", {
       ],
       greens:[
         'ffffff',
-        'f7fcb9',
+        'ffffff',//'f7fcb9',
         'd9f0a3',
         'addd8e',
         '78c679',
