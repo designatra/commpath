@@ -53,12 +53,15 @@ function buildTimeline(after) {
       var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
       // Success
       var successValue = scaleUp(week[2]);
+      var heatColor = $j.studio("heatColor", successValue);
       dataSet.push({
         id: guid(),
         start: week[0],
         end: end,
         content: successValue.toString(),
         value: successValue,
+        heat:heatColor,
+        className:"hex_"+heatColor,
         group: "success"
       });
 
