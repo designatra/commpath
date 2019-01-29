@@ -32,26 +32,32 @@ $j.actors("register", {
 				timeline = t.timeline;
 		var weeks = {};
 
-		timeline.on("rangechanged", function (e) {
-			$j.throttle("buildingPaths", e, 400, function() {
-				var calcs = {
-					failure:0,
-					success:0
-				};
+		timeline
+			.on("rangechanged", function (e) {
+				$j.throttle("buildingPaths", e, 400, function() {
+					var calcs = {
+						failure:0,
+						success:0
+					};
 
-				var visibleItems = timeline.getVisibleItems();
+					var visibleItems = timeline.getVisibleItems();
 
-				visibleItems.forEach(function(itemID) {
-					var item = t.data.get(itemID);
-					calcs[item.group] = calcs[item.group] + parseInt(item.content);
-				});
+					visibleItems.forEach(function(itemID) {
+						var item = t.data.get(itemID);
+						calcs[item.group] = calcs[item.group] + parseInt(item.content);
+					});
 
-				populateNetwork(calcs.success, calcs.failure);
+					populateNetwork(calcs.success, calcs.failure);
 
-				// TODO: SUPER SLOPPY if it works
-				$j("#paths control.active").trigger("activate");
+					// TODO: SUPER SLOPPY if it works
+					$j("#paths control.active").trigger("activate");
+				})
 			})
-		});
+			.on("select", function(e) {
+				$j.log($j(this))
+				$j.what("timeline").timeline.focus(e.items[0])
+				$j.log("select", e)
+			})
 	},
 	simulation:function(e) {
 		$j(this).on({

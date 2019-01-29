@@ -9,16 +9,17 @@
     .font(rubik; @weight:500;);
     font-size: 12px;
     color: #000;
-    /*margin-top:-6px;*/
+    margin-top:-6px;
 
-    .background(@hex; @border:@hex; @color: black; @weight: 500;) {
-      background-color:@hex;
+    .background(@hex; @border:@hex; @color: black; @weight: 700;) {
+      background-color:fadeout(@hex, 20%, relative);
       color:lighten(@color, 20%);
       font-weight:@weight;
       border-width: 1px;
       border-style: solid;
       font-size:12px;
-      border-color:darken(@border, 20%);
+      border-color:darken(@border, 10%);
+      .font(proxima_condensed; @weight:700;);
     }
 
     > .vis-timeline {
@@ -26,7 +27,6 @@
 
       &.vis-bottom {
         border-bottom: 1px dotted #d3d3d3;
-        /*box-shadow: -2px 0px 4px 1px rgba(0,0,0,.1);*/
       }
 
       .vis-panel.vis-bottom, .vis-panel.vis-center, .vis-panel.vis-top {
@@ -52,6 +52,7 @@
           align-items: center;
           text-align: right;
           justify-content: flex-end;
+          margin-top:-1px;
 
           .vis-inner {
             padding: 0 5px 0 5px;
@@ -65,7 +66,6 @@
 
       .vis-item {
         text-align:left;
-        /*top: 0 !important;*/
         display: flex;
         align-items: center;
         height:34px;
@@ -85,9 +85,48 @@
         justify-content: center;
       }
 
+      .vis-time-axis .vis-grid.vis-odd {
+        background: #2196f31a; //#f5f5f5;
+      }
+      .vis-foreground {
+        .vis-group {
+          border-bottom: 0px none;
+          margin-bottom: -2px;
+
+          .vis-item {
+
+            .vis-item-content {
+              wrapper[type=time_item] {
+                > thing {
+
+                }
+              }
+            }
+            &:first-child {
+              z-index: 20;
+              border-bottom-right-radius: 0px;
+              border-bottom-left-radius: 0px;
+            }
+            &:last-child {
+              z-index: 10;
+              border-top-right-radius: 0px;
+              border-top-left-radius: 0px;
+            }
+
+            &.vis-selected {
+              border-color:rgba(0,0,0,.8);
+              background-color:rgba(0,0,0,.8);
+              color:white;
+              z-index:20;
+            }
+          }
+        }
+      }
+
 
       .hex_ffffff {
-        .background(#ffffff);
+        .background(darken(#ffffff, 5%); @border:#0000001a;);
+        border-color:#0000001a;
       }
 
       .hex_fff7ec {
@@ -147,7 +186,7 @@
       }
 
       .hex_ffffff {
-        .background(#ffffff; @border:lightgrey;);
+        .background(darken(#ffffff, 5%); @border:#0000001a;);
       }
       .hex_f7fcb9 {
         .background(#f7fcb9);
