@@ -1,3 +1,5 @@
+import * as dj from '../../../core/js/frame.js';
+
 (function($j) {
 	var plugin = {
 		name: "studio",
@@ -16,7 +18,7 @@
 
 	var util = plugin.methods.util = {
 		init: function(x, y, z) {
-			return overload(x, {
+			return dj.overload(x, {
 				string: function() {
 					if(plugin.privates[x]) {
 						return plugin.privates[x](y, z);

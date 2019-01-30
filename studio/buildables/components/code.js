@@ -1,3 +1,5 @@
+import 'jquery';
+
 $j.build("component")["code"] = {
 	/*
 		COMPONENT: "code"
@@ -43,7 +45,7 @@ $j.build("component")["code"] = {
 			// 			var instance = $j(this).build("data").instance.data;
 
 			// 			$j.log(instance)
-			
+
 			// 			if(instance.on&&instance.on.click) {
 			// 				instance.on.click.apply($j(this), [e, instance]);
 			// 			}

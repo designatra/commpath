@@ -1,3 +1,5 @@
+import 'jquery';
+
 $j.build("component")["svg"] = {
 	/*
 		COMPONENT: "svg"

@@ -1,3 +1,5 @@
+import * as dj from '../../../core/js/frame.js';
+
 (function($) {
 	var plugin = {
 		name:"build",
@@ -29,14 +31,14 @@
 	plugin.source.path = plugin.paths.root + plugin.source.filename;
 
 	plugin.methods.dom = {
-		/*	
+		/*
 			$j.el("papa").build()
 		*/
 		init: function(o, p, q) {
 			var $el = jQuery(this);
 			var $frag;
 
-			$frag = overload(o, {
+			$frag = dj.overload(o, {
 				"undefined": function() {
 					plugin.init = true;
 					$j("body").plugins(plugin.name, plugin);
@@ -48,7 +50,7 @@
 						1. Name
 						2. Data (array or object), Quantity
 						3. After callback
-						    AND/OR additional callbacks & parameters > Object of keyed options & callback functions 
+						    AND/OR additional callbacks & parameters > Object of keyed options & callback functions
 				*/
 				"string":function() {
 					var params = {
@@ -57,12 +59,12 @@
 					};
 
 					/*
-						If $j(el).fragment( ... ... ... ) receives > 
+						If $j(el).fragment( ... ... ... ) receives >
 					*/
-					overload(q, {
+					dj.overload(q, {
 						/*
 							>  ONE or > TWO parameters:
-								1. * Name (string) 
+								1. * Name (string)
 								2. Quantity (integer)
 								    or After Callback (function)
 
@@ -74,8 +76,8 @@
 								$j.log("after", $j(this))
 							});
 						*/
-						"undefined": function() { 
-							overload(p, {
+						"undefined": function() {
+							dj.overload(p, {
 								"number":function() {
 									params.data = p;
 								},
@@ -86,11 +88,11 @@
 								"undefined": function() {
 									params.data = 1;
 								}
-							})						
+							})
 						},
 						/*
 							> THREE parameters:
-								1. * Name (string) 
+								1. * Name (string)
 								2. * Data ([array] or {object}), Quantity (integer)
 								3. * After Callback (function)
 
@@ -104,7 +106,7 @@
 								},
 								{
 									label:"cat"
-								}], 
+								}],
 								function(i, data) {
 									$j.log("after", i, $j(this), data)
 								}
@@ -115,7 +117,7 @@
 						},
 						/*
 							>  THREE parameters:
-								1. Name (string) 
+								1. Name (string)
 								2. Data ([array] or {object}), Quantity (integer)
 								3. Parameter's object > { callbacks, additional Parameters }
 
@@ -125,7 +127,7 @@
 								},
 								{
 									label:"cat"
-								}], 
+								}],
 								{
 									insert:"before",
 									populate: function(i, data) {
@@ -146,7 +148,7 @@
 					return $frag = $j(this).build(params);
 				},
 				"object": function(o) {
-					o.data = overload(o.data, {
+					o.data = dj.overload(o.data, {
 						/*
 							Creates ONE fragment
 
@@ -204,11 +206,11 @@
 							return o.data;
 						}
 					});
-			
+
 					/*
 						Component Operations
 
-						TODO: 
+						TODO:
 						1. Abstract all this functionality
 						2. Test how encapsulated the plugin.building = true/false
 						     >> could have some recursion issues if not careful
@@ -227,10 +229,10 @@
 						*/
 						package: function() {
 							plugin.building[o.name] = true;
-							
+
 							// Adds package name reference to each item. Otherwise Difficult to derive what elements belong to a package
 							var items = _.map(util.package(o.name), function(xyz) {
-								return overload(xyz, {
+								return dj.overload(xyz, {
 									function: function() {
 										return xyz;
 									},
@@ -256,8 +258,8 @@
 
 							return $el
 								.build($j.extend(true, {}, o, {
-									//name:o.name.split(".")[0], 
-									name:name, 
+									//name:o.name.split(".")[0],
+									name:name,
 									data:items
 								}))
 								// Packages return original context (parent) vs themselves so they can be easily chained
@@ -273,7 +275,7 @@
 							var methods = $j.build(o.name);
 							if(methods.build) {
 								return methods.build.apply($el, [o.data, o]);
-							} 
+							}
 
 							var methods = $j.mapTo(o.name, $j.build());
 							if(methods && methods.build) {
@@ -305,17 +307,17 @@
 				return fragments;
 			}
 
-			// Make sure the building flag is reset 
-			// TODO: Test...not confident this is good, since this should take care of itself, 
+			// Make sure the building flag is reset
+			// TODO: Test...not confident this is good, since this should take care of itself,
 			// 		   but I think component scripts are causing the problem
 			util.building(o, false);
-						
+
 			// OTHERWISE return the passed context
 			return $frag;
 		},
 		/*
 			Added for context convenience
-			
+
 			( functionality covered in $j.fragment("setup") )
 			1. Imports fragments.json added to fragments/config.js
 			2. Appends each fragment's styles to <head>
@@ -323,7 +325,7 @@
 
 			$j.el("papa").build("setup", data, function(frags) {
 				pageBuilder.apply($j.el("papa"));
-			});	
+			});
 		*/
 		setup: function(data, after) {
 			return util.setup(data, after, $j(this));
@@ -342,7 +344,7 @@
 
 			o.built = [];
 			$j.each(o.data, function(i, iterationData) {
-				$el = overload(iterationData, {
+				$el = dj.overload(iterationData, {
 					"function": function() {
 						return iterationData.apply(o.built.fromEnd()[0], [o.data[i-1], o])
 					},
@@ -351,7 +353,7 @@
 					}
 				});
 				o.built.push($el);
-					
+
 				// Defines where to insert new fragment, default > "after"
 				var insertionMethod = defined(o.insert, "after");
 				if(insertionMethod == "before") {
@@ -384,9 +386,9 @@
 				/*
 					1. POPULATE()
 
-					Method (callback) runs and updates iteration's data with returned 
+					Method (callback) runs and updates iteration's data with returned
 				*/
-				var populationData = overload(o.populate, {
+				var populationData = dj.overload(o.populate, {
 					// Returns original iteration data or false
 					"boolean": function() {
 						if(o.populate===true) {
@@ -418,7 +420,7 @@
 
 					$el.build("usage", "populated", populationData);
 				}
-				
+
 				/*
 					2b. After > EVENTS
 
@@ -426,13 +428,13 @@
 					1. string
 					2. object
 					3. array
-					
+
 					$j.el("papa").fragment("item", 1, {
 						events:{
 							after:"test1"
 						}
 					})
-					
+
 					events:{
 						after:["test1", "test2"]
 					}
@@ -463,8 +465,8 @@
 				/*
 					2c. After > PLUGINS
 
-					If a plugin or a list of plugins is specified (including init params) to run after each fragment 
-						PROCESS PIPING > runs after event init (after() THEN after events THEN plugins init)	
+					If a plugin or a list of plugins is specified (including init params) to run after each fragment
+						PROCESS PIPING > runs after event init (after() THEN after events THEN plugins init)
 					If an object is passed, the key > "$" allows a custom selector to be passed
 
 					plugins: {
@@ -525,7 +527,7 @@
 					/*
 						3c. Completed > PLUGINS
 
-						If a plugin or a list of plugins is specified (including init params) to run after all fragments have been added to dom		
+						If a plugin or a list of plugins is specified (including init params) to run after all fragments have been added to dom
 						If an object is passed, the key > "$" allows a custom selector to be passed
 
 						plugins: {
@@ -613,7 +615,7 @@
 							privates.populate.disect.apply($el, [term.replace(/\W/g, ""), data])
 						}
 					})
-				});	
+				});
 
 			return $j(this);
 		},
@@ -655,7 +657,7 @@
 		*/
 		usage: function(event, o) {
 			var data = $j(this).build("data"),
-				name = data.name;	
+				name = data.name;
 
 			var usage = plugin.usage;
 
@@ -674,7 +676,7 @@
 					usage.buildables.count++;
 				},
 				populated: function() {
-					var populationData = overload(o, {
+					var populationData = dj.overload(o, {
 						function:function() {
 							return $j(this).build("data").data;
 						},
@@ -696,7 +698,7 @@
 							dependencies.push($j(this).build("data").name);
 						});
 						usage[name].dependencies = _.uniq(dependencies);
-					} 
+					}
 				}
 			}, $j(this));
 		},
@@ -737,7 +739,7 @@
 		/*
 			$j("field").build("dependencies");
 
-			Returns decendant buildables 
+			Returns decendant buildables
 			(semantics of this pattern are a little unintuitive)
 		*/
 		dependencies: function() {
@@ -748,7 +750,7 @@
 	var util = plugin.methods.util = {
 		// TODO: Evaluate util init > $j.fragment()
 		init: function(x) {
-			return overload(x, {
+			return dj.overload(x, {
 				string: function() {
 					if(plugin.privates[x]) {
 						return plugin.privates[x]();
@@ -763,7 +765,7 @@
 					return privates.core(x);
 				}
 			});
-			
+
 		},
 		/*
 			$j.build("usage");
@@ -775,7 +777,7 @@
 			if(!name) {
 				return usage;
 			}
-			return usage[name];			
+			return usage[name];
 		},
 		/*
 			$j.build("id")
@@ -790,7 +792,7 @@
 		},
 		/*
 			1. Import fragments (via node service)
-			
+
 			2. Processes imported json by:
 				a. Adding each fragment's style tag to <head>
 				b. Create buffered DOM from html (in memory)
@@ -851,7 +853,7 @@
 				after: y
 			};
 
-			overload(x, {
+			dj.overload(x, {
 				"object": function() {
 
 				},
@@ -882,7 +884,7 @@
 			if(!name) {
 				return $j();
 			}
-			
+
 			var $html = inventory[name].$html;
 
 			if(!$html) {
@@ -916,7 +918,7 @@
 		inventory: function(name) {
 			//var inventory = plugin.inventory;
 			var inventory = $j.extend(true, {}, plugin.elements, plugin.packages)
-		
+
 			if(!name) {
 				return inventory;
 			}
@@ -930,7 +932,7 @@
 		type: function(name) {
 			var thing = util.inventory(name);
 
-			return overload(thing, {
+			return dj.overload(thing, {
 				// Element
 				// maybe Component
 				object: function() {
@@ -999,7 +1001,7 @@
 		/*
 			$j.build("event")
 			$j.build("event", {
-				
+
 			}, $el)
 
 			util.event("field", $el)
@@ -1037,7 +1039,7 @@
 				return building;
 			}
 
-			var name = overload(x, {
+			var name = dj.overload(x, {
 				object: function() {
 					return x.name;
 				},
@@ -1181,14 +1183,14 @@
 				privates.addElement(name, dom);
 			});
 
-			return $j.build("inventory");	
+			return $j.build("inventory");
 		},
 		/*
 			privates.addElement(elementName, dom);
 		*/
 		addElement: function(name, dom) {
 			//privates.addStyle(name, dom.style)
-			
+
 			dom.$html = $j(dom.html);
 
 			// Initialize all component's building state to false (aids in identifying when fragment reroutes to component loop)
@@ -1208,7 +1210,7 @@
 		/*
 			privates.addPackages(elementPackages);
 
-			TODO: Figure out how to init and insert external scripts without 
+			TODO: Figure out how to init and insert external scripts without
 				       globalizing packages.field in director.core.js
 		*/
 		addPackages: function(baseElementName, packages) {
@@ -1282,8 +1284,8 @@
 			if(!component) {
 				return false;
 			}
-			
-			var events;	
+
+			var events;
 			if(component && component.events) {
 				events = component.events;
 			}
@@ -1291,7 +1293,7 @@
 				return false;
 			}
 
-			return overload(x, {
+			return dj.overload(x, {
 				"string":function() {
 					return events[x].apply($el, [component])
 				},
@@ -1328,7 +1330,7 @@
 			], $frag)
 		*/
 		plugins: function(plugins, $frag) {
-			overload(plugins, {
+			dj.overload(plugins, {
 				"string":function() {
 					if($frag[plugins]) {
 						return $frag[plugins]();
@@ -1377,7 +1379,7 @@
 
 				privates.populate.archive($el, term, attrs);
 			},
-			/*		
+			/*
 				privates.populate.archive($el, term, attrs)
 
 				Copies terminology markup from dom elements to dom data, THEN calls clean method
@@ -1387,12 +1389,12 @@
 				if(!data) {
 					data = $el.data("build", {}).data("build");
 				}
-			
+
 				data[term] = attrs;
 
 				return privates.populate.clean($el, term);
 			},
-			/*		
+			/*
 				privates.populate.clean($el, term)
 
 				Strips terminology markup from dom element, (after it has been transfered to data)
@@ -1404,7 +1406,7 @@
 				privates.populate.valid(string)
 			*/
 			valid: function(s) {
-				// IF string has illegal characters 
+				// IF string has illegal characters
 				// Matches anything but letters, digits and underscores. Equivalent to [^A-Za-z0-9_].
 				if(s.match(/\W/g)!==null) {
 					return false;
@@ -1419,7 +1421,7 @@
 			operators:{
 				/*
 					privates.populate.operators["[content]"](["recommendation.name"], {...})
-					
+
 					Incoming attr will only have one value, since it's always content (vs. attr which have 2: property, value)
 				*/
 				content:function($el, attr, data) {
@@ -1430,7 +1432,7 @@
 				},
 				/*
 					privates.populate.operators["[svg]"](["class", "icon"], {...})
-					
+
 					Incoming attr will have TWO values, but only the data map (attr[1]) will be used
 				*/
 				svg: function($el, attr, data) {
@@ -1439,23 +1441,23 @@
 				},
 				/*
 					privates.populate.operators["[media]"](["backgroundImage", "recommendation.image"], {...})
-					
-					Incoming attr will have TWO values, first value is css property, second is mapped data value					
+
+					Incoming attr will have TWO values, first value is css property, second is mapped data value
 					TODO: rename CSS?
 				*/
 				media: function($el, attr, data) {
 					if(privates.populate.valid(attr[0])!==false) {
 						return $el.css(attr[0], $j.build("getMappedValue", attr[1], data));
-					}	
+					}
 				},
 				/*
 					privates.populate.operators["[attr]"](["id", "alert.action.icon"], {...})
-					
+
 					Incoming attr will have TWO values:first value is property/attribute name, second is mapped data value
 				*/
 				attr: function($el, attr, data) {
 					var value = $j.build("getMappedValue", attr[1], data);
-	
+
 					// certain [attr] require specific jquery setter methods to run, IE class
 					return $j.methods(attr[0], {
 						"class": function() {

@@ -1,3 +1,5 @@
+import 'jquery';
+
 $j.build("component").panel = {
 	/*
 		COMPONENT: "panel"
@@ -9,7 +11,7 @@ $j.build("component").panel = {
 	build: function(data, config) {
 		data = data[0];
 		var $panels = $j(this);
-		
+
 		$panels.build("panel", data.panel, function() {
 			$j(this).build("tabs", 1, function() {
 				var $els = $j(this);
@@ -28,7 +30,7 @@ $j.build("component").panel = {
 						}
 					},
 					completed: function(o) {
-						
+
 					}
 				});
 			});
@@ -37,7 +39,7 @@ $j.build("component").panel = {
 				config.after.apply($j(this))
 			}
 		});
-			
+
 		return $panels;
 	}
 };
@@ -46,8 +48,8 @@ $j.build("component").panel = {
 /*
 $j(this)
 	.build("panel", data, {
-		after: function(i, o) {	
-			
+		after: function(i, o) {
+
 		},
 		events:{
 			after:[

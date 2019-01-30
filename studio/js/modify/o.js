@@ -1,3 +1,5 @@
+import * as dj from '../../../core/js/frame.js';
+
 (function($) {
 	var plugin = {
 		name: "o",
@@ -22,7 +24,7 @@
 	*/
 	var util = plugin.methods.util = {
 		init: function(x, y, z, a) {
-			return overload(x, {
+			return dj.overload(x, {
 				string: function() {
 					if(plugin.privates[x]) {
 						return plugin.privates[x].apply(plugin.privates.core(), [y, z, a]);
@@ -32,7 +34,7 @@
 				object: function() {
 					//return $j();
 				},
-				undefinded: function() {
+				undefined: function() {
 					return plugin.privates.core()[x];
 				}
 			});

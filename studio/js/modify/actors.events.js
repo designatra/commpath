@@ -1,3 +1,4 @@
+import 'jquery';
 /*
 	supports plugin > actors.js
 

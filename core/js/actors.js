@@ -1,4 +1,10 @@
+
+
 (function($) {
+	var jQuery = require(
+		'jquery'
+	);
+
 	var plugin = {
 		name:"actors",
 		methods: {},
@@ -76,7 +82,7 @@
 			if(!event) {
 				event = events.def;
 			}
-			
+
 			event.apply(context, arguments);
 
 			return context;

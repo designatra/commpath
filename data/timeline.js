@@ -1,5 +1,7 @@
-$j.what("timeline", {
-  groups:[],
-  items: [],
-  timeline:null
-});
+module.exports ={
+  timeline: {
+    groups: [],
+    items: [],
+    timeline: null
+  }
+};

@@ -179,4 +179,4 @@ PowerArray.prototype.splice = function () {
   return new PowerArray(results);
 };
 
-//module.exports = PowerArray;
+module.exports = PowerArray;

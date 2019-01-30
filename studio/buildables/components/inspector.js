@@ -1,3 +1,5 @@
+import 'jquery';
+
 $j.build("component")["inspector"] = {
 	/*
 		COMPONENT: "inspector"

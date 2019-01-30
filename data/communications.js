@@ -1,17 +1,19 @@
-$j.what("communications",
-  [
+//import * as dollarj from '../core/js/frame.js';
+
+module.exports = {
+  "communications": [
     {
-      id:guidGenerator(),
+      id:"comm_1",
       active:"true",
       title:"welcome email"
     },
     {
-      id:guidGenerator(),
+      id:"comm_2",
       title:"policy billing"
     },
     {
-      id:guidGenerator(),
+      id:"comm_3",
       title:"policy change"
     }
   ]
-);
+};
