@@ -1,3 +1,4 @@
+// require("jquery");
 import * as dj from '../../../core/js/frame.js';
 
 (function($) {

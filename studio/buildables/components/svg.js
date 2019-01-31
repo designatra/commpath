@@ -1,5 +1,3 @@
-// require("jquery");
-
 jQuery.build("component")["svg"] = {
 	/*
 		COMPONENT: "svg"
