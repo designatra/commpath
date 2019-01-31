@@ -79,7 +79,7 @@ function buildTimeline(after) {
         heat:heatColor,
         className:"hex_"+heatColor,
         group: "success",
-        content: "<wrapper type='time_item'><thing>" + successValue + "</wrapper>",
+        content: "<wrapper value='"+successValue+"' type='time_item'><thing>" + successValue + "</wrapper>",
       });
 
       var week_alt = trend[1][i];
@@ -97,7 +97,7 @@ function buildTimeline(after) {
         value:failureNumber,
         className:"hex_"+heatColor,
         group: "failure",
-        content: "<wrapper type='time_item'><thing>" + failureValue + "</wrapper>",
+        content: "<wrapper value='"+failureValue+"' type='time_item'><thing>" + failureValue + "</wrapper>",
       })
     }
   });

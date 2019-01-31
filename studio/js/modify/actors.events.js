@@ -46,9 +46,9 @@ $j.actors("register", {
 
 						visibleItems.forEach(function(itemID) {
 							var item = t.data.get(itemID);
-							calcs[item.group] = calcs[item.group] + parseInt(item.content);
+							console.log($j(item.content).attr("value"))
+							calcs[item.group] = calcs[item.group] + accounting.unformat($j(item.content).attr("value"));
 						});
-
 						populateNetwork(calcs.success, calcs.failure);
 
 						// TODO: SUPER SLOPPY if it works
