@@ -7,11 +7,11 @@ Try zooming way in. Notice how the numbers on a node become smaller, while zoomi
 
 You may also focus on network path, which represents a type of transaction. This will hide the other paths, and also filter the network node values. While a path is selected, any changes to the data perspective (via the timeline) will be respected.
 
-The network nodes typically display three values. The first number (blue) represents inbound messages, while the third number (green), represents outbound messages. As issues arise (for various reasons), messages become held up, and are recorded as the red number. Selecting a node, opens the inspecctor, providing (albeit still very buggy) a more detailed view into the respective nodes values.
+The network nodes typically display three values. The first number (blue) represents inbound messages, while the third number (green), represents outbound messages. As issues arise (for various reasons), messages become held up, and are recorded as the red number. Selecting a node, opens the inspector, providing (albeit still very buggy) a more detailed view into the respective nodes values.
 
 Arrow width changes depending on the relative amount of traffic along the path.
 
-The timeline also sports a changing heatmap. As you scroll into the past, you will notice both the failure and success totals are illustrated by a darker red or a deeper green. These colors shades provide simple visual cues into the periods with high failures and/or high messaging.
+The timeline also sports two heatmaps (composed of 18 shades of red & green). As you scroll into the past, you will notice both the failure and success totals are illustrated by a darker red or deeper green. These colors shades provide simple, visual cues into the periods with high failures and/or high messaging.
 
 The Play/Stop/Reset controls on the right side of the UI, have a bug, and will be addressed. Once fixed, they provide a realtime view of the network. From the moment, play is initiatied, the network accumulates traffic.
 
