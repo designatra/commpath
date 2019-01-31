@@ -1,7 +1,7 @@
 # Commpath Studio
 ## Interactive tool for monitoring the live and past logistical flow of various internal infrastructure. 
 
-Currently a work in progress, it is populated with data that seeds the history with simulation worthy details. As you zoom (with scroll wheel on mouse) and pan (by clicking and dragging on the timeline), you change the data perspective, thus updating the network stats. 
+Currently a work in progress, Studio is populated with data that seeds the history with simulation worthy details. Using the timeline, as you zoom (with scroll wheel on mouse) and pan (by clicking and dragging), you change the data perspective, thus updating the network stats. 
 
 Try zooming way in. Notice how the numbers on a node become smaller, while zooming out, they become large. 
 
