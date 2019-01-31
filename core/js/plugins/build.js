@@ -12,7 +12,7 @@ import * as dj from '../../../core/js/frame.js';
 		source:{
 			// TODO: should find a way to connect source filename and paths with node
 			filename:"build.json",
-			query:window.location.origin+":8080/buildable"
+			query:window.location.hostname+":8080/buildable"
 		},
 		init:false,
 		inventory:{},
@@ -49,7 +49,16 @@ import * as dj from '../../../core/js/frame.js';
 
 					Fragment Parameters:
 						1. Name
-						2. Data (array or object), Quantity
+						2. Data (array or object), Quantity<div xmlns="http://www.w3.org/1999/xhtml" id="body" >
+  <wrapper>
+    <wrapper id="values">
+      <thing id="in" content="in"></thing>
+      <thing id="duds" content="duds.total||duds.biz||duds.it||duds.planned"></thing>
+      <thing id="out" content="out"></thing>
+    </wrapper>
+    <thing id="label" content="label"></thing>
+  </wrapper>
+</div>
 						3. After callback
 						    AND/OR additional callbacks & parameters > Object of keyed options & callback functions
 				*/
@@ -1164,6 +1173,9 @@ import * as dj from '../../../core/js/frame.js';
 					method:"POST",
 					url:path,
 					contentType:'application/json; charset=utf-8',
+					headers:{
+						'Content-Type': 'text/plain'
+					},
 					data:JSON.stringify(o.data),
 					dataType:"json"
 				})

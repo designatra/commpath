@@ -6,12 +6,17 @@ var express = require("express"),
 var utils = {
 	build:require("./build"),
 	path: require("path"),
+	cors: require('cors'),
 	decache: require('decache')
 };
 
 var router = express.Router();
 
-router.post("/buildable", function (req, res, next) {
+var corsOptions = {};
+corsOptions.origin = "*";
+corsOptions.methods = "GET,HEAD,PUT,PATCH,POST,DELETE";
+
+router.post("/buildable", utils.cors(corsOptions), function (req, res, next) {
 	utils.decache('./config');
 	config = require("./config");;
 
@@ -35,9 +40,9 @@ router.post("/buildable", function (req, res, next) {
 // router.get("/", function (req, res) {
 // 	res.send("root")
 // 	//res.render("index");
-// 	// res.render("index", { 
-// 	// 	title1: "Hey!", 
-// 	// 	message: "Hello there!" 
+// 	// res.render("index", {
+// 	// 	title1: "Hey!",
+// 	// 	message: "Hello there!"
 // 	// });
 // });
 

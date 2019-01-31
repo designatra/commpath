@@ -14,15 +14,20 @@ var utils = {
 	less: require("less")
 };
 
+var whitelist = ['http://localhost:9000', 'http://csaa.design']
+var corsOptions = {}
+corsOptions.origin = "*";
+corsOptions.methods = "GET,HEAD,PUT,PATCH,POST,DELETE";
+
 
 var app = express();
-app.use(utils.cors());
+app.use(utils.cors(corsOptions));
 app.use(utils.bodyParser.json());
 app.use(utils.bodyParser.urlencoded({ extended: false }));
 
 /*
 // this engine requires the fs module
-app.engine("go", function (filePath, options, callback) { 
+app.engine("go", function (filePath, options, callback) {
 	utils.fs.readFile(filePath, function (err, content) {
 		if (err) {
 			return callback(err);
@@ -31,7 +36,7 @@ app.engine("go", function (filePath, options, callback) {
 		var newScript = document.createElement("script");
 		newScript.setAttribute("src", filePath);
 		document.head.appendChild(newScript);
-			
+
 
 		var rendered = content;
 
@@ -86,7 +91,7 @@ app.use(function(err, req, res, next) {
 // 			}
 
 // 			return after(element, {
-// 				style: "<style id='"+element.name+"' type='text/css'>"+css+"</style>", 
+// 				style: "<style id='"+element.name+"' type='text/css'>"+css+"</style>",
 // 				html: $j("body").html()
 // 			});
 // 		})
