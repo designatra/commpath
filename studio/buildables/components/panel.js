@@ -1,6 +1,4 @@
-import 'jquery';
-
-$j.build("component").panel = {
+jQuery.build("component").panel = {
 	/*
 		COMPONENT: "panel"
 

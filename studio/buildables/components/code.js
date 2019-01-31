@@ -1,6 +1,4 @@
-import 'jquery';
-
-$j.build("component")["code"] = {
+jQuery.build("component")["code"] = {
 	/*
 		COMPONENT: "code"
 

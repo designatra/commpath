@@ -38,7 +38,7 @@ import * as dj from '../../../core/js/frame.js';
 			var $el = jQuery(this);
 			var $frag;
 
-			$frag = dj.overload(o, {
+			$frag = overload(o, {
 				"undefined": function() {
 					plugin.init = true;
 					$j("body").plugins(plugin.name, plugin);
@@ -61,7 +61,7 @@ import * as dj from '../../../core/js/frame.js';
 					/*
 						If $j(el).fragment( ... ... ... ) receives >
 					*/
-					dj.overload(q, {
+					overload(q, {
 						/*
 							>  ONE or > TWO parameters:
 								1. * Name (string)
@@ -77,7 +77,7 @@ import * as dj from '../../../core/js/frame.js';
 							});
 						*/
 						"undefined": function() {
-							dj.overload(p, {
+							overload(p, {
 								"number":function() {
 									params.data = p;
 								},
@@ -148,7 +148,7 @@ import * as dj from '../../../core/js/frame.js';
 					return $frag = $j(this).build(params);
 				},
 				"object": function(o) {
-					o.data = dj.overload(o.data, {
+					o.data = overload(o.data, {
 						/*
 							Creates ONE fragment
 
@@ -232,7 +232,7 @@ import * as dj from '../../../core/js/frame.js';
 
 							// Adds package name reference to each item. Otherwise Difficult to derive what elements belong to a package
 							var items = _.map(util.package(o.name), function(xyz) {
-								return dj.overload(xyz, {
+								return overload(xyz, {
 									function: function() {
 										return xyz;
 									},
@@ -344,7 +344,7 @@ import * as dj from '../../../core/js/frame.js';
 
 			o.built = [];
 			$j.each(o.data, function(i, iterationData) {
-				$el = dj.overload(iterationData, {
+				$el = overload(iterationData, {
 					"function": function() {
 						return iterationData.apply(o.built.fromEnd()[0], [o.data[i-1], o])
 					},
@@ -388,7 +388,7 @@ import * as dj from '../../../core/js/frame.js';
 
 					Method (callback) runs and updates iteration's data with returned
 				*/
-				var populationData = dj.overload(o.populate, {
+				var populationData = overload(o.populate, {
 					// Returns original iteration data or false
 					"boolean": function() {
 						if(o.populate===true) {
@@ -676,7 +676,7 @@ import * as dj from '../../../core/js/frame.js';
 					usage.buildables.count++;
 				},
 				populated: function() {
-					var populationData = dj.overload(o, {
+					var populationData = overload(o, {
 						function:function() {
 							return $j(this).build("data").data;
 						},
@@ -750,7 +750,7 @@ import * as dj from '../../../core/js/frame.js';
 	var util = plugin.methods.util = {
 		// TODO: Evaluate util init > $j.fragment()
 		init: function(x) {
-			return dj.overload(x, {
+			return overload(x, {
 				string: function() {
 					if(plugin.privates[x]) {
 						return plugin.privates[x]();
@@ -853,7 +853,7 @@ import * as dj from '../../../core/js/frame.js';
 				after: y
 			};
 
-			dj.overload(x, {
+			overload(x, {
 				"object": function() {
 
 				},
@@ -932,7 +932,7 @@ import * as dj from '../../../core/js/frame.js';
 		type: function(name) {
 			var thing = util.inventory(name);
 
-			return dj.overload(thing, {
+			return overload(thing, {
 				// Element
 				// maybe Component
 				object: function() {
@@ -1039,7 +1039,7 @@ import * as dj from '../../../core/js/frame.js';
 				return building;
 			}
 
-			var name = dj.overload(x, {
+			var name = overload(x, {
 				object: function() {
 					return x.name;
 				},
@@ -1153,6 +1153,11 @@ import * as dj from '../../../core/js/frame.js';
 				}
 			});
 
+			// import(/* webpackChunkName: "print" */ './print').then(function(module){
+			// 	var print = module.default;
+			//
+			// 		print();
+			// });
 			// $j.getJSON(path, o.data, function(json) {
 			$j.ajax({
 					method:"POST",
@@ -1293,7 +1298,7 @@ import * as dj from '../../../core/js/frame.js';
 				return false;
 			}
 
-			return dj.overload(x, {
+			return overload(x, {
 				"string":function() {
 					return events[x].apply($el, [component])
 				},
@@ -1330,7 +1335,7 @@ import * as dj from '../../../core/js/frame.js';
 			], $frag)
 		*/
 		plugins: function(plugins, $frag) {
-			dj.overload(plugins, {
+			overload(plugins, {
 				"string":function() {
 					if($frag[plugins]) {
 						return $frag[plugins]();

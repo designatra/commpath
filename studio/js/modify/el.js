@@ -25,7 +25,7 @@ import * as dj from '../../../core/js/frame.js';
 	*/
 	var util = plugin.methods.util = {
 		init: function(x, y, z, a) {
-			return dj.overload(x, {
+			return overload(x, {
 				string: function() {
 					if(plugin.els[x]) {
 						return plugin.els[x].apply(plugin.els.papa(), [y, z, a]);

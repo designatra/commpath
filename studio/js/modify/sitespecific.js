@@ -1,11 +1,15 @@
-function pageBuilder() {
-  $j(this).build("inspector");
+//import dayjs from 'dayjs'
+var exports = module.exports = {};
+
+exports.pageBuilder = function($papa) {
+  console.log("PAGEBUILDER")
+  $papa.build("inspector");
 
   // $j(this).build("communications", function(i, data) {
   //   $j(this).find("> wrapper > wrapper").build("communication", $j.o("communications"))
   // })
 
-  var $simulationControls = $j.el("papa")
+  var $simulationControls = $papa
     .find("#simulationControls")
     .actors({
       type:"simulation"
@@ -25,6 +29,8 @@ function pageBuilder() {
   });
 
 }
+
+
 
 function buildPathSelector($paths, modelPathID) {
   var $el = $paths
@@ -100,12 +106,12 @@ function buildTimeline(after) {
     return scaledValue;
   }
 
-  var groups = new vis.DataSet([
+  var groups = new DataSet([
     {id: "failure", content: 'Failure', value: 3},
     {id: "success", content: 'Success', value: 1}
   ]);
 
-  var items = $j.what("timeline").data = new vis.DataSet(dataSet);
+  var items = $j.what("timeline").data = new DataSet(dataSet);
   // Configuration for the Timeline
   var options = {
     width: '100vw',
@@ -171,7 +177,7 @@ function buildTimeline(after) {
   };
 
   // Create a Timeline
-  var timeline = $j.what("timeline").timeline = new vis.Timeline(container, items, options);
+  var timeline = $j.what("timeline").timeline = new Timeline(container, items, options);
   timeline.setGroups(groups);
 
   $j.el("timeline").actors({
@@ -182,8 +188,8 @@ function buildTimeline(after) {
 function buildNetwork(after) {
   var container = $j.el("network")[0];
 
-  var nodes = new vis.DataSet($j.studio("nodes", $j.o("nodes"))),
-    edges = new vis.DataSet(),
+  var nodes = new DataSet($j.studio("nodes", $j.o("nodes"))),
+    edges = new DataSet(),
     data = $j.what("vis", {
       nodes:nodes,
       edges:edges
@@ -226,7 +232,7 @@ function buildNetwork(after) {
     }
   };
 
-  $j.what("network").network = new vis.Network(container, data, options);
+  $j.what("network").network = new Network(container, data, options);
 
   $j.studio("updatePath", "digitalComm1")
 
@@ -240,7 +246,7 @@ function buildNetwork(after) {
 }
 
 // TODO: Refactor this crappy crappy procedure
-function populateNetwork(successes, failures) {
+window.populateNetwork = function(successes, failures) {
   var modelPaths = $j.o("path", "digitalComm1");
   var collection = {};
   var edges = {};
@@ -329,5 +335,7 @@ function sortArray(a) {
 
   return sorted;
 }
+
+//return exports;
 
 

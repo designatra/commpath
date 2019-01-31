@@ -1,3 +1,4 @@
+var dr = require('rpg-dice-roller');
 (function($j) {
 	// http://rpg.greenimp.co.uk/dice-roller/
 	var plugin = {
@@ -66,7 +67,7 @@
 		roll: function(id, format) {
 				var die = plugin.dice[id];
 				if(!die) {
-					die = plugin.dice[id] = new DiceRoller();
+					die = plugin.dice[id] = new dr.DiceRoller();
 				}
 				die.roll(plugin.formats[format]);
 				return die.log.shift().total;

@@ -1,6 +1,6 @@
-import 'jquery';
+// require("jquery");
 
-$j.build("component")["svg"] = {
+jQuery.build("component")["svg"] = {
 	/*
 		COMPONENT: "svg"
 

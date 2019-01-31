@@ -178,5 +178,5 @@ PowerArray.prototype.splice = function () {
     results = Array.prototype.splice.apply(this, args);
   return new PowerArray(results);
 };
-
 module.exports = PowerArray;
+

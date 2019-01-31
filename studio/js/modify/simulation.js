@@ -1,4 +1,5 @@
 import * as dj from '../../../core/js/frame.js';
+import dayjs from 'dayjs'
 
 (function($j) {
 	var plugin = {
@@ -27,7 +28,7 @@ import * as dj from '../../../core/js/frame.js';
 
 	var util = plugin.methods.util = {
 		init: function(x, y, z, a, b) {
-			return dj.overload(x, {
+			return overload(x, {
 				string: function() {
 					if(plugin.privates[x]) {
 						return plugin.privates[x](y, z, a, b);

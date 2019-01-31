@@ -1,9 +1,15 @@
 
+//import $j from 'jquery';
+//import loader from "../../loader";
+//import * as Loader from '../../loader';
 
-(function($) {
-	var jQuery = require(
-		'jquery'
-	);
+//import actorFile from '../../studio/js/modify/actors.events.js';
+import sitespecific from '../../studio/js/modify/sitespecific.js';
+
+(function($j) {
+	// var jQuery = require(
+	// 	'jquery'
+	// );
 
 	var plugin = {
 		name:"actors",
@@ -55,10 +61,27 @@
 		*/
 		init: function(o) {
 			plugin.init=true;
+			// var Loader = require('../../loader');
+			// var actorFile = new Loader('./studio/js/modify/actors.events.js', o)
+			//
+			// var getFile = actorFile.getFile();
+			console.log("GETTING FILE")
 
-			$j.getScript("js/actors.events.js", function() {
+
+			//import(/* webpackChunkName: "actor_events" */ '../../studio/js/modify/actors.events.js').then(function(module){
+			// import('../../studio/js/modify/actors.events.js').then(function(module){
+			// 	console.log(module)
+			// 	$j("body").trigger("actorsLoaded");
+			// 	if(o){
+			// 		if(o.after) {
+			// 			return o.after();
+			// 		};
+			// 	};
+			// });
+
+			$j.getScript("js/modify/actors.events.js", function() {
 				$j("body").trigger("actorsLoaded");
-
+				console.log("GOT FILE", sitespecific)
 				if(o){
 					if(o.after) {
 						return o.after();
@@ -66,6 +89,7 @@
 				};
 			});
 		},
+
 		/*
 			Called after above utility pulls the event registry (actors.events.js)
 		*/

@@ -1,31 +1,35 @@
 // import $ from 'jquery';
 // import './core/css/calibration.css';
 // import trends from './data/trends/2014_weekly.1.json';
-
-
 /* Director > Main (document ready)
  *
  */
-// window.$ = window.jQuery = require(
-//   'jquery'
-// );
-import 'jquery';
-//var $j = jQuery.noConflict();
+window.$j = window.$ = window.jQuery = require(
+  'jquery'
+);
+
+var $j = jQuery.noConflict();
 import * as dj from '../../../core/js/frame.js';
 import PowerArray from '../../../core/js/powerArray.js';
 
 require('../../../core/js/actors.js');
+//require('../../../studio/js/modify/actors.events.js');
 require('../../../core/js/plugins/build.js');
+import sitespecific from './sitespecific.js';
 
 import dayjs from 'dayjs'
 import dayjs_plugin_isBetween from 'dayjs/plugin/isBetween';
 import dayjs_plugin_isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-
 import trend_1 from '../../../data/trends/2014_weekly.1.json';
 import trend_2 from '../../../data/trends/2014_weekly.2.json';
+var dictionary = require('../../../data/dictionary'),
+	network = require('../../../data/network'),
+	timeline = require('../../../data/timeline'),
+	communications = require('../../../data/communications');
 var root = "";
 
 $j(document).ready(function(){
+	console.log("before init")
 	dj.initialize();
 	dayjs.extend(dayjs_plugin_isBetween);
 	dayjs.extend(dayjs_plugin_isSameOrAfter);
@@ -41,10 +45,10 @@ $j(document).ready(function(){
 		$j.what($j.extend(true,
 			{},
 			$j.what(),
-			require('../../../data/dictionary'),
-			require('../../../data/network'),
-			require('../../../data/timeline'),
-			require('../../../data/communications'),
+			dictionary,
+			network,
+			timeline,
+			communications,
 			{
 				logistics:{},
 	      simulation: {},
@@ -97,9 +101,10 @@ $j(document).ready(function(){
 				]
 			},
 			function(frags) {
+				console.log("after buildables")
 				$j.actors({
-					after: function() {
-						pageBuilder.apply($j.el("papa"));
+					after: function(o) {
+						sitespecific.pageBuilder($j.el("papa"));
 					}
 				});
 			});

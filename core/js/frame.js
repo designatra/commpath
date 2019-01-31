@@ -4,7 +4,8 @@
 	coming soon:
 	$(window).load
 */
-import _ from 'lodash';
+// import _ from 'lodash';
+//import jQuery from "jquery";
 import accounting from 'accounting-js';
 
 export function initialize() {
@@ -625,13 +626,13 @@ export function initialize() {
 
 }
 
-export function guidGenerator() {
+window.guidGenerator = function() {
 	var S4 = function() {
 			return(((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 		};
 	return(S4() + S4() + "-" + S4() + "-" + S4() + "-" + S4() + "-" + S4() + S4() + S4());
 }
-export function guid() {
+window.guid = function guid() {
 	return guidGenerator();
 }
 
@@ -672,7 +673,7 @@ function testJS(what, o) {
 
 // Retruns what if it is defined other returns 2nd parameter if not defined
 // Consider adding isFinite() to number type > NaN, infinity (POSITIVE_INFINITY, NEGATIVE_INFINITY)
-export function defined(what, ifNot) {
+window.defined = function(what, ifNot) {
 	// if(!what) {
 	// 	return ifNot;
 	// }
@@ -693,6 +694,7 @@ export function defined(what, ifNot) {
 	}
 	return ifNot;
 }
+
 
 // Defined and isEmpty could be consolidated
 
@@ -759,7 +761,7 @@ String.prototype.capitalize = function() {
 
 	TODO: refactor into number utility
 */
-export function random(n, quantity) {
+window.random = function(n, quantity) {
 	return overload(n, {
 		"object": function() {
 			// alernative approach > Math.floor(100000000 + Math.random() * 900000000);
@@ -789,7 +791,7 @@ export function random(n, quantity) {
 	TODO: UPGRADE to use $j.methods();
 	TODO: improve overload to use jQuery.isNumeric("47") > ref: ifNum() in frame.trivia.js
  */
-export function overload(x, functions, context) {
+window.overload = function(x, functions, context) {
 	var thisFunction = functions[jQuery.type(x)];
 	if(thisFunction) {
 		if(!context) {
@@ -812,11 +814,3 @@ export function overload(x, functions, context) {
  * Log4js - Borrowed (abused) from Java
  ***************************************************************************/
 var LOG_LEVEL="debug",LOG_OUTPUT_ELEMENT_ID="Log4jsLogOutput",Log4js={logger:null,logElement:null,debug:function(){"debug"===LOG_LEVEL&&Log4js._log.apply(Log4js._log,arguments)},info:function(){"info"!==LOG_LEVEL&&"debug"!==LOG_LEVEL||Log4js._log.apply(Log4js._log,arguments)},error:function(){Log4js._log.apply(Log4js._log,arguments)},_log:function(){if(!Log4js.logger){var a=window.console;a&&a.log&&(a.log.apply?Log4js.logger=a.log:"object"==typeof a.log&&Function.prototype.bind?Log4js.logger=Function.prototype.bind.call(a.log,a):"object"==typeof a.log&&Function.prototype.call&&(Log4js.logger=function(){Function.prototype.call.call(a.log,a,Array.prototype.slice.call(arguments))})),logElement=document.getElementById(LOG_OUTPUT_ELEMENT_ID)}if(Log4js.logger&&Log4js.logger.apply(window.console,arguments),logElement){for(var b="",c=0;c<arguments.length;c++)b+=arguments[c]+" ";logElement.innerHTML+=b+"\n";var d=logElement.innerHTML.split("\n");d.length>100&&(logElement.innerHTML=d.slice(-100).join("\n"))}}};
-
-
-
-/*
-	Hover Intent
-	https://briancherne.github.io/jquery-hoverIntent/
-*/
-!function(a){"use strict";"function"==typeof define&&define.amd?define(["jquery"],a):jQuery&&!jQuery.fn.hoverIntent&&a(jQuery)}(function(a){"use strict";var d,e,b={interval:100,sensitivity:6,timeout:0},c=0,f=function(a){d=a.pageX,e=a.pageY},g=function(a,b,c,h){return Math.sqrt((c.pX-d)*(c.pX-d)+(c.pY-e)*(c.pY-e))<h.sensitivity?(b.off(c.event,f),delete c.timeoutId,c.isActive=!0,a.pageX=d,a.pageY=e,delete c.pX,delete c.pY,h.over.apply(b[0],[a])):(c.pX=d,c.pY=e,c.timeoutId=setTimeout(function(){g(a,b,c,h)},h.interval),void 0)},h=function(a,b,c,d){return delete b.data("hoverIntent")[c.id],d.apply(b[0],[a])};a.fn.hoverIntent=function(d,e,i){var j=c++,k=a.extend({},b);a.isPlainObject(d)?(k=a.extend(k,d),a.isFunction(k.out)||(k.out=k.over)):k=a.isFunction(e)?a.extend(k,{over:d,out:e,selector:i}):a.extend(k,{over:d,out:d,selector:e});var l=function(b){var c=a.extend({},b),d=a(this),e=d.data("hoverIntent");e||d.data("hoverIntent",e={});var i=e[j];i||(e[j]=i={id:j}),i.timeoutId&&(i.timeoutId=clearTimeout(i.timeoutId));var l=i.event="mousemove.hoverIntent.hoverIntent"+j;if("mouseenter"===b.type){if(i.isActive)return;i.pX=c.pageX,i.pY=c.pageY,d.off(l,f).on(l,f),i.timeoutId=setTimeout(function(){g(c,d,i,k)},k.interval)}else{if(!i.isActive)return;d.off(l,f),i.timeoutId=setTimeout(function(){h(c,d,i,k.out)},k.timeout)}};return this.on({"mouseenter.hoverIntent":l,"mouseleave.hoverIntent":l},k.selector)}});
