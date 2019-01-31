@@ -1,13 +1,73 @@
 <style>
-	svg[type=node] {
 
-	}
-
-	svg #body {
-		background:rgba(234,67,98,.3);
-	}
 </style>
-<svg type="node" xmlns="http://www.w3.org/2000/svg" height="100" width="200">
-	<rect x="0" y="0" width="100%" height="100%" fill="rgb(245,246,232)" stroke-width="1" stroke- stroke="rgb(39,39,37)" ></rect>
+<svg type="node" xmlns="http://www.w3.org/2000/svg" height="100" width="250">
+	<defs>
+		<style type="text/css"><![CDATA[
+			#body {
+				color:rgb(39,39,37);
+				font-family: Lato;
+				font-size:26px;
+				height:100%;
+				width:100%;
+				border-radius:3px;
+				background:rgba(233,233,233,.9);
+				-webkit-font-smoothing: antialiased;
+				font-smoothing: antialiased;
+				-webkit-text-rendering: optimizeLegibility;
+				text-rendering: optimizeLegibility;
+			}
+			#body > wrapper {
+				display:flex;
+				flex-direction:column;
+				height:100%;
+			}
+			#body > wrapper > #values {
+				display:flex;
+				flex: 1;
+				width:100%;
+				height:48px;
+				margin: 8px 0 0 0;
+				align-items: flex-start;
+				text-align:center;
+				font-weight:bold;
+			}
+			#body > wrapper > #values > thing {
+				flex: 1;
+				font-weight: 800;
+				background-repeat: no-repeat;
+				background-position: 10px 22px;
+				height: 100%;
+				background-size: 24px;
+			}
+			#body > wrapper > #values > thing#in {
+				color: #1e6c92;
+				/*background-image: url('images/icons/right arrow.svg');*/
+			}
+			#body > wrapper > #values > thing#duds {
+				color: #da2f18;
+			}
+			#body > wrapper > #values > thing#out {
+				color: #5a8a00;
+				background-image: url('images/icons/right arrow.svg');
+				background-position: 50px 22px;
+			}
+			#body > wrapper > #values + #label {
+				display:flex;
+				height: 30px;
+				margin-bottom:8px;
+				flex: initial;
+				align-items:center;
+				text-align:center;
+				justify-content: center;
+				font-size:20px;
+				font-weight:bold;
+			}
+			rect {
+				fill:rgba(255,255,255,0);
+			}
+		]]></style>
+	</defs>
+	<rect x="0" y="0" width="100%" height="100%" stroke-width="1" stroke="rgba(39,39,37,0)" ></rect>
 	<foreignObject width="100%" height="100%"></foreignObject>
 </svg>
