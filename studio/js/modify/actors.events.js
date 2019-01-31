@@ -56,9 +56,7 @@ $j.actors("register", {
 					})
 				})
 				.on("select", function(e) {
-					$j.log($j(this))
 					$j.what("timeline").timeline.focus(e.items[0])
-					$j.log("select", e)
 				})
 		},
 		simulation:function(e) {
