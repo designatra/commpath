@@ -66,7 +66,9 @@ function buildTimeline(after) {
       var end = dayjs(week[0]).endOf("week").format("YYYY-MM-DD");
       // Success
       var successNumber = scaleUp(week[2]),
-        successValue = accounting.formatNumber(successNumber);
+        successValue = accounting.formatNumber(successNumber,{
+          precision:0
+        });
       var heatColor = $j.studio("heatColor", "greens", successNumber);
       dataSet.push({
         id: guid(),
@@ -82,7 +84,9 @@ function buildTimeline(after) {
 
       var week_alt = trend[1][i];
       var failureNumber = (week_alt[1] * random([67, 71])),
-        failureValue = accounting.formatNumber(failureNumber);
+        failureValue = accounting.formatNumber(failureNumber, {
+          precision:0
+        });
       var heatColor = $j.studio("heatColor", "reds", failureNumber);
       // Failure
       dataSet.push({
@@ -92,7 +96,8 @@ function buildTimeline(after) {
         content: failureValue,
         value:failureNumber,
         className:"hex_"+heatColor,
-        group: "failure"
+        group: "failure",
+        content: "<wrapper type='time_item'><thing>" + failureValue + "</wrapper>",
       })
     }
   });
